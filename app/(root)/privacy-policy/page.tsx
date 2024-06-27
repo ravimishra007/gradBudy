@@ -1,0 +1,45 @@
+import Image from 'next/image'
+import React from 'react'
+
+const PrivacyPolicy = () => {
+    return (
+        <>
+            <section className="flex-center bg-white mx-auto">
+                <div className="max-w-[1440px] my-6 sm:my-10 w-full p-4 sm:p-12 sm:mx-10 md:mx-16">
+                    <div className="relative mb-10 md:mb-16">
+                        <Image
+                            className="w-full h-[240px] lg:h-[378px] object-cover"
+                            src="/images/image1.png"
+                            alt="Image"
+                            width={1440}
+                            height={355}
+                        />
+                        <div className="absolute bg-black/70 inset-0 flex flex-col items-center justify-center text-center text-white px-3">
+                            <div className="max-w-5xl">
+                                <h1 className="text-2xl md:mb-10 lg:text-4xl px-7 font-bold">We care about your Privacy</h1>
+                                <p className="text-sm lg:text-lg mt-2 sm:px-8">“Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin nec in diam viverra. “Lorem ipsum dolor sit amet, adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className="max-w-5xl mx-auto">
+                        <h2 className="text-2xl mb-5 font-bold">Privacy Policy</h2>
+
+                        <div className="text-black/70 text-base font-normal">
+                            <p className="hidden lg:inline-block my-4">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectet “Lorem ipsum dolor sit amet, consectetur “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectet</p>
+                            <p>auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis  amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem  dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, adipiscing elit. Turpis</p>
+                            <p className="my-4">auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis  amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem  dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, adipiscing elit. Turpis <span className="hidden lg:inline">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectet“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectet</span></p>
+                            <h4 className="font-semibold text-lg my-4 mt-10">Conditions of use</h4>
+                            <p>auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis  amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem  dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, adipiscing elit. Turpis <span className='hidden lg:inline-block'>consectet“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectet</span></p>
+                            <p className="my-4">auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis  amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem  dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, adipiscing elit. Turpis <span className='hidden lg:inline-block'>consectet“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra. “Lorem ipsum dolor sit amet,  adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectet</span></p>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </>
+    )
+}
+
+export default PrivacyPolicy
