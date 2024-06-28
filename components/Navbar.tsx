@@ -67,7 +67,7 @@ const Navbar = () => {
             </div>
 
             {/* Search */}
-            {/* <div className='flex-center gap-12 '>
+            <div className='hidden xl:flex-center gap-12 '>
                 <h3 className="nav-heading">
                     Course 1
                 </h3>
@@ -88,21 +88,21 @@ const Navbar = () => {
                 <Select>
                     <SelectTrigger className="w-[150px] rounded-[8px] bg-white border-[#D0D5DD] font-semibold text-[#344054] gap-x-4">
 
-                        <Image src="./icons/filter-lines.svg" width={20} height={20} alt="Filter" />
+                        <Image src="/icons/filter-lines.svg" width={20} height={20} alt="Filter" />
                         <SelectValue placeholder="Filter" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className='bg-white'>
                         <SelectGroup>
-                            <SelectItem className='border-b' value="stream">By Stream</SelectItem>
-                            <SelectItem className='border-b' value="subject">By Subject/Topic</SelectItem>
-                            <SelectItem value="collage">By Collages</SelectItem>
+                            <SelectItem className='border-b cursor-pointer' value="stream">By Stream</SelectItem>
+                            <SelectItem className='border-b cursor-pointer' value="subject">By Subject/Topic</SelectItem>
+                            <SelectItem className='cursor-pointer' value="collage">By Collages</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-            </div> */}
+            </div>
 
             {/* User Profile */}
-            <div className='flex-center gap-12'>
+            <div className='flex-center gap-12 relative'>
                 <Image
                     src="/icons/cart.svg"
                     alt="Profile"
@@ -111,11 +111,12 @@ const Navbar = () => {
                     priority
                 />
 
-                <div className="flex-center gap-4">
+                <div className="flex-center gap-4 relative">
                     <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
                     <Sheet>
                         <SheetTrigger>
                             <Image
+                            className="object-cover"
                                 src="/icons/profile.svg"
                                 alt="Profile"
                                 width={30}
@@ -123,7 +124,7 @@ const Navbar = () => {
                                 priority
                             />
                         </SheetTrigger>
-                        <SheetContent >
+                        <SheetContent>
                             <SheetHeader>
                                 {headings.map((heading, index) => (
                                     <SheetTitle key={index}>{heading}</SheetTitle>

@@ -84,3 +84,65 @@ export interface Course {
   title: string;
   modules: Module[];
 }
+
+export type Experience = {
+  designation: string;
+  organization: string;
+  startingYear: Date | null;
+  endingYear: Date | null;
+  description: string;
+};
+
+export type FormData = {
+  personalInfo: {
+      fname: string;
+      mname: string;
+      lname: string;
+      email: string;
+      description: string;
+      url: string;
+      number1: string;
+      number2: string;
+      number3: string;
+      dob: Date | null;
+      gender: string;
+      address: string;
+      pincode: number | string;
+  };
+  educationalInfo: {
+      school: string;
+      stream: string;
+      schoolPassingYear: Date | null;
+      seniorSchool: string;
+      seniorStream: string;
+      senoirSchoolPassingYear: Date | null;
+      marks: string;
+      diploma: string;
+      diplomaMarks: string;
+      diplomaPassingYear: string;
+      degree: string;
+      college: string;
+      branch: string;
+      collageStartingYear: Date | null;
+      collageEndingYear: Date | null;
+  };
+  skillsInfo: {
+      intro: string;
+      skills: string;
+      skillList: { skill: string; description: string }[];
+  };
+  experience: Experience[];
+};
+
+export type Option = {
+  value: string;
+  label: string;
+};
+
+export type ReusableComboboxProps = {
+  options: Option[];
+  initialValue?: string | null;
+  onChange: (value: string | null) => void;
+  placeholder?: string;
+  label?: string;
+};

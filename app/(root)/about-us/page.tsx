@@ -10,8 +10,8 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import { TeamCardProps } from '@/constents/types';
 import { teamMembers } from '@/constents/constents';
+import { TeamCardProps } from '@/constents/types';
 
 
 const AboutUs = () => {

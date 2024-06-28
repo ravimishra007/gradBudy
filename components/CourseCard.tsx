@@ -17,7 +17,7 @@ const CourseCard = ({ id, imgSrc, courseTitle, teacherName, tags, details, amoun
 
     return (
         <>
-            <div className="flex flex-col gap-10 sm:gap-16 min-w-[340px] rounded-[12px] overflow-hidden [box-shadow:2px_2px_40px_4px_#6941C61A]">
+            <div className="flex flex-col gap-10 sm:gap-16 w-full max-w-[340px] rounded-[12px] overflow-hidden [box-shadow:2px_2px_40px_4px_#6941C61A]">
 
                 <article className={`flex flex-col gap-6`}>
                     <Link href="/course/course-detail">
@@ -28,17 +28,7 @@ const CourseCard = ({ id, imgSrc, courseTitle, teacherName, tags, details, amoun
 
                     <figcaption className="w-full lg:mt-0 px-4">
 
-                        <div className="flex items-center gap-3 mb-4 rounded-sm pointer-events-none">
-                            <Image
-                                className="border-2 p-[2px] rounded-full bg-gray-400/20"
-                                src={instituteLogo}
-                                alt="Profile"
-                                width={30}
-                                height={30}
-                                priority
-                            />
-                            <h3 className="text-sm font-medium text-[#344054]">{institute}</h3>
-                        </div>
+                        <h3 className="text-sm sm:text-base mb-4 font-medium text-[#344054]">{institute}</h3>
 
                         <div>
                             <h3 className="text-xl font-bold leading-6 capitalize" >{courseTitle}</h3>

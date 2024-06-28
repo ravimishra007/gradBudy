@@ -1,4 +1,4 @@
-import { Course, CourseCardProps, FAQ, TeamMember } from "./types";
+import { Course, CourseCardProps, FAQ, FormData, TeamMember } from "./types";
 
 export const faqs: FAQ[] = [
   {
@@ -60,39 +60,82 @@ export const faqs: FAQ[] = [
 
 export const teamMembers: TeamMember[] = [
   {
-      imgSrc: "/icons/profile.svg",
-      name: "John Deo",
-      position: "Founder & CEO",
-      overview: "“Lorem ipsum dolor sit amet, consectetur adipiscing elit.“Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      socialMedia: [
-          { platform: 'LinkedIn', icon: "/icons/LinkedIn.svg", url: 'https://www.linkedin.com/in/johndeo' },
-          { platform: 'Twitter', icon: "/icons/Twitter.svg", url: 'https://twitter.com/johndeo' },
-          { platform: 'Instagram', icon: "/icons/Instagram.svg", url: 'https://www.instagram.com/johndeo' },
-          { platform: 'Youtube', icon: "/icons/Youtube.svg", url: 'https://youtube.com/johndeo' }
-      ]
+    imgSrc: "/icons/profile.svg",
+    name: "John Deo",
+    position: "Founder & CEO",
+    overview:
+      "“Lorem ipsum dolor sit amet, consectetur adipiscing elit.“Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    socialMedia: [
+      {
+        platform: "LinkedIn",
+        icon: "/icons/LinkedIn.svg",
+        url: "https://www.linkedin.com/in/johndeo",
+      },
+      {
+        platform: "Twitter",
+        icon: "/icons/Twitter.svg",
+        url: "https://twitter.com/johndeo",
+      },
+      {
+        platform: "Instagram",
+        icon: "/icons/Instagram.svg",
+        url: "https://www.instagram.com/johndeo",
+      },
+      {
+        platform: "Youtube",
+        icon: "/icons/Youtube.svg",
+        url: "https://youtube.com/johndeo",
+      },
+    ],
   },
   {
-      imgSrc: "/icons/profile.svg",
-      name: "Jane Smith",
-      position: "Chief Operating Officer",
-      overview: "“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.",
-      socialMedia: [
-          { platform: 'LinkedIn', icon: "/icons/LinkedIn.svg", url: 'https://www.linkedin.com/in/janesmith' },
-          { platform: 'Twitter', icon: "/icons/Twitter.svg", url: 'https://twitter.com/janesmith' },
-          { platform: 'Instagram', icon: "/icons/Instagram.svg", url: 'https://www.instagram.com/janesmith' },
-          { platform: 'Youtube', icon: "/icons/Youtube.svg", url: 'https://youtube.com/janesmith' }
-      ]
+    imgSrc: "/icons/profile.svg",
+    name: "Jane Smith",
+    position: "Chief Operating Officer",
+    overview:
+      "“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.",
+    socialMedia: [
+      {
+        platform: "LinkedIn",
+        icon: "/icons/LinkedIn.svg",
+        url: "https://www.linkedin.com/in/janesmith",
+      },
+      {
+        platform: "Twitter",
+        icon: "/icons/Twitter.svg",
+        url: "https://twitter.com/janesmith",
+      },
+      {
+        platform: "Instagram",
+        icon: "/icons/Instagram.svg",
+        url: "https://www.instagram.com/janesmith",
+      },
+      {
+        platform: "Youtube",
+        icon: "/icons/Youtube.svg",
+        url: "https://youtube.com/janesmith",
+      },
+    ],
   },
   {
-      imgSrc: "/icons/profile.svg",
-      name: "Alex Johnson",
-      position: "Chief Technology Officer",
-      overview: "“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in urna eu enim aliquet placerat.",
-      socialMedia: [
-          { platform: 'LinkedIn', icon: "/icons/LinkedIn.svg", url: 'https://www.linkedin.com/in/alexjohnson' },
-          { platform: 'Twitter', icon: "/icons/Twitter.svg", url: 'https://twitter.com/alexjohnson' },
-      ]
-  }
+    imgSrc: "/icons/profile.svg",
+    name: "Alex Johnson",
+    position: "Chief Technology Officer",
+    overview:
+      "“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in urna eu enim aliquet placerat.",
+    socialMedia: [
+      {
+        platform: "LinkedIn",
+        icon: "/icons/LinkedIn.svg",
+        url: "https://www.linkedin.com/in/alexjohnson",
+      },
+      {
+        platform: "Twitter",
+        icon: "/icons/Twitter.svg",
+        url: "https://twitter.com/alexjohnson",
+      },
+    ],
+  },
 ];
 
 export const courses: CourseCardProps[] = [
@@ -460,4 +503,135 @@ export const courseData: Course = {
       ],
     },
   ],
+};
+
+export const cities = [
+  { value: "Mumbai", label: "Mumbai" },
+  { value: "Delhi", label: "Delhi" },
+  { value: "Bengaluru", label: "Bengaluru" },
+  { value: "Chennai", label: "Chennai" },
+  { value: "Kolkata", label: "Kolkata" },
+  { value: "Hyderabad", label: "Hyderabad" },
+  { value: "Ahmedabad", label: "Ahmedabad" },
+  { value: "Pune", label: "Pune" },
+  { value: "Jaipur", label: "Jaipur" },
+  { value: "Lucknow", label: "Lucknow" },
+  { value: "Kanpur", label: "Kanpur" },
+  { value: "Nagpur", label: "Nagpur" },
+  { value: "Indore", label: "Indore" },
+  { value: "Thane", label: "Thane" },
+  { value: "Bhopal", label: "Bhopal" },
+  { value: "Visakhapatnam", label: "Visakhapatnam" },
+  { value: "Patna", label: "Patna" },
+  { value: "Vadodara", label: "Vadodara" },
+  { value: "Ghaziabad", label: "Ghaziabad" },
+  { value: "Ludhiana", label: "Ludhiana" },
+  { value: "Agra", label: "Agra" },
+  { value: "Nashik", label: "Nashik" },
+  { value: "Faridabad", label: "Faridabad" },
+  { value: "Meerut", label: "Meerut" },
+  { value: "Rajkot", label: "Rajkot" },
+  { value: "Srinagar", label: "Srinagar" },
+  { value: "Amritsar", label: "Amritsar" },
+];
+
+export const districts = [
+  { value: "Mumbai Suburban", label: "Mumbai Suburban" },
+  { value: "South Delhi", label: "South Delhi" },
+  { value: "Bengaluru Urban", label: "Bengaluru Urban" },
+  { value: "Chennai Central", label: "Chennai Central" },
+  { value: "North 24 Parganas", label: "North 24 Parganas" },
+  { value: "Hyderabad District", label: "Hyderabad District" },
+  { value: "Ahmedabad District", label: "Ahmedabad District" },
+  { value: "Pune District", label: "Pune District" },
+  { value: "Jaipur District", label: "Jaipur District" },
+  { value: "Lucknow District", label: "Lucknow District" },
+  { value: "Kanpur Nagar", label: "Kanpur Nagar" },
+  { value: "Nagpur District", label: "Nagpur District" },
+  { value: "Indore District", label: "Indore District" },
+  { value: "Thane District", label: "Thane District" },
+  { value: "Bhopal District", label: "Bhopal District" },
+  { value: "Visakhapatnam District", label: "Visakhapatnam District" },
+  { value: "Patna District", label: "Patna District" },
+  { value: "Vadodara District", label: "Vadodara District" },
+  { value: "Ghaziabad District", label: "Ghaziabad District" },
+  { value: "Ludhiana District", label: "Ludhiana District" },
+  { value: "Agra District", label: "Agra District" },
+  { value: "Nashik District", label: "Nashik District" },
+  { value: "Faridabad District", label: "Faridabad District" },
+  { value: "Meerut District", label: "Meerut District" },
+  { value: "Rajkot District", label: "Rajkot District" },
+  { value: "Srinagar District", label: "Srinagar District" },
+  { value: "Amritsar District", label: "Amritsar District" },
+];
+
+export const states = [
+  { value: "Maharashtra", label: "Maharashtra" },
+  { value: "Delhi", label: "Delhi" },
+  { value: "Karnataka", label: "Karnataka" },
+  { value: "Tamil Nadu", label: "Tamil Nadu" },
+  { value: "West Bengal", label: "West Bengal" },
+  { value: "Telangana", label: "Telangana" },
+  { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+  { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+  { value: "Assam", label: "Assam" },
+  { value: "Bihar", label: "Bihar" },
+  { value: "Chhattisgarh", label: "Chhattisgarh" },
+  { value: "Goa", label: "Goa" },
+  { value: "Gujarat", label: "Gujarat" },
+  { value: "Haryana", label: "Haryana" },
+  { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+  { value: "Jharkhand", label: "Jharkhand" },
+  { value: "Kerala", label: "Kerala" },
+  { value: "Madhya Pradesh", label: "Madhya Pradesh" },
+  { value: "Manipur", label: "Manipur" },
+  { value: "Meghalaya", label: "Meghalaya" },
+  { value: "Mizoram", label: "Mizoram" },
+  { value: "Nagaland", label: "Nagaland" },
+  { value: "Odisha", label: "Odisha" },
+  { value: "Punjab", label: "Punjab" },
+  { value: "Rajasthan", label: "Rajasthan" },
+  { value: "Sikkim", label: "Sikkim" },
+  { value: "Tripura", label: "Tripura" },
+  { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+  { value: "Uttarakhand", label: "Uttarakhand" },
+  { value: "West Bengal", label: "West Bengal" },
+  {
+    value: "Andaman and Nicobar Islands",
+    label: "Andaman and Nicobar Islands",
+  },
+  { value: "Chandigarh", label: "Chandigarh" },
+  {
+    value: "Dadra and Nagar Haveli and Daman and Diu",
+    label: "Dadra and Nagar Haveli and Daman and Diu",
+  },
+  { value: "Lakshadweep", label: "Lakshadweep" },
+  { value: "Puducherry", label: "Puducherry" },
+];
+
+export const initialData: FormData = {
+  personalInfo: { fname: '', mname: '', lname: '', email: '', description: '', url: '', gender: '', dob: null, address: '', pincode: '', number1: '', number2: '', number3: '' },
+  educationalInfo: {
+      school: '',
+      stream: '',
+      schoolPassingYear: null,
+      seniorSchool: '',
+      seniorStream: '',
+      senoirSchoolPassingYear: null,
+      marks: '',
+      diploma: '',
+      diplomaMarks: '',
+      diplomaPassingYear: '',
+      degree: '',
+      college: '',
+      branch: '',
+      collageStartingYear: null,
+      collageEndingYear: null,
+  },
+  skillsInfo: {
+      intro: '',
+      skills: '',
+      skillList: [{ skill: '', description: '' }],
+  },
+  experience: [{ designation: '', organization: '', startingYear: null, endingYear: null, description: '' }],
 };
