@@ -101,7 +101,7 @@ const AllCourses = () => {
         }
 
         setFilteredCourses(courses);
-    }, [courseDetailData, searchTerm, selectedFilters]);
+    }, [searchTerm, selectedFilters]);
 
 
     return (

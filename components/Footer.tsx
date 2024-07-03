@@ -105,8 +105,8 @@ const Footer = () => {
                         <div className='sm:min-w-[165px] min-w-[130px]'>
                             <h3>Quick Links</h3>
                             <ul className=''>
-                                {quickLinks.map((item) => (
-                                    <Link href={`${item.url}`}><li className='text-[#2C1C5F] text-base sm:text-lg font-normal mt-4 hover:scale-105 duration-200'>{item.title}</li></Link>
+                                {quickLinks.map((item, idx) => (
+                                    <Link key={idx} href={`${item.url}`}><li className='text-[#2C1C5F] text-base sm:text-lg font-normal mt-4 hover:scale-105 duration-200'>{item.title}</li></Link>
                                 ))}
                             </ul>
                         </div>
