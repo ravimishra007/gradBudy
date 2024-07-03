@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Course } from '@/constents/types';
 import Image from 'next/image';
+import { Course } from '@/constents/types';
 
 const CourseOutline: React.FC<{ course: Course }> = ({ course }) => {
     const [openModules, setOpenModules] = useState<number[]>([]);
@@ -46,7 +46,7 @@ const CourseOutline: React.FC<{ course: Course }> = ({ course }) => {
                     >
                         <h3 className="text-xl font-semibold cursor-pointer">{module.title}
                         </h3>
-                        <ul className="list-disc pl-5 hidden sm:flex gap-x-7 md:gap-x-8 sm:gap-x-12 text-base text-[#344054] font-normal my-2 cursor-pointer">
+                        <ul className="list-disc pl-5 flex gap-x-7 md:gap-x-8 sm:gap-x-12 text-sm sm:text-base text-[#344054] font-normal my-2 cursor-pointer">
                             {[
                                 `Topics ${module.lessons.length}`,
                                 `${module.lessons.reduce((acc, lesson) => acc + lesson.topics.length, 0)} SubTopics`,
@@ -65,14 +65,14 @@ const CourseOutline: React.FC<{ course: Course }> = ({ course }) => {
                                         onClick={() => toggleLesson(moduleIndex, lessonIndex)}
                                     >
                                         <div className="w-2/3">
-                                            <h4 className="text-lg font-medium">
+                                            <h4 className="text-sm sm:text-lg font-medium">
                                                 {lesson.title}
                                             </h4>
                                         </div>
-                                        <div className="hidden sm:flex items-center space-x-4 w-1/3 justify-end">
-                                            <span className="text-sm text-gray-500">{lesson.duration}</span>
+                                        <div className="flex items-center space-x-4 sm:w-1/3 justify-end">
+                                            <span className="text-xs sm:text-sm text-gray-500">{lesson.duration}</span>
                                             <Link href={lesson.link} target="_blank" rel="noopener noreferrer">
-                                                <p className="text-sm text-blue-500 underline">Watch</p>
+                                                <p className="text-xs sm:text-sm text-blue-500 underline">Watch</p>
                                             </Link>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@ const CourseOutline: React.FC<{ course: Course }> = ({ course }) => {
                                                                                 <Image src="/icons/pdf.svg" alt="PDF Icon" width={20} height={20} />
                                                                                 <h6 className="font-black text-white absolute -bottom-1 text-[7px] left-[3px]" >PDF</h6>
                                                                             </div>
-                                                                            <p>
+                                                                            <p className="text-xs sm:text-sm">
                                                                                 {material.title} ({material.type.toUpperCase()})
                                                                             </p>
                                                                         </div>

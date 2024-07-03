@@ -9,10 +9,20 @@
   box-sizing: border-box;
 }
 
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
 @layer utilities {
 
   .main-background {
-    @apply bg-white-100 flex-center w-full h-screen md:h-[90vh] size-full drop-shadow-lg
+    @apply bg-white-100 flex justify-center items-start lg:items-center w-full h-screen md:h-[90vh] size-full drop-shadow-lg
   }
 
   .input-class {
@@ -76,7 +86,7 @@
   }
 
   .subHeading {
-    @apply text-2xl font-bold leading-6 capitalize
+    @apply text-xl sm:text-2xl font-bold leading-6 capitalize
   }
 
   /* Navbar */
@@ -104,7 +114,19 @@
     @apply text-14 cursor-pointer text-[#3897F0] font-medium;
   }
 
-  .input-form{
+  .input-form {
     @apply w-full rounded-[12px] placeholder:opacity-80 border border-[#D0D5DD] [box-shadow:0px_1px_2px_0px_#1018280D]
+  }
+
+  .stepDefault {
+    @apply bg-gray-200 text-gray-700;
+  }
+
+  .stepCurrent {
+    @apply bg-[rgba(105, _65, _198, _0.50)];
+  }
+
+  .stepCompleted {
+    @apply bg-[#2C1C5F];
   }
 }

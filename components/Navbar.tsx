@@ -1,3 +1,5 @@
+"use client"
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -33,6 +35,19 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { useAppSelector } from '@/lib/hooks'
+import { RootState } from '@/lib/store'
+
+import { cn } from "@/lib/utils"
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
 
 interface SheetTitleProps {
     children: string;
@@ -51,6 +66,9 @@ const headings: string[] = [
 
 
 const Navbar = () => {
+
+    const cart = useAppSelector((state: RootState) => state.cart.cart);
+
     return (
         <nav className="w-full h-20 flex items-center justify-between px-6 sm:px-12 md:px-20 bg-white">
             {/* Logo */}
@@ -67,7 +85,7 @@ const Navbar = () => {
             </div>
 
             {/* Search */}
-            {/* <div className='flex-center gap-12 '>
+            {/* <div className='hidden xl:flex-center gap-12 '>
                 <h3 className="nav-heading">
                     Course 1
                 </h3>
@@ -88,34 +106,42 @@ const Navbar = () => {
                 <Select>
                     <SelectTrigger className="w-[150px] rounded-[8px] bg-white border-[#D0D5DD] font-semibold text-[#344054] gap-x-4">
 
-                        <Image src="./icons/filter-lines.svg" width={20} height={20} alt="Filter" />
+                        <Image src="/icons/filter-lines.svg" width={20} height={20} alt="Filter" />
                         <SelectValue placeholder="Filter" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className='bg-white'>
                         <SelectGroup>
-                            <SelectItem className='border-b' value="stream">By Stream</SelectItem>
-                            <SelectItem className='border-b' value="subject">By Subject/Topic</SelectItem>
-                            <SelectItem value="collage">By Collages</SelectItem>
+                            <SelectItem className='border-b cursor-pointer' value="stream">By Stream</SelectItem>
+                            <SelectItem className='border-b cursor-pointer' value="subject">By Subject/Topic</SelectItem>
+                            <SelectItem className='cursor-pointer' value="collage">By Collages</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
             </div> */}
 
-            {/* User Profile */}
-            <div className='flex-center gap-12'>
-                <Image
-                    src="/icons/cart.svg"
-                    alt="Profile"
-                    width={25}
-                    height={25}
-                    priority
-                />
+            <NavigationMenuDemo />
 
-                <div className="flex-center gap-4">
+            {/* User Profile */}
+            <div className='flex-center gap-12 relative'>
+                <Link href="/course/my-cart">
+                    <div className='relative'>
+                        <Image
+                            src="/icons/cart.svg"
+                            alt="Profile"
+                            width={25}
+                            height={25}
+                            priority
+                        />
+                        <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                    </div>
+                </Link>
+
+                <div className="flex-center gap-4 relative">
                     <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
                     <Sheet>
                         <SheetTrigger>
                             <Image
+                                className="object-cover"
                                 src="/icons/profile.svg"
                                 alt="Profile"
                                 width={30}
@@ -123,7 +149,7 @@ const Navbar = () => {
                                 priority
                             />
                         </SheetTrigger>
-                        <SheetContent >
+                        <SheetContent>
                             <SheetHeader>
                                 {headings.map((heading, index) => (
                                     <SheetTitle key={index}>{heading}</SheetTitle>
@@ -150,5 +176,126 @@ const Navbar = () => {
         </nav>
     )
 }
+
+const components: { title: string; href: string; description: string }[] = [
+    {
+        title: "Alert Dialog",
+        href: "/docs/primitives/alert-dialog",
+        description:
+            "A modal dialog that interrupts the user with important content and expects a response.",
+    },
+    {
+        title: "Hover Card",
+        href: "/docs/primitives/hover-card",
+        description:
+            "For sighted users to preview content available behind a link.",
+    },
+    {
+        title: "Progress",
+        href: "/docs/primitives/progress",
+        description:
+            "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    },
+    {
+        title: "Scroll-area",
+        href: "/docs/primitives/scroll-area",
+        description: "Visually or semantically separates content.",
+    },
+    {
+        title: "Tabs",
+        href: "/docs/primitives/tabs",
+        description:
+            "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+    },
+    {
+        title: "Tooltip",
+        href: "/docs/primitives/tooltip",
+        description:
+            "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+    },
+]
+
+export function NavigationMenuDemo() {
+    return (
+        <NavigationMenu>
+            <NavigationMenuList>
+                <NavigationMenuItem>
+                    <NavigationMenuTrigger>Course</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <ListItem href="/docs" title="Introduction">
+                                Re-usable components built using Radix UI and Tailwind CSS.
+                            </ListItem>
+                            <ListItem href="/docs/installation" title="Installation">
+                                How to install dependencies and structure your app.
+                            </ListItem>
+                            <ListItem href="/docs/primitives/typography" title="Typography">
+                                Styles for headings, paragraphs, lists...etc
+                            </ListItem>
+                        </ul>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuTrigger>Stream</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            {components.map((component) => (
+                                <ListItem
+                                    key={component.title}
+                                    title={component.title}
+                                    href={component.href}
+                                >
+                                    {component.description}
+                                </ListItem>
+                            ))}
+                        </ul>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <Link href="/contact-us" legacyBehavior passHref>
+                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                            Contact Us
+                        </NavigationMenuLink>
+                    </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                    <Link href="/course/my-learnings" legacyBehavior passHref>
+                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                            My Learnings
+                        </NavigationMenuLink>
+                    </Link>
+                </NavigationMenuItem>
+            </NavigationMenuList>
+        </NavigationMenu>
+    )
+}
+
+const ListItem = React.forwardRef<
+    React.ElementRef<"a">,
+    React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+    return (
+        <li>
+            <NavigationMenuLink asChild>
+                <a
+                    ref={ref}
+                    className={cn(
+                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                        className
+                    )}
+                    {...props}
+                >
+                    <div className="text-sm font-medium leading-none">{title}</div>
+                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                        {children}
+                    </p>
+                </a>
+            </NavigationMenuLink>
+        </li>
+    )
+})
+ListItem.displayName = "ListItem"
+
 
 export default Navbar

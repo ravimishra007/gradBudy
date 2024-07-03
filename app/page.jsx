@@ -5,15 +5,15 @@ import SectionCard from '@/components/SectionCard'
 
 const page = () => {
     return (
-        <div className='flex-center gap-10 text-blue-800 font-semibold text-xl mt-20 flex-col'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-blue-800 font-semibold text-xl mt-20 justify-items-center'>
 
-            {/* <Link href='/login'>
+            <Link href='/login'>
                 Login
             </Link>
 
             <Link href='/signup'>
                 SignUp
-            </Link> */}
+            </Link>
 
             <Link href='/faq'>
                 FaQ
@@ -27,31 +27,58 @@ const page = () => {
                 Contact-Us
             </Link>
 
-            {/* <Link href='/terms-of-use'>
+            <Link href='/terms-of-use'>
                 Terms And Conditions
             </Link>
 
             <Link href='/privacy-policy'>
                 Privacy Policy
-            </Link> */}
+            </Link>
 
+            <Link href='/course/favourite-professor'>
+                favourite-professor
+            </Link>
+
+            <Link href='/course/my-cart'>
+                My Cart
+            </Link>
+
+            <Link href='/course/my-learnings'>
+                My Learnings
+            </Link>
+
+            <Link href='/course/my-purchase'>
+                My Purchase
+            </Link>
+
+            <Link href='/course/video'>
+                Video
+            </Link>
 
             <Link href='/about-us'>
                 AboutUs
             </Link>
 
-
-            {/* <Link href='/course/course-detail'>
-                Course-Detail
+            <Link href='/user/manage-profile'>
+                Manage Profile
             </Link>
 
             <Link href='/course/all-courses'>
                 All Courses
             </Link>
 
+            <Link href='/university-details'>
+                University Details
+            </Link>
+
+            <Link href='/college-details'>
+                College Details
+            </Link>
+
             <Link href='/settings'>
                 Settings
-            </Link> */}
+            </Link>
+            <div className="pb-20" />
         </div>
     )
 }

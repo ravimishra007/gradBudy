@@ -10,11 +10,10 @@ interface DynamicStatProps {
     suffix: string;
 }
 
-const DynamicStat = ({ count, label, suffix, duration }: DynamicStatProps) => {
+export const DynamicStat = ({ count, label, suffix, duration }: DynamicStatProps) => {
     return (
-        <div className="uppercase text-[#2C1C5F] flex flex-col">
-            <CountUp end={count} suffix={`${suffix}`} duration={duration} className="font-semibold text-3xl md:text-4xl leading-tight" />
-            {/* <h2 className="font-semibold text-4xl leading-tight">{count}</h2> */}
+        <div className={`uppercase text-[#2C1C5F] flex flex-col`}>
+            <CountUp end={count} suffix={`${suffix} `} duration={duration} className="font-semibold text-3xl md:text-4xl leading-tight" />
             <span className=" text-sm md:text-lg font-medium leading-5">{label}</span>
         </div>
     );
@@ -32,9 +31,6 @@ const Review = () => {
                     <DynamicStat count={59} label='Stats' suffix="M" duration={2.75} />
                 </div>
             </div>
-
-
-
         </>
     )
 }
