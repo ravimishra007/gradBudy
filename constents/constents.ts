@@ -2,7 +2,9 @@ import {
   Course,
   CourseCardProps,
   FAQ,
+  FooterLink,
   FormData,
+  Section,
   TeamMember,
   courseDetailDataProp,
 } from "./types";
@@ -159,6 +161,80 @@ export const teamMembers: TeamMember[] = [
 //     instituteLogo: "/icons/collage.svg",
 //   },
 // ];
+
+export const socialMedia = [
+  {
+    platform: "LinkedIn",
+    icon: "/icons/LinkedIn.svg",
+    url: "https://www.linkedin.com/in/johndeo",
+  },
+  {
+    platform: "Twitter",
+    icon: "/icons/Twitter.svg",
+    url: "https://twitter.com/johndeo",
+  },
+  {
+    platform: "Instagram",
+    icon: "/icons/Instagram.svg",
+    url: "https://www.instagram.com/johndeo",
+  },
+  {
+    platform: "Youtube",
+    icon: "/icons/Youtube.svg",
+    url: "https://youtube.com/johndeo",
+  },
+  {
+    platform: "Facebook",
+    icon: "/icons/Facebook.svg",
+    url: "https://facebook.com/in/",
+  },
+];
+
+export const quickLinks: FooterLink[] = [
+  { title: "Home", url: "/" },
+  { title: "About", url: "/about-us" },
+  { title: "Privacy Policy", url: "/privacy-policy" },
+  { title: "Terms & Condition", url: "/terms-of-use" },
+  { title: "Contact Us", url: "/contact-us" },
+  { title: "Login", url: "/login" },
+];
+
+export const filters: Section[] = [
+  {
+      id: 'reviews',
+      name: 'Review',
+      options: [
+          { id: 1, value: '5', label: '5 Star', checked: false },
+          { id: 2, value: '4', label: '4 Star', checked: false },
+          { id: 3, value: '3', label: '3 Star', checked: false },
+      ],
+  },
+  {
+      id: 'mentor.name',
+      name: 'Professor',
+      options: [
+          { id: 4, value: 'John Doe', label: 'John Doe', checked: false },
+          { id: 5, value: 'Jane Smith', label: 'Jane Smith', checked: false },
+          { id: 6, value: 'Mark Johnson', label: 'Mark Johnson', checked: false },
+      ],
+  },
+  {
+      id: 'institute',
+      name: 'Colleges',
+      options: [
+          { id: 7, value: 'Indian Institute of Technology Madras', label: 'Indian Institute of Technology Madras', checked: false },
+          { id: 8, value: 'SAGE University', label: 'SAGE University', checked: false },
+          { id: 9, value: 'IIT Delhi', label: 'IIT Delhi', checked: false },
+      ],
+  },
+  {
+      id: 'title',
+      name: 'Courses',
+      options: [
+          { id: 10, value: 'Advanced Management Skills', label: 'Advanced Management Skills', checked: false },
+      ],
+  },
+];
 
 export const courseData: Course = {
   title: "Advanced Management Skills",
@@ -1121,7 +1197,7 @@ export const courseDetailData: courseDetailDataProp[] = [
     tags: ["Advanced", "Project Management", "Business"],
     price: "$299.99",
     reviews: {
-      rating: 4.5,
+      rating: 5.0,
       count: 1800,
       alreadyRegistered: 4000,
     },
