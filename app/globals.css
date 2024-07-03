@@ -9,6 +9,16 @@
   box-sizing: border-box;
 }
 
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
 @layer utilities {
 
   .main-background {
@@ -113,7 +123,7 @@
   }
 
   .stepCurrent {
-    @apply bg-[rgba(105,_65,_198,_0.50)];
+    @apply bg-[rgba(105, _65, _198, _0.50)];
   }
 
   .stepCompleted {

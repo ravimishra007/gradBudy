@@ -63,13 +63,16 @@ const page = () => {
                 Manage Profile
             </Link>
 
-
-            <Link href='/course/course-detail'>
-                Course-Detail
-            </Link>
-
             <Link href='/course/all-courses'>
                 All Courses
+            </Link>
+
+            <Link href='/university-details'>
+                University Details
+            </Link>
+
+            <Link href='/college-details'>
+                College Details
             </Link>
 
             <Link href='/settings'>

@@ -1,11 +1,43 @@
+"use client"
+
 import HeaderAuth from '@/components/HeaderAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import React from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+
+type FormData = {
+    name: string;
+    email: string;
+    number: string;
+    message: string;
+};
+
 
 const ContactUs = () => {
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        number: '',
+        message: ''
+    });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData({
+            ...formData,
+            [id]: value
+        });
+    };
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log('Form Data:', formData);
+    };
+
+
     return (
         <>
             <section className="flex-center bg-white mx-auto">
@@ -19,21 +51,49 @@ const ContactUs = () => {
                                 subTitle="Connect with your friend today!"
                             />
 
-                            <form className="w-full min-w-[66.66%] max-w-sm items-center gap-2 text-[#344054] p-4 sm:px-0 sm:pb-0 pt-5 mx-auto">
+                            <form onSubmit={handleSubmit} className="w-full min-w-[66.66%] max-w-sm items-center gap-2 text-[#344054] p-4 sm:pb-0 pt-5 mx-auto">
                                 <Label htmlFor="name" className="mb-2">Enter Name</Label>
-                                <Input className="input-form mb-4 sm:mb-6" type="text" id="name" placeholder="Name" />
+                                <Input
+                                    className="input-form mb-4 sm:mb-6"
+                                    type="text"
+                                    id="name"
+                                    placeholder="Name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                />
 
                                 <Label htmlFor="email" className="mb-2">Email Address</Label>
-                                <Input className="input-form mb-4 sm:mb-6" type="email" id="email" placeholder="Email Address" />
+                                <Input
+                                    className="input-form mb-4 sm:mb-6"
+                                    type="email"
+                                    id="email"
+                                    placeholder="Email Address"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
 
                                 <Label htmlFor="number" className="mb-2">Phone Number</Label>
-                                <Input className="input-form mb-4 sm:mb-6" type="tel" id="number" placeholder="Phone Number" />
+                                <Input
+                                    className="input-form mb-4 sm:mb-6"
+                                    type="tel"
+                                    id="number"
+                                    placeholder="Phone Number"
+                                    value={formData.number}
+                                    onChange={handleChange}
+                                />
 
                                 <Label htmlFor="message-2" className="mb-2">Message</Label>
-                                <Textarea className="input-form mb-4 sm:mb-6" placeholder="Type your message here." id="message-2" />
+                                <Textarea
+                                    className="input-form mb-4 sm:mb-6"
+                                    id="message"
+                                    name='message'
+                                    placeholder="Type your message here."
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                />
 
                                 <div className="mt-8 -mb-4 sm:mb-0">
-                                    <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6  duration-150 w-full">Save Details</Button>
+                                    <Button type="submit" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 duration-150 w-full">Save Details</Button>
                                 </div>
                             </form>
                         </div>

@@ -36,6 +36,7 @@ export interface CourseCardProps {
   id: string | number;
   imgSrc: string;
   courseTitle: string;
+  majorSkills: string[];
   teacherName: string;
   institute: string;
   instituteLogo: string;
@@ -49,40 +50,6 @@ export interface LableCardProps {
   iconSrc: string;
   name: string | number;
   lable: string;
-}
-
-export interface Topic {
-  title: string;
-  duration: string;
-}
-
-export interface Material {
-  title: string;
-  url: string;
-  type: "pdf" | "txt"; // Add more types if necessary
-}
-
-export interface Topic {
-  title: string;
-  duration: string;
-  materials?: Material[];
-}
-
-export interface Lesson {
-  title: string;
-  duration: string;
-  link: string;
-  topics: Topic[];
-}
-
-export interface Module {
-  title: string;
-  lessons: Lesson[];
-}
-
-export interface Course {
-  title: string;
-  modules: Module[];
 }
 
 export type Experience = {
@@ -146,3 +113,100 @@ export type ReusableComboboxProps = {
   placeholder?: string;
   label?: string;
 };
+
+
+
+
+
+
+
+
+
+export interface Material {
+  title: string;
+  url: string;
+  type: "pdf" | "txt"; // Add more types if necessary
+}
+
+export interface Topic {
+  title: string;
+  duration: string;
+  materials?: Material[];
+}
+
+export interface Lesson {
+  title: string;
+  duration: string;
+  link: string;
+  topics: Topic[];
+}
+
+export interface Module {
+  title: string;
+  lessons: Lesson[];
+}
+
+export interface Course {
+  title: string;
+  modules: Module[];
+}
+
+export interface Mentor {
+  id: number;
+  name: string;
+  profileImg: string;
+  university: string;
+  linkedin: string;
+  email: string;
+  stats: string[];
+  bio: string;
+  profile: string;
+  education?: {
+    university: string;
+    degree: string;
+    year: string;
+    description?: string;
+  }[];
+  totalStudents?: string;
+  totalCourses?: number;
+  experience?: {
+    university: string;
+    position: string;
+    duration: string;
+    description?: string;
+  }[];
+}
+
+
+export interface Review {
+  rating: number;
+  count: number;
+  alreadyRegistered: number;
+}
+
+export interface LabelData {
+  iconSrc: string;
+  label: string;
+  name: string | number;
+}
+
+export interface courseDetailDataProp {
+  id: number;
+  title: string;
+  courseImg: string;
+  institute: string;
+  mentor: Mentor;
+  majorSkills: string[];
+  description: string;
+  detailedDescription: string;
+  tags: string[];
+  price: string;
+  reviews: Review;
+  skillLevel: string;
+  views: number;
+  lessons: number;
+  duration: string;
+  requirements: string[];
+  courseOutlineData: Course;
+  labels: LabelData[];
+}

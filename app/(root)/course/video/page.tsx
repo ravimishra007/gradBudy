@@ -62,31 +62,31 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="flex gap-8">
-                <div className="w-2/3">
+        <div className="mx-auto">
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="w-full lg:w-2/3">
                     <div className="mb-8">
                         <video
                             controls
-                            className="w-full rounded-md shadow-md"
+                            className="w-full"
                             src="https://www.w3schools.com/html/mov_bbb.mp4"
                             onPlay={() => setCurrentModuleIndex(0)}
                         />
                     </div>
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-2xl font-semibold">{course.title}</h2>
-                        <div className='flex-center'>
-                            <Image className="w-[30px] h-[30px] rounded-full mr-4" src="/icons/profile.svg" alt="Teacher Profile" width={30} height={30} />
-                            <p className="text-[#6941C6] text-lg font-medium">Teacher Name</p>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center -mb-6 sm:mb-4">
+                        <h2 className="text-base md:text-2xl font-semibold">{course.title}</h2>
+                        <div className='flex sm:justify-center items-center'>
+                            <Image className="hidden sm:block w-[30px] h-[30px] rounded-full mr-4" src="/icons/profile.svg" alt="Teacher Profile" width={30} height={30} />
+                            <p className="text-[#6941C6] text-sm sm:text-lg font-medium">Teacher Name</p>
                         </div>
                     </div>
-                    <div className="flex mt-10 items-center">
+                    <div className="flex flex-col sm:flex-row mt-10 gap-x-8 items-center">
                         {course.modules[currentModuleIndex].lessons.map((lesson, lessonIndex) => (
-                            <div key={lessonIndex} className="ml-4 w-full max-w-[340px]">
+                            <div key={lessonIndex} className="lg:ml-4 w-full max-w-[340px]">
                                 {lesson.topics.map((topic, topicIndex) => (
-                                    <div key={topicIndex} className="ml-4">
+                                    <div key={topicIndex} className="lg:ml-4">
                                         {topic.materials && (
-                                            <ul className="ml-4">
+                                            <ul className="lg:ml-4">
                                                 {topic.materials.map((material, materialIndex) => (
                                                     <li key={materialIndex}>
                                                         <Link
@@ -113,7 +113,7 @@ const CourseComponent: React.FC<CourseComponentProps> = ({ course }) => {
                         ))}
                     </div>
                 </div>
-                <div className="w-1/3 pl-4 bg-[rgba(105,_65,_198,_0.05)] rounded-[12px] px-8 py-5">
+                <div className="w-full lg:w-1/3 pl-4 bg-[rgba(105,_65,_198,_0.05)] rounded-[12px] px-8 py-5">
                     <div className="my-4">
                         <CourseVideoOutline course={course} setCurrentModuleIndex={setCurrentModuleIndex} />
                     </div>
@@ -168,7 +168,7 @@ const CourseVideoOutline: React.FC<{ course: Course; setCurrentModuleIndex: Reac
                         onClick={() => toggleModule(moduleIndex)}
                     >
                         <h3 className="text-base font-semibold cursor-pointer">{module.title}</h3>
-                        <ul className="list-disc pl-5 flex gap-x-7 md:gap-x-8 sm:gap-x-12 text-xm sm:text-sm text-[#344054] font-normal my-2 cursor-pointer">
+                        <ul className="list-disc pl-5 flex gap-x-7 md:gap-x-8 sm:gap-x-12 text-xs sm:text-sm text-[#344054] font-normal my-2 cursor-pointer">
                             {[
                                 `Topics ${module.lessons.length}`,
                                 `${module.lessons.reduce(
@@ -192,7 +192,7 @@ const CourseVideoOutline: React.FC<{ course: Course; setCurrentModuleIndex: Reac
                                         className="flex justify-between items-center cursor-pointer"
                                         onClick={() => toggleLesson(moduleIndex, lessonIndex)}
                                     >
-                                        <div className="w-2/3">
+                                        <div className="w-full sm:w-2/3">
                                             <h4 className="text-sm font-normal">{lesson.title}</h4>
                                         </div>
                                         <div className="flex items-center space-x-4 sm:w-1/3 justify-end">

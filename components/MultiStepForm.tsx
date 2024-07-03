@@ -24,12 +24,9 @@ import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headl
 import { cities, districts, initialData, states } from '@/constents/constents';
 import { ReusableComboboxProps, Experience, Option, FormData } from '@/constents/types';
 
-
-
 const MultiStepForm: React.FC = () => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState<FormData>(initialData);
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const [date, setDate] = useState<Date>()
     const [schoolPassingYear, setschoolPassingYear] = useState<Date>()
@@ -40,10 +37,15 @@ const MultiStepForm: React.FC = () => {
     const [experienceStartingYears, setExperienceStartingYears] = useState<(Date | null)[]>([]);
     const [experienceEndingYears, setExperienceEndingYears] = useState<(Date | null)[]>([]);
 
-
     const [selectedCity, setSelectedCity] = useState<string | null>(null);
     const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
     const [selectedState, setSelectedState] = useState<string | null>(null);
+
+    const [gender, setGender] = useState<string>('');
+
+    const [board, setBoard] = useState<string>('');
+    const [seniorBoard, setSeniorBoard] = useState<string>('');
+    const [stream, setStream] = useState<string>('');
 
     const handleNext = () => {
         setStep(step + 1);
@@ -52,7 +54,6 @@ const MultiStepForm: React.FC = () => {
     const handlePrevious = () => {
         setStep(step - 1);
     };
-
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -87,7 +88,6 @@ const MultiStepForm: React.FC = () => {
         setFormData(newData);
     };
 
-
     const handleExperienceDateChange = (date: Date | null, index: number, type: 'startingYear' | 'endingYear') => {
         if (type === 'startingYear') {
             const newStartingYears = [...experienceStartingYears];
@@ -114,7 +114,6 @@ const MultiStepForm: React.FC = () => {
         setExperienceEndingYears([...experienceEndingYears, null]);
     };
 
-
     const handleDateChange = (selectedDate: Date | undefined) => {
         const newData = { ...formData, personalInfo: { ...formData.personalInfo, dob: selectedDate ?? null } };
         setFormData(newData);
@@ -131,13 +130,11 @@ const MultiStepForm: React.FC = () => {
         });
     };
 
-
     const stepClasses = (currentStep: number) => {
         if (step === currentStep) return 'bg-[rgba(105,_65,_198,_0.50)]';
         if (step > currentStep) return 'bg-[#2C1C5F]';
         return 'bg-[rgba(208,_213,_221,_0.40)]';
     };
-
 
     return (
         <div className="max-w-6xl mx-auto p-5">
@@ -239,7 +236,7 @@ const MultiStepForm: React.FC = () => {
                         <div className="flex flex-col gap-4 w-full mb-8 md:grid md:grid-cols-1 lg:grid-cols-3 lg:gap-4">
                             <div className="w-full">
                                 <Label htmlFor="gender">Gender<span className="text-red-500">*</span></Label>
-                                <Select>
+                                <Select name='gender' value={gender} onValueChange={(value: string) => setGender(value)}>
                                     <SelectTrigger className="input-form text-[#66708580] text-start flex justify-start">
                                         <SelectValue className="text-start placeholder:text-[#66708580]" placeholder="Gender" />
                                     </SelectTrigger>
@@ -257,8 +254,6 @@ const MultiStepForm: React.FC = () => {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-
-
                             </div>
                             <div className="w-full">
                                 <Label htmlFor="dob">Date of Birth<span className="text-red-500">*</span></Label>
@@ -422,7 +417,7 @@ const MultiStepForm: React.FC = () => {
                         <div className="flex flex-col gap-4 w-full text-[#344054] mb-8 md:grid md:grid-cols-1 lg:grid-cols-4 lg:gap-4">
                             <div className="w-full">
                                 <Label className="mb-1" htmlFor="board">Board</Label>
-                                <Select>
+                                <Select name='board' value={board} onValueChange={(value: string) => setBoard(value)}>
                                     <SelectTrigger className="input-form text-[#66708580] text-start flex justify-start">
                                         <SelectValue className="text-start placeholder:text-[#66708580]" placeholder="Board" />
                                     </SelectTrigger>
@@ -501,7 +496,7 @@ const MultiStepForm: React.FC = () => {
                         <div className="flex flex-col gap-4 w-full text-[#344054] mb-8 md:grid md:grid-cols-1 lg:grid-cols-4 lg:gap-4">
                             <div className="w-full">
                                 <Label className="mb-1" htmlFor="board">Board</Label>
-                                <Select>
+                                <Select name='seniorBoard' value={seniorBoard} onValueChange={(value: string) => setSeniorBoard(value)}>
                                     <SelectTrigger className="input-form text-[#66708580] text-start flex justify-start">
                                         <SelectValue className="text-start placeholder:text-[#66708580]" placeholder="Board" />
                                     </SelectTrigger>
@@ -653,7 +648,7 @@ const MultiStepForm: React.FC = () => {
                         <div className="flex flex-col gap-4 w-full text-[#344054] mb-8 md:grid md:grid-cols-1 lg:grid-cols-4 lg:gap-4">
                             <div className="w-full">
                                 <Label htmlFor="stream">Stream</Label>
-                                <Select>
+                                <Select name='stream' value={stream} onValueChange={(value: string) => setStream(value)}>
                                     <SelectTrigger className="input-form text-[#66708580] text-start flex justify-start">
                                         <SelectValue className="text-start placeholder:text-[#66708580]" placeholder="Stream" />
                                     </SelectTrigger>

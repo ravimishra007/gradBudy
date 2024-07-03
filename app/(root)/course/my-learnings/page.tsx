@@ -1,6 +1,6 @@
 import CourseCard from "@/components/CourseCard"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { courses } from "@/constents/constents"
+import { courseDetailData } from "@/constents/constents"
 
 
 const MyLearnings = () => {
@@ -36,7 +36,7 @@ const MyLearnings = () => {
 const RegisteredTab = () => {
     return (
         <div className="mt-10 sm:mt-14 lg:mt-20 gap-6 sm:gap-10 justify-around grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:gap-16 lg:mx-10 justify-items-center lg:justify-items-around">
-            {courses.map((course) => (
+            {courseDetailData.map((course) => (
                 <CourseCard key={course.id} {...course} />
             ))}
         </div>
@@ -46,7 +46,7 @@ const RegisteredTab = () => {
 const FavouriteTab = () => {
     return (
         <div className="mt-10 sm:mt-14 lg:mt-20 gap-6 sm:gap-10 justify-around grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:gap-16 lg:mx-10 justify-items-center lg:justify-items-around">
-            {courses.map((course) => (
+            {courseDetailData.map((course) => (
                 <CourseCard key={course.id} {...course} />
             ))}
         </div>
