@@ -8,12 +8,13 @@ interface DynamicStatProps {
     duration: number;
     label: string;
     suffix: string;
+    className?: string;
 }
 
-export const DynamicStat = ({ count, label, suffix, duration }: DynamicStatProps) => {
+export const DynamicStat = ({ count, label, suffix, duration, className }: DynamicStatProps) => {
     return (
         <div className={`uppercase text-[#2C1C5F] flex flex-col`}>
-            <CountUp end={count} suffix={`${suffix} `} duration={duration} className="font-semibold text-3xl md:text-4xl leading-tight" />
+            <CountUp end={count} suffix={`${suffix} `} duration={duration} className={`font-semibold ${className ? className : 'text-3xl'} md:text-4xl leading-tight`} />
             <span className=" text-sm md:text-lg font-medium leading-5">{label}</span>
         </div>
     );

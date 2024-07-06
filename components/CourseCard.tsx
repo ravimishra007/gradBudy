@@ -9,14 +9,16 @@ import { useAppDispatch } from '@/lib/hooks';
 import { AddToCart, RemoveFromCart } from '@/lib/features/cart/CartSlice';
 import { ImCancelCircle } from "react-icons/im";
 import { useToast } from './ui/use-toast';
+import { addToFavourites, removeFromFavourites } from '@/lib/features/favourite-courses/FavouriteCourseSlice';
 
 
 interface CourseCardProps extends courseDetailDataProp {
     removebtn?: boolean;
+    removeFromFavBtn?: boolean;
 }
 
 const CourseCard = ({ ...course }: CourseCardProps) => {
-    const { id, majorSkills, title, courseImg, mentor, price, duration, lessons, institute, removebtn } = course;
+    const { id, majorSkills, title, courseImg, mentor, price, duration, lessons, institute, removebtn, removeFromFavBtn } = course;
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { toast } = useToast();
@@ -29,12 +31,30 @@ const CourseCard = ({ ...course }: CourseCardProps) => {
         })
         // router.push(`/course/${title.toLowerCase().split(' ').join('-')}`);
     };
+
+    const handleFavourite = () => {
+        dispatch(addToFavourites({ ...course }));
+        toast({
+            title: "Success",
+            description: "Course is successfully added in favourite course.",
+        })
+        // router.push(`/course/${title.toLowerCase().split(' ').join('-')}`);
+    };
+
     const handleRemoveFromCart = (courseId: number, event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         dispatch(RemoveFromCart(courseId));
         toast({
             title: "Success",
             description: "Course is successfully removed from cart.",
+        })
+    };
+    const handleRemoveFromFavourite = (courseId: number, event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        dispatch(removeFromFavourites(courseId));
+        toast({
+            title: "Success",
+            description: "Course is successfully removed from favourite course.",
         })
     };
 
@@ -49,6 +69,7 @@ const CourseCard = ({ ...course }: CourseCardProps) => {
                             <Image className="w-full h-[180px] object-cover" src={courseImg} alt={title} width={340} height={180} />
 
                             {removebtn && <button onClick={(event) => handleRemoveFromCart(id, event)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>}
+                            {removeFromFavBtn && <button onClick={(event) => handleRemoveFromFavourite(id, event)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>}
                         </figure>
                     </Link>
 
@@ -57,7 +78,10 @@ const CourseCard = ({ ...course }: CourseCardProps) => {
                         <h3 className="text-sm sm:text-base mb-4 font-medium text-[#344054]">{institute}</h3>
 
                         <div>
-                            <h3 className="text-xl font-bold leading-6 capitalize w-[80%]" >{title}</h3>
+                            <div className='flex justify-between items-center'>
+                                <h3 className="text-xl font-bold leading-6 capitalize w-[80%]" >{title}</h3>
+                                <Image onClick={handleFavourite} className="object-cover cursor-pointer scale-95 hover:scale-110" src="/icons/heart.svg" alt="favourite" width={30} height={30} />
+                            </div>
                             <h3 className="text-lg font-medium mb-3 mt-1 text-[#6941C6]">{mentor.name}</h3>
 
                             <div className="flex gap-6 pt-2">
@@ -76,7 +100,7 @@ const CourseCard = ({ ...course }: CourseCardProps) => {
                                 <p className="text-xs flex items-center gap-x-3">Total Amount </p>
                                 <strong className="text-lg" >{price}</strong>
                             </div>
-                            <Button onClick={handleClick} className="form-btn cursor-pointer bg-yellow-100 hover:bg-yellow-100/80 py-5 px-8 duration-150 mb-4">{"Enroll Now"}</Button>
+                            <Button onClick={handleClick} className="form-btn cursor-pointer bg-yellow-100 hover:bg-yellow-100/80 py-5 px-8 duration-150 mb-4">Enroll Now</Button>
                         </div>
                     </figcaption>
                 </article>

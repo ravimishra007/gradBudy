@@ -1,4 +1,6 @@
 import CourseCard from "@/components/CourseCard"
+import FavouriteTab from "@/components/FavouriteTab"
+import RegisteredTab from "@/components/RegisteredTab"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { courseDetailData } from "@/constents/constents"
 
@@ -16,11 +18,9 @@ const MyLearnings = () => {
                         </TabsList>
                         <div className="mt-10">
                             <TabsContent value="registered">
-                                <h1>Registered Tab</h1>
                                 <RegisteredTab />
                             </TabsContent>
                             <TabsContent value="favourite">
-                                <h1>Favourite Tab</h1>
                                 <FavouriteTab />
                             </TabsContent>
                         </div>
@@ -29,27 +29,6 @@ const MyLearnings = () => {
                 </div>
             </section>
         </>
-    )
-}
-
-
-const RegisteredTab = () => {
-    return (
-        <div className="mt-10 sm:mt-14 lg:mt-20 gap-6 sm:gap-10 justify-around grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:gap-16 lg:mx-10 justify-items-center lg:justify-items-around">
-            {courseDetailData.map((course) => (
-                <CourseCard key={course.id} {...course} />
-            ))}
-        </div>
-    )
-}
-
-const FavouriteTab = () => {
-    return (
-        <div className="mt-10 sm:mt-14 lg:mt-20 gap-6 sm:gap-10 justify-around grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:gap-16 lg:mx-10 justify-items-center lg:justify-items-around">
-            {courseDetailData.map((course) => (
-                <CourseCard key={course.id} {...course} />
-            ))}
-        </div>
     )
 }
 

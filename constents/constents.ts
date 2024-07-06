@@ -2,8 +2,11 @@ import {
   Course,
   CourseCardProps,
   FAQ,
+  FooterLink,
   FormData,
+  Section,
   TeamMember,
+  Testimonial,
   courseDetailDataProp,
 } from "./types";
 
@@ -159,6 +162,80 @@ export const teamMembers: TeamMember[] = [
 //     instituteLogo: "/icons/collage.svg",
 //   },
 // ];
+
+export const socialMedia = [
+  {
+    platform: "LinkedIn",
+    icon: "/icons/LinkedIn.svg",
+    url: "https://www.linkedin.com/in/johndeo",
+  },
+  {
+    platform: "Twitter",
+    icon: "/icons/Twitter.svg",
+    url: "https://twitter.com/johndeo",
+  },
+  {
+    platform: "Instagram",
+    icon: "/icons/Instagram.svg",
+    url: "https://www.instagram.com/johndeo",
+  },
+  {
+    platform: "Youtube",
+    icon: "/icons/Youtube.svg",
+    url: "https://youtube.com/johndeo",
+  },
+  {
+    platform: "Facebook",
+    icon: "/icons/Facebook.svg",
+    url: "https://facebook.com/in/",
+  },
+];
+
+export const quickLinks: FooterLink[] = [
+  { title: "Home", url: "/" },
+  { title: "About", url: "/about-us" },
+  { title: "Privacy Policy", url: "/privacy-policy" },
+  { title: "Terms & Condition", url: "/terms-of-use" },
+  { title: "Contact Us", url: "/contact-us" },
+  { title: "Login", url: "/login" },
+];
+
+export const filters: Section[] = [
+  {
+      id: 'reviews',
+      name: 'Review',
+      options: [
+          { id: 1, value: '5', label: '5 Star', checked: false },
+          { id: 2, value: '4', label: '4 Star', checked: false },
+          { id: 3, value: '3', label: '3 Star', checked: false },
+      ],
+  },
+  {
+      id: 'mentor.name',
+      name: 'Professor',
+      options: [
+          { id: 4, value: 'John Doe', label: 'John Doe', checked: false },
+          { id: 5, value: 'Jane Smith', label: 'Jane Smith', checked: false },
+          { id: 6, value: 'Mark Johnson', label: 'Mark Johnson', checked: false },
+      ],
+  },
+  {
+      id: 'institute',
+      name: 'Colleges',
+      options: [
+          { id: 7, value: 'Indian Institute of Technology Madras', label: 'Indian Institute of Technology Madras', checked: false },
+          { id: 8, value: 'SAGE University', label: 'SAGE University', checked: false },
+          { id: 9, value: 'IIT Delhi', label: 'IIT Delhi', checked: false },
+      ],
+  },
+  {
+      id: 'title',
+      name: 'Courses',
+      options: [
+          { id: 10, value: 'Advanced Management Skills', label: 'Advanced Management Skills', checked: false },
+      ],
+  },
+];
 
 export const courseData: Course = {
   title: "Advanced Management Skills",
@@ -1121,7 +1198,7 @@ export const courseDetailData: courseDetailDataProp[] = [
     tags: ["Advanced", "Project Management", "Business"],
     price: "$299.99",
     reviews: {
-      rating: 4.5,
+      rating: 5.0,
       count: 1800,
       alreadyRegistered: 4000,
     },
@@ -1729,4 +1806,38 @@ export const courseDetailData: courseDetailDataProp[] = [
       { iconSrc: "/icons/timer.svg", label: "Duration", name: "20 Hours" },
     ],
   },
+];
+
+
+export const testimonials: Testimonial[] = [
+  {
+      name: "Amit",
+      role: "Student",
+      says: "“Participating in the Minds Meetup cohort was a game-changer for me. The skills I acquired and the connections I made have opened up numerous opportunities in the tech industry. I highly recommend it to anyone serious about a career in tech. The mentors were incredibly supportive and knowledgeable, providing invaluable insights into the industry. The cohort community was also very collaborative and encouraging.”"
+  },
+  {
+      name: "John",
+      role: "Developer",
+      says: "“The experience was amazing and transformative. It pushed me to grow and develop in ways I hadn't anticipated. The hands-on projects and real-world scenarios were particularly beneficial in honing my skills. The support from peers and instructors was fantastic, and I felt a true sense of camaraderie. This program is a must for anyone looking to make a significant impact in their career.”"
+  },
+  {
+      name: "Jane",
+      role: "Engineer",
+      says: "“I learned so much and met incredible people who have become invaluable resources and friends. The structured curriculum and the variety of topics covered were exceptional. The practical exercises helped solidify my understanding, and the networking opportunities were unparalleled. I would highly recommend this program to anyone looking to advance their technical skills and professional network.”"
+  },
+  {
+      name: "Sara",
+      role: "Designer",
+      says: "“A fantastic experience that has greatly impacted my career. Highly recommended! The design challenges were both fun and educational, and the feedback from mentors was constructive and encouraging. The collaborative environment fostered creativity and innovation, and I left the program with a portfolio of work I am truly proud of. This experience has been a cornerstone in my professional development.”"
+  },
+  {
+      name: "Michael",
+      role: "Product Manager",
+      says: "“The knowledge and network I gained here have been instrumental in my professional journey. The program's emphasis on practical application of skills was incredibly beneficial. I appreciated the focus on both technical and soft skills, preparing me to tackle complex projects with confidence. The connections I've made have opened doors to new opportunities, and I feel well-prepared for future challenges.”"
+  },
+  {
+      name: "Emma",
+      role: "Data Scientist",
+      says: "“An unforgettable experience that has significantly boosted my career prospects. The curriculum was rigorous and relevant, and the mentorship was outstanding. The community of learners was diverse and supportive, making for a rich learning environment. The projects I completed during the program have directly contributed to my professional success, and I am grateful for the experience.”"
+  }
 ];

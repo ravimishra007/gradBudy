@@ -114,6 +114,10 @@ export type ReusableComboboxProps = {
   label?: string;
 };
 
+export interface FooterLink {
+  title: string;
+  url: string;
+}
 
 
 
@@ -209,4 +213,23 @@ export interface courseDetailDataProp {
   requirements: string[];
   courseOutlineData: Course;
   labels: LabelData[];
+}
+
+export interface FilterOption {
+  id: number;
+  value: string;
+  label: string;
+  checked: boolean;
+}
+
+export interface Section {
+  id: keyof courseDetailDataProp | string;
+  name: string;
+  options: FilterOption[];
+}
+
+export interface Testimonial {
+  name: string;
+  role: string;
+  says: string;
 }

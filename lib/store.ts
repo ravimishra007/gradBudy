@@ -1,7 +1,4 @@
-import {
-  configureStore,
-  combineReducers,
-} from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {
@@ -14,6 +11,8 @@ import {
 } from "redux-persist/es/constants";
 import favouriteProfessorsReducer from "./features/favourite-professors/FavouriteProfessorsSlice";
 import cartReducer from "./features/cart/CartSlice";
+import favouriteCoursesReducer from "./features/favourite-courses/FavouriteCourseSlice";
+import authReducer from "./features/auth/authSlice";
 
 const favouriteProfessorsPersistConfig = {
   key: "favouriteProfessors",
@@ -27,12 +26,23 @@ const cartPersistConfig = {
   storage,
 };
 
+const favouriteCoursesPersistConfig = {
+  key: "favouriteCourses",
+  version: 1,
+  storage,
+};
+
 const rootReducer = combineReducers({
   favouriteProfessors: persistReducer(
     favouriteProfessorsPersistConfig,
     favouriteProfessorsReducer
   ),
   cart: persistReducer(cartPersistConfig, cartReducer),
+  favouriteCourses: persistReducer(
+    favouriteCoursesPersistConfig,
+    favouriteCoursesReducer
+  ),
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(
