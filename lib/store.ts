@@ -11,7 +11,8 @@ import {
 } from "redux-persist/es/constants";
 import favouriteProfessorsReducer from "./features/favourite-professors/FavouriteProfessorsSlice";
 import cartReducer from "./features/cart/CartSlice";
-import favouriteCoursesReducer from "./features/favourite-courses/FavouriteCourseSlice"
+import favouriteCoursesReducer from "./features/favourite-courses/FavouriteCourseSlice";
+import authReducer from "./features/auth/authSlice";
 
 const favouriteProfessorsPersistConfig = {
   key: "favouriteProfessors",
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
     favouriteCoursesPersistConfig,
     favouriteCoursesReducer
   ),
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(

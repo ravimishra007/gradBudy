@@ -129,4 +129,12 @@
   .stepCompleted {
     @apply bg-[#2C1C5F];
   }
+
+ .heading {
+  @apply text-xl md:text-3xl sm:mb-3 font-bold
+ }
+
+ .paragraph {
+  @apply max-w-[556px] text-base md:text-lg font-medium text-[#D0D5DD]
+ }
 }

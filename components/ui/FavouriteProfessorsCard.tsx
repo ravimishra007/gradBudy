@@ -13,9 +13,10 @@ interface FavouriteProfessorsCardProps {
     name: string;
     college: string;
     bio: string;
+    showbtn?: boolean;
 }
 
-const FavouriteProfessorsCard = ({ id, imgSrc, name, college, bio }: FavouriteProfessorsCardProps) => {
+const FavouriteProfessorsCard = ({ id, imgSrc, name, college, bio, showbtn = true }: FavouriteProfessorsCardProps) => {
     const dispatch = useAppDispatch();
     const { toast } = useToast()
 
@@ -33,7 +34,7 @@ const FavouriteProfessorsCard = ({ id, imgSrc, name, college, bio }: FavouritePr
                 <Image className="object-cover rounded-full" src={imgSrc} alt={`${name}'s profile picture`} width={70} height={70} />
             </div>
 
-            <button onClick={() => handleRemoveFromFavourites(id)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>
+            {showbtn && <button onClick={() => handleRemoveFromFavourites(id)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>}
 
             <div className="text-center space-y-5">
                 <div>

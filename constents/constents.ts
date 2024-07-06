@@ -6,6 +6,7 @@ import {
   FormData,
   Section,
   TeamMember,
+  Testimonial,
   courseDetailDataProp,
 } from "./types";
 
@@ -1805,4 +1806,38 @@ export const courseDetailData: courseDetailDataProp[] = [
       { iconSrc: "/icons/timer.svg", label: "Duration", name: "20 Hours" },
     ],
   },
+];
+
+
+export const testimonials: Testimonial[] = [
+  {
+      name: "Amit",
+      role: "Student",
+      says: "“Participating in the Minds Meetup cohort was a game-changer for me. The skills I acquired and the connections I made have opened up numerous opportunities in the tech industry. I highly recommend it to anyone serious about a career in tech. The mentors were incredibly supportive and knowledgeable, providing invaluable insights into the industry. The cohort community was also very collaborative and encouraging.”"
+  },
+  {
+      name: "John",
+      role: "Developer",
+      says: "“The experience was amazing and transformative. It pushed me to grow and develop in ways I hadn't anticipated. The hands-on projects and real-world scenarios were particularly beneficial in honing my skills. The support from peers and instructors was fantastic, and I felt a true sense of camaraderie. This program is a must for anyone looking to make a significant impact in their career.”"
+  },
+  {
+      name: "Jane",
+      role: "Engineer",
+      says: "“I learned so much and met incredible people who have become invaluable resources and friends. The structured curriculum and the variety of topics covered were exceptional. The practical exercises helped solidify my understanding, and the networking opportunities were unparalleled. I would highly recommend this program to anyone looking to advance their technical skills and professional network.”"
+  },
+  {
+      name: "Sara",
+      role: "Designer",
+      says: "“A fantastic experience that has greatly impacted my career. Highly recommended! The design challenges were both fun and educational, and the feedback from mentors was constructive and encouraging. The collaborative environment fostered creativity and innovation, and I left the program with a portfolio of work I am truly proud of. This experience has been a cornerstone in my professional development.”"
+  },
+  {
+      name: "Michael",
+      role: "Product Manager",
+      says: "“The knowledge and network I gained here have been instrumental in my professional journey. The program's emphasis on practical application of skills was incredibly beneficial. I appreciated the focus on both technical and soft skills, preparing me to tackle complex projects with confidence. The connections I've made have opened doors to new opportunities, and I feel well-prepared for future challenges.”"
+  },
+  {
+      name: "Emma",
+      role: "Data Scientist",
+      says: "“An unforgettable experience that has significantly boosted my career prospects. The curriculum was rigorous and relevant, and the mentorship was outstanding. The community of learners was diverse and supportive, making for a rich learning environment. The projects I completed during the program have directly contributed to my professional success, and I am grateful for the experience.”"
+  }
 ];

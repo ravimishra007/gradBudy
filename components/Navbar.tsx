@@ -35,7 +35,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useAppSelector } from '@/lib/hooks'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { RootState } from '@/lib/store'
 
 import { cn } from "@/lib/utils"
@@ -48,6 +48,7 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { selectLoggedInUser, signOutAsync } from '@/lib/features/auth/authSlice'
 
 interface SheetTitleProps {
     children: string;
@@ -66,8 +67,15 @@ const headings: string[] = [
 
 
 const Navbar = () => {
-
+    const dispatch = useAppDispatch()
     const cart = useAppSelector((state: RootState) => state.cart.cart);
+    const user = useAppSelector(selectLoggedInUser)
+
+    const handleLogout = () => {
+        if (user && user.id) {
+            dispatch(signOutAsync(user.id));
+        }
+    };
 
     return (
         <nav className="w-full h-20 flex items-center justify-between px-6 sm:px-12 md:px-20 bg-white">
@@ -119,7 +127,9 @@ const Navbar = () => {
                 </Select>
             </div> */}
 
-            <NavigationMenuDemo />
+            <div className='hidden lg:block'>
+                <NavigationMenuDemo />
+            </div>
 
             {/* User Profile */}
             <div className='flex-center gap-12 relative'>
@@ -163,7 +173,7 @@ const Navbar = () => {
                                             </AlertDialogHeader>
                                             <AlertDialogFooter >
                                                 <AlertDialogCancel>Stay Login</AlertDialogCancel>
-                                                <AlertDialogAction>Log Out</AlertDialogAction>
+                                                <AlertDialogAction onClick={handleLogout}>Log Out</AlertDialogAction>
                                             </AlertDialogFooter>
                                         </AlertDialogContent>
                                     </AlertDialog>

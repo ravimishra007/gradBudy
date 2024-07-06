@@ -63,7 +63,7 @@ const Footer = () => {
 
     return (
         <>
-            <footer className="flex flex-col px-3 pt-6 lg:pt-28 lg:px-24 overflow-hidden">
+            <footer className="flex flex-col px-3 pt-6 lg:pt-28 lg:px-24 overflow-hidden border-t-2 border-[#EFF0F6]">
                 <div className='flex flex-col lg:flex-row justify-between'>
                     <div className="text-xl font-bold lg:w-1/2 space-y-6 w-full max-w-xs">
                         <Link href="/">

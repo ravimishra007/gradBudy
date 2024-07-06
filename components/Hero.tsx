@@ -44,7 +44,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section className="px-5 sm:px-16 lg:px-16 py-10 md:py-16 lg:py-24 max-w-7xl w-full mx-auto overflow-hidden">
+        <section id='Hero_Section' className="px-5 sm:px-16 lg:px-0 max-w-7xl w-full mx-auto pb-5" >
             <div className='flex flex-col gap-y-10 lg:flex-row mx-auto'>
                 <div className="w-full lg:w-1/2 space-y-5">
                     <header>

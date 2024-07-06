@@ -227,3 +227,9 @@ export interface Section {
   name: string;
   options: FilterOption[];
 }
+
+export interface Testimonial {
+  name: string;
+  role: string;
+  says: string;
+}

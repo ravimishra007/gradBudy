@@ -30,7 +30,7 @@ const CustomInput = ({ control, name, label, placeholder }: CustomInput) => {
               <Input
                 placeholder={placeholder}
                 className="input-class bg-[#E9E9FE] placeholder:text-[#6941C6]/40"
-                type={name === 'password' ? 'password' : 'text'}
+                type={name === 'password' ? 'password' : (name == "email") ? 'email' : 'text'}
                 {...field}
               />
             </FormControl>
