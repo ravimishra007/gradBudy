@@ -43,15 +43,14 @@ import { Button } from './ui/button'
 
 import { FiChevronDown } from 'react-icons/fi';
 
-const headings: string[] = [
-    'Manage Profile',
-    'My Purchases',
-    'Favourite Professors',
-    'Favourite Courses',
-    'My Learning',
-    'Learning Coins',
-    'Settings',
-    'Help',
+const headings = [
+    { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
+    { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
+    { id: 'favourite-professors', label: 'Favourite Professors', url: '/course/favourite-professor' },
+    { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings' },
+    { id: 'my-learning', label: 'My Learning', url: '/course/my-learnings' },
+    { id: 'settings', label: 'Settings', url: '/settings' },
+    { id: 'help', label: 'Help', url: '/faq' },
 ];
 
 const Navbar = () => {
@@ -165,8 +164,10 @@ const Navbar = () => {
                                 </SheetTrigger>
                                 <SheetContent>
                                     <SheetHeader>
-                                        {headings.map((heading, index) => (
-                                            <SheetTitle className='border-b hover:bg-white-100' key={index}>{heading}</SheetTitle>
+                                        {headings.map((heading) => (
+                                            <SheetTitle className='border-b hover:bg-white-100' key={heading.id}>
+                                                <Link href={heading.url}>{heading.label}</Link>
+                                            </SheetTitle>
                                         ))}
                                         <SheetTitle className='border-b before:hover:bg-white-100'>
                                             <AlertDialog>
