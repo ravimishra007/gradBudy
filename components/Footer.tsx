@@ -13,7 +13,7 @@ const contactInfo = [
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-5 h-5"
+                className="w-4 sm:w-5 h-4 sm:h-5"
             >
                 <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
                 <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
@@ -28,7 +28,7 @@ const contactInfo = [
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-5 h-5"
+                className="w-4 sm:w-5 h-4 sm:h-5"
             >
                 <path
                     fillRule="evenodd"
@@ -75,7 +75,7 @@ const Footer = () => {
                                 priority
                             />
                         </Link>
-                        <p className="text-[#6941C6] text-lg font-normal">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam</p>
+                        <p className="text-[#6941C6] text-base sm:text-lg font-normal">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam</p>
                         <div className="flex items-center gap-x-6 mt-3">
                             {socialMedia.map((account, index) => (
                                 <Link key={index} href={account.url} target="_blank" >
@@ -93,29 +93,29 @@ const Footer = () => {
 
                     <hr className="border my-8 opacity-80 block lg:hidden" />
 
-                    <div className='lg:w-1/2 text-lg sm:text-xl font-bold text-[#2C1C5F] flex sm:gap-x-14 lg:gap-x-4 xl:gap-x-14'>
+                    <div className='lg:w-1/2 text-base sm:text-xl font-bold text-[#2C1C5F] flex sm:gap-x-14 lg:gap-x-4 xl:gap-x-14'>
                         <div className='space-y-4 hidden md:block'>
                             <p>
-                                <Link href="/"> Courses</Link>
+                                <Link href="/course/all-courses"> Courses</Link>
                             </p>
                             <p>
-                                <Link href="/"> Stream</Link>
+                                <Link href="/course/all-courses"> Stream</Link>
                             </p>
                         </div>
                         <div className='sm:min-w-[165px] min-w-[130px]'>
-                            <h3>Quick Links</h3>
+                            <h3 className="pointer-events-none">Quick Links</h3>
                             <ul className=''>
                                 {quickLinks.map((item, idx) => (
-                                    <Link key={idx} href={`${item.url}`}><li className='text-[#2C1C5F] text-base sm:text-lg font-normal mt-4 hover:scale-105 duration-200'>{item.title}</li></Link>
+                                    <Link key={idx} href={`${item.url}`}><li className='text-[#2C1C5F] text-xs sm:text-lg font-normal mt-2 sm:mt-4 hover:scale-105 duration-200'>{item.title}</li></Link>
                                 ))}
                             </ul>
                         </div>
                         <div>
                             <div>
-                                <h4>Contact Us</h4>
-                                <ul className='text-[#2C1C5F] text-base sm:text-lg font-normal'>
+                                <h4 className="pointer-events-none">Contact Us</h4>
+                                <ul className='text-[#2C1C5F] text-xs sm:text-lg font-normal'>
                                     {contactInfo.map((info, index) => (
-                                        <li key={index} className="flex items-center space-x-2 mt-4 hover:scale-105 duration-200">
+                                        <li key={index} className="flex items-center space-x-2 mt-2 sm:mt-4 hover:scale-105 duration-200">
                                             {info.icon}
                                             {info.type === "email" ? (
                                                 <Link href={`mailto:${info.value}`}>{info.value}</Link>
@@ -129,19 +129,19 @@ const Footer = () => {
                                 </ul>
                             </div>
                             <div className='space-y-4 md:hidden flex'>
-                                <div className='flex items-center mt-10 gap-x-10'>
+                                <div className='flex items-center mt-6 sm:mt-10 gap-x-5 sm:gap-x-10'>
                                     <p>
-                                        <Link href="/"> Courses</Link>
+                                        <Link href="/course/all-courses"> Courses</Link>
                                     </p>
                                     <p>
-                                        <Link href="/"> Stream</Link>
+                                        <Link href="/course/all-courses"> Stream</Link>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col gap-y-2 md:flex-row justify-between py-6 border-t border-[#D9DBE9] mt-10 text-base md:text-lg text-[#2C1C5F]'>
+                <div className='flex flex-col gap-y-2 md:flex-row justify-between py-6 border-t border-[#D9DBE9] mt-10 text-xs sm:text-base md:text-lg text-[#2C1C5F]'>
                     <p>Copyright © 2022 BRIX Templates</p>
                     <p>All Rights Reserved |
                         <span className="underline underline-offset-4"> Terms and Conditions </span> |

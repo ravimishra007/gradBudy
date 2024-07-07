@@ -56,7 +56,7 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
                                         <Link className='text-black/60 underline' href={`mailto:${mentor.email}`} >{mentor.email}</Link>
                                     </div>
                                 </div>
-                                <Image className="object-cover rounded-full mr-3" src="/icons/profile.svg" alt='profile' width={100} height={100} />
+                                <Image className="object-cover sm:h-16 sm:w-16 h-24 w-24 rounded-full mr-3" src="/icons/profile.svg" alt='profile' width={100} height={100} />
 
                             </div>
 
@@ -75,7 +75,7 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
                                 <Button onClick={() => handleRemoveFromFavourites(mentor.id)} className="form-btn w-full bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 !mt-6">Remove from Favourites</Button>
                             </div>
 
-                            <p className="my-8">{mentor.bio}</p>
+                            <p className="my-8 text-justify">{mentor.bio}</p>
 
                             {/* Educational Background  */}
                             <div className="text-[#344054] mb-7 space-y-7">
@@ -88,7 +88,7 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
                                             <p>{edu.degree}</p>
                                             <p>{edu.year}</p>
                                         </div>
-                                        {edu.description && <p>{edu.description}</p>}
+                                        {edu.description && <p className="text-justify">{edu.description}</p>}
                                     </div>
                                 ))}
                             </div>
@@ -104,7 +104,7 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
                                             <p>{exp.position}</p>
                                             <p>{exp.duration}</p>
                                         </div>
-                                        {exp.description && <p>{exp.description}</p>}
+                                        {exp.description && <p className="text-justify">{exp.description}</p>}
                                     </div>
                                 ))}
                             </div>
@@ -122,7 +122,7 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
 
                     {/* Other Relevant Courses */}
                     <div className="my-10 mt-16">
-                        <h3 className="subHeading mb-1">Other Courses by Professor 1</h3>
+                        <h3 className="subHeading mb-1">Other Courses by Professor {mentor.name}</h3>
 
                         <div className="flex mt-10 sm:mt-14 lg:mt-20 flex-wrap gap-6 sm:gap-10 justify-around">
                             {courseDetailData.slice(0, 3).map((course) => (

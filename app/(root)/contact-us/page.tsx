@@ -51,7 +51,7 @@ const ContactUs = () => {
                                 subTitle="Connect with your friend today!"
                             />
 
-                            <form onSubmit={handleSubmit} className="w-full min-w-[66.66%] max-w-sm items-center gap-2 text-[#344054] p-4 sm:pb-0 pt-5 mx-auto">
+                            <form onSubmit={handleSubmit} className="w-full min-w-[66.66%] max-w-sm items-center gap-2 text-[#344054] p-2 sm:p-4 sm:pb-0 pt-5 mx-auto">
                                 <Label htmlFor="name" className="mb-2">Enter Name</Label>
                                 <Input
                                     className="input-form mb-4 sm:mb-6"

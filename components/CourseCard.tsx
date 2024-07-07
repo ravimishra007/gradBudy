@@ -79,14 +79,14 @@ const CourseCard = ({ ...course }: CourseCardProps) => {
 
                         <div>
                             <div className='flex justify-between items-center'>
-                                <h3 className="text-xl font-bold leading-6 capitalize w-[80%]" >{title}</h3>
+                                <h3 className="text-lg sm:text-xl font-bold leading-6 capitalize w-[80%]" >{title}</h3>
                                 <Image onClick={handleFavourite} className="object-cover cursor-pointer scale-95 hover:scale-110" src="/icons/heart.svg" alt="favourite" width={30} height={30} />
                             </div>
                             <h3 className="text-lg font-medium mb-3 mt-1 text-[#6941C6]">{mentor.name}</h3>
 
-                            <div className="flex gap-6 pt-2">
+                            <div className="flex gap-3 sm:gap-6 pt-2">
                                 {majorSkills.map((tag, index) => (
-                                    <p key={index} className="bg-[#6941C6]/10 rounded-full p-2 px-4 text-sm text-[#2C1C5F]">{tag}</p>
+                                    <p key={index} className="bg-[#6941C6]/10 rounded-full p-2 sm:px-4 text-xs sm:text-sm text-[#2C1C5F]">{tag}</p>
                                 ))}
                             </div>
                         </div>
@@ -100,7 +100,7 @@ const CourseCard = ({ ...course }: CourseCardProps) => {
                                 <p className="text-xs flex items-center gap-x-3">Total Amount </p>
                                 <strong className="text-lg" >{price}</strong>
                             </div>
-                            <Button onClick={handleClick} className="form-btn cursor-pointer bg-yellow-100 hover:bg-yellow-100/80 py-5 px-8 duration-150 mb-4">Enroll Now</Button>
+                            <Button onClick={handleClick} className="form-btn cursor-pointer bg-yellow-100 hover:bg-yellow-100/80 py-5 sm:px-8 duration-150 mb-4">Enroll Now</Button>
                         </div>
                     </figcaption>
                 </article>

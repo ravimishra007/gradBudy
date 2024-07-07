@@ -11,7 +11,7 @@ interface SectionCardProps {
 const SectionCard = ({ imgSrc, title, paragraph, customClasses }: SectionCardProps) => {
     return (
         <article className={`${customClasses}`}>
-            <figure className="lg:max-w-[50%] flex-center my-12 w-full relative">
+            <figure className="lg:max-w-[50%] flex-center mt-4 mb-6 sm:my-8 lg:my-12 w-full relative">
                 <Image src={imgSrc} alt="Image" width={630} height={355} />
             </figure>
             <figcaption className="lg:max-w-[50%] w-full mt-5 lg:mt-0 lg:px-16">

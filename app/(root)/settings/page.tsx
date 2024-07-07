@@ -46,26 +46,26 @@ const Settings = () => {
     };
 
     return (
-        <section className="flex-center bg-white-100 h-full mx-auto">
-            <form onSubmit={handleSubmit} className="bg-white rounded-tl-[50px] max-w-[1440px] my-10 w-full p-6 sm:p-12 mx-4 sm:mx-10 md:mx-16">
+        <section className="flex-center md:bg-white-100 h-full mx-auto">
+            <form onSubmit={handleSubmit} className="bg-white rounded-tl-[50px] max-w-[1440px] my-10 w-full sm:p-12 sm:mx-10 px-4 md:mx-16">
                 <MainHeader title="Settings" subTitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit" />
                 <div className="flex-center flex-col lg:justify-between lg:flex-row gap-y-8">
                     <div className="flex-center gap-x-4 sm:gap-8">
                         <Image
-                            className="h-20 w-20 sm:h-24 sm:w-24 object-cover"
+                            className="h-16 w-16 sm:h-24 sm:w-24 object-cover"
                             src="/icons/profile.svg"
                             alt="Profile"
                             width={100}
                             height={100}
                         />
                         <div className="text-[#344054] capitalize">
-                            <h3 className="text-lg sm:text-xl font-semibold">Your Name</h3>
-                            <p className="text-base sm:text-lg font-medium">This will be displayed on the profile</p>
+                            <h3 className="text-base sm:text-lg md:text-xl font-semibold">Your Name</h3>
+                            <p className="text-xs sm:text-base md:text-lg font-medium">This will be displayed on the profile</p>
                         </div>
                     </div>
-                    <div className="flex gap-x-8 items-center justify-around">
-                        <Button type="button" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 mb-4">Delete</Button>
-                        <Button type="button" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 mb-4">Update</Button>
+                    <div className="flex gap-x-4 sm:gap-x-8 items-center justify-around">
+                        <Button type="button" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-8 sm:px-16 duration-150 mb-4">Delete</Button>
+                        <Button type="button" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-8 sm:px-16 duration-150 mb-4">Update</Button>
                     </div>
                 </div>
                 {/* Change Name And Language */}

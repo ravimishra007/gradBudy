@@ -100,20 +100,24 @@ const MyPurchaseCard = ({ topicName, teacherName, duration, date, amount }: MyPu
         <div className="max-w-[540px] w-full text-[#344054] bg-white rounded-[8px] [box-shadow:2px_2px_40px_4px_rgba(105,_65,_198,_0.10)] px-3 sm:px-6 pt-8 pb-6">
             <div className="flex justify-between items-center border-b-2 pb-2">
                 <div className="flex flex-col">
-                    <h2 className="text-[#0A0D14] font-semibold text-base sm:text-lg">{topicName}</h2>
+                    <div className='flex'>
+                        <h2 className="text-[#0A0D14] font-semibold text-xs sm:text-base md:text-lg">{topicName}</h2>
+                        <p className="block md:hidden text-[10px] mt-0.5 ml-3 sm:ml-8 sm:text-sm md:text-base font-normal">{date}</p>
+                    </div>
                     <div className="flex gap-x-4 my-2 mb-3">
-                        <h3 className="text-[#6941C6] text-sm sm:text-base font-medium">{teacherName}</h3>
-                        <li className="text-sm sm:text-base font-normal list-disc pl-4">{duration}</li>
+                        <h3 className="text-[#6941C6] text-xs sm:text-base font-medium">{teacherName}</h3>
+                        <li className="text-xs sm:text-base font-normal list-disc pl-4">{duration}</li>
                     </div>
                 </div>
-                <p className="text-sm sm:text-base font-normal">{date}</p>
+                <p className="hidden md:block text-[10px] mt-0.5 ml-3 sm:ml-8 sm:text-sm md:text-base font-normal">{date}</p>
+
             </div>
             <div className="pt-3 flex justify-between">
                 <div>
                     <p className="text-xs sm:text-sm font-normal">Total Amount</p>
                     <h2 className="text-sm sm:text-lg font-semibold">${amount.toFixed(2)}</h2>
                 </div>
-                <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 px-10 sm:px-16 duration-150 mb-4 max-w-[46px]">
+                <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 px-10 sm:px-16 duration-150 mb-4 text-sm sm:text-base max-w-[46px]">
                     Receipt
                 </Button>
             </div>

@@ -30,22 +30,22 @@ const AboutMentor = ({ mentor }: courseDetailDataProp) => {
             <div className="flex flex-col md:flex-row justify-between md:items-center">
                 <div className="flex flex-row items-center gap-x-6 sm:gap-x-8 my-4 sm:my-8">
                     <h3 className="subHeading mb-1" >About the Mentor</h3>
-                    <h4 className="text-lg sm:text-xl font-medium capitalize text-[#6941C6]" >{mentor.name}</h4>
+                    <h4 className="text-sm sm:text-lg md:text-xl font-medium capitalize text-[#6941C6]" >{mentor.name}</h4>
                 </div>
-                <Button onClick={handleAddToFavourites} className="hidden lg:flex form-btn bg-yellow-100 hover:bg-yellow-100/80 py-6 px-16 duration-150 mb-4">Add to Favourites</Button>
+                <Button onClick={handleAddToFavourites} className="hidden lg:flex form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-16 duration-150 mb-4">Add to Favourites</Button>
             </div>
 
             <div>
                 <div className="flex flex-col sm:mt-10 md:mt-5 lg:flex-row md:items-center gap-4 my-5 mb-10 rounded-sm">
-                    <div className='flex gap-x-8 items-center'>
+                    <div className='flex gap-x-4 sm:gap-x-8 items-center'>
                         <Image
-                            className="h-24 w-24 object-cover"
+                            className="sm:h-24 h-14 w-14 sm:w-24 object-cover"
                             src={mentor.profileImg}
                             alt={mentor.name}
                             width={100}
                             height={100}
                         />
-                        <div className="md:text-base font-normal">
+                        <div className="text-xs sm:text-sm md:text-base font-normal">
                             <p>{mentor.university}</p>
                             <Link className="text-blue-800 underline cursor-pointer" href="www.linkedin.com/in/" target="_blank">{mentor.linkedin}</Link>
                             <p className='text-blue-800 cursor-pointer'>
@@ -56,9 +56,9 @@ const AboutMentor = ({ mentor }: courseDetailDataProp) => {
                             </p>
                         </div>
                     </div>
-                    <Button onClick={handleAddToFavourites} className="mt-5 flex lg:hidden form-btn bg-yellow-100 hover:bg-yellow-100/80 py-6 px-16 duration-150 mb-4">Add to Favourites</Button>
+                    <Button onClick={handleAddToFavourites} className="mt-5 flex lg:hidden form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-16 duration-150 sm:mb-4">Add to Favourites</Button>
                 </div>
-                <p className="text-lg font-medium text-black/60">{mentor.bio.slice(0, 450)}....<Link className="text-[#6941C6]" href={`/course/favourite-professor/detail/${mentor.id}`} >see more</Link></p>
+                <p className="text-base text-justify sm:text-lg font-medium text-black/60">{mentor.bio.slice(0, 450)}....<Link className="text-[#6941C6]" href={`/course/favourite-professor/detail/${mentor.id}`} >see more</Link></p>
             </div>
         </div>
     )

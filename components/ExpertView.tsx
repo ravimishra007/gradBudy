@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import { Button } from './ui/button'
+import Link from 'next/link';
 
 const featuresData = [
     {
@@ -47,8 +48,8 @@ const ExpertView = () => {
                             />
                         ))}
                     </div>
-
-                    <Button type="button" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 !mt-14 duration-150 md:max-w-[200px]">Start Learning</Button>
+                    <Link href="/course/all-courses">
+                        <Button type="button" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 !mt-14 duration-150 md:max-w-[200px]">Start Learning</Button></Link>
                 </div>
             </div>
         </section>

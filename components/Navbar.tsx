@@ -6,16 +6,6 @@ import Link from 'next/link'
 import * as React from "react"
 
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-
-import {
     Sheet,
     SheetContent,
     SheetDescription,
@@ -49,10 +39,9 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { selectLoggedInUser, signOutAsync } from '@/lib/features/auth/authSlice'
+import { Button } from './ui/button'
 
-interface SheetTitleProps {
-    children: string;
-}
+import { FiChevronDown } from 'react-icons/fi';
 
 const headings: string[] = [
     'Manage Profile',
@@ -65,7 +54,6 @@ const headings: string[] = [
     'Help',
 ];
 
-
 const Navbar = () => {
     const dispatch = useAppDispatch()
     const cart = useAppSelector((state: RootState) => state.cart.cart);
@@ -77,113 +65,255 @@ const Navbar = () => {
         }
     };
 
+    const [openItems, setOpenItems] = React.useState<{ [key: string]: boolean }>({});
+
+    const toggleItem = (id: string) => {
+        setOpenItems((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
+
+    const navItems = [
+        {
+            id: 'stream', label: 'Stream', subItems: [
+                { id: 'stream1', label: 'Stream 1', url: '/stream1' },
+                { id: 'stream2', label: 'Stream 2', url: '/stream2' },
+                { id: 'stream3', label: 'Stream 3', url: '/stream3' }
+            ]
+        },
+        {
+            id: 'courses', label: 'Courses', subItems: [
+                { id: 'course1', label: 'Advanced Management Skills', url: '/course/course-detail/1' },
+                { id: 'course2', label: 'Advanced Project Management', url: '/course/course-detail/2' },
+                { id: 'course3', label: 'Advanced Data Analysis', url: '/course/course-detail/3' }
+            ]
+        },
+        { id: 'contact-us', label: 'Contact Us', url: '/contact-us' },
+    ];
+    if (!user) {
+        const aboutUsItem = { id: 'about-us', label: 'About Us', url: '/about-us' };
+        const insertIndex = 2;
+        navItems.splice(insertIndex, 0, aboutUsItem);
+    }
+    if (!user) {
+        const aboutUsItem = {
+            id: 'account-name', label: 'Account Name', subItems: [
+                { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
+                { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
+                { id: 'favourite-professors', label: 'Favourite Professors', url: '/favourite-professor' },
+                { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings' },
+                { id: 'my-learnings', label: 'My Learnings', url: '/course/my-learnings' },
+                { id: 'settings', label: 'Settings', url: '/settings' }
+            ]
+        };
+        const insertIndex = 0;
+        navItems.splice(insertIndex, 0, aboutUsItem);
+    }
+
     return (
-        <nav className="w-full h-20 flex items-center justify-between px-6 sm:px-12 md:px-20 bg-white">
-            {/* Logo */}
-            <div className="text-xl font-bold">
-                <Link href="/">
-                    <Image
-                        src="/next.svg"
-                        alt="Logo"
-                        width={100}
-                        height={100}
-                        priority
-                    />
-                </Link>
-            </div>
-
-            {/* Search */}
-            {/* <div className='hidden xl:flex-center gap-12 '>
-                <h3 className="nav-heading">
-                    Course 1
-                </h3>
-
-                <div className="max-w-md relative">
-                    <Image
-                        className="absolute top-3 left-3 opacity-80"
-                        src="/icons/search.svg"
-                        alt="Search"
-                        width={20}
-                        height={20}
-                        priority
-                    />
-
-                    <input type="text" className="rounded-[8px] max-w-[467px] w-full outline-none py-2 bg-white border border-[#D0D5DD] text-[#344054] pl-10 px-6" placeholder="Search" />
-                </div>
-
-                <Select>
-                    <SelectTrigger className="w-[150px] rounded-[8px] bg-white border-[#D0D5DD] font-semibold text-[#344054] gap-x-4">
-
-                        <Image src="/icons/filter-lines.svg" width={20} height={20} alt="Filter" />
-                        <SelectValue placeholder="Filter" />
-                    </SelectTrigger>
-                    <SelectContent className='bg-white'>
-                        <SelectGroup>
-                            <SelectItem className='border-b cursor-pointer' value="stream">By Stream</SelectItem>
-                            <SelectItem className='border-b cursor-pointer' value="subject">By Subject/Topic</SelectItem>
-                            <SelectItem className='cursor-pointer' value="collage">By Collages</SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-            </div> */}
-
-            <div className='hidden lg:block'>
-                <NavigationMenuDemo />
-            </div>
-
-            {/* User Profile */}
-            <div className='flex-center gap-12 relative'>
-                <Link href="/course/my-cart">
-                    <div className='relative'>
+        <>
+            {/* for Desktop  */}
+            <nav className="w-full h-20 hidden lg:flex items-center justify-between px-6 sm:px-12 md:px-20 bg-white">
+                {/* Logo */}
+                <div className="text-xl font-bold">
+                    <Link href="/">
                         <Image
-                            src="/icons/cart.svg"
-                            alt="Profile"
-                            width={25}
-                            height={25}
+                            src="/next.svg"
+                            alt="Logo"
+                            width={100}
+                            height={100}
                             priority
                         />
-                        <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
 
-                <div className="flex-center gap-4 relative">
-                    <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
-                    <Sheet>
-                        <SheetTrigger>
+                {/* User Profile */}
+                <div className='flex-center gap-12 relative'>
+                    <div className='flex-center gap-8'>
+                        <div className=''>
+                            <NavigationMenuDemo />
+                        </div>
+
+                        {!user && <Link href="/course/my-cart">
+                            <div className='relative'>
+                                <Image
+                                    src="/icons/cart.svg"
+                                    alt="Profile"
+                                    width={25}
+                                    height={25}
+                                    priority
+                                />
+                                <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                            </div>
+                        </Link>}
+                    </div>
+
+                    {!user ? (
+                        <div className="flex-center gap-4 relative bg-white-100 p-2 px-3 rounded-full">
+                            <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
+                            <Sheet>
+                                <SheetTrigger>
+                                    <Image
+                                        className="object-cover"
+                                        src="/icons/profile.svg"
+                                        alt="Profile"
+                                        width={30}
+                                        height={30}
+                                        priority
+                                    />
+                                </SheetTrigger>
+                                <SheetContent>
+                                    <SheetHeader>
+                                        {headings.map((heading, index) => (
+                                            <SheetTitle className='border-b hover:bg-white-100' key={index}>{heading}</SheetTitle>
+                                        ))}
+                                        <SheetTitle className='border-b before:hover:bg-white-100'>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger>Logout</AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Are you sure you want to discontinue your learning journey?</AlertDialogTitle>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter >
+                                                        <AlertDialogCancel>Stay Login</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={handleLogout}>Log Out</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </SheetTitle>
+                                    </SheetHeader>
+                                </SheetContent>
+                            </Sheet>
+                        </div>
+                    ) : (
+                        <div>
+                            <Button className="text-white text-base font-semibold rounded-full cursor-pointer bg-[#2C1C5F] hover:bg-[#2C1C5F]/90 duration-150 hover:scale-95 py-2 px-7"><Link href="login">Sign In</Link></Button>
+                        </div>
+                    )}
+                </div>
+            </nav>
+
+            {/* for Mobile  */}
+            <nav className='w-full h-20 px-4 lg:hidden flex justify-between items-center'>
+
+                <div className="text-xl font-bold">
+                    <Link href="/">
+                        <Image
+                            src="/next.svg"
+                            alt="Logo"
+                            width={100}
+                            height={100}
+                            priority
+                        />
+                    </Link>
+                </div>
+                <div className='flex-center flex-row-reverse gap-x-8'>
+                    <div>
+                        <Sheet>
+                            <SheetTrigger>
+                                <Image
+                                    src="/icons/menu.svg"
+                                    alt="Profile"
+                                    width={30}
+                                    height={15}
+                                    priority
+                                />
+                            </SheetTrigger>
+                            <SheetContent>
+                                <SheetHeader>
+                                    <SheetTitle className='flex-center text-[#2C1C5F] text-base font-semibold border-b border-[#2C1C5F] text-center'>
+                                        <Image
+                                            src="/next.svg"
+                                            alt="Logo"
+                                            width={100}
+                                            height={100}
+                                            priority
+                                        />
+                                    </SheetTitle>
+                                    <SheetTitle>
+                                        <nav className="w-full">
+                                            <ul className='flex flex-col'>
+                                                {navItems.map((item) => (
+                                                    <li key={item.id} className='border-b text-sm sm:text-base my-2 pb-4'>
+                                                        <div onClick={() => toggleItem(item.id)} className='flex justify-between items-center'>
+                                                            {item.subItems ? (
+                                                                <div className='flex items-center gap-x-2'>
+                                                                    {(navItems[0].label === item.label) && <Image
+                                                                        className='h-[30px] w-[30px] object-cover rounded-full'
+                                                                        src="/icons/profile.svg"
+                                                                        alt="Logo"
+                                                                        width={30}
+                                                                        height={30}
+                                                                        priority
+                                                                    />}
+                                                                    <span className='font-semibold'>{item.label}</span>
+                                                                </div>
+                                                            ) : (
+                                                                <Link
+                                                                    href={item.url} className='font-semibold'>{item.label}</Link>
+                                                            )}
+                                                            {item.subItems && (
+                                                                <button
+                                                                    className='text-xl'
+
+                                                                >
+                                                                    <FiChevronDown />
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                        {item.subItems && openItems[item.id] && (
+                                                            <ul className='pl-4 pt-2'>
+                                                                {item.subItems.map((subItem) => (
+                                                                    <li className="text-xs sm:text-sm pb-3 font-medium text-black/80" key={subItem.id}>
+                                                                        <Link href={subItem.url}>{subItem.label}</Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        )}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </nav>
+                                    </SheetTitle>
+
+                                    {user ? (<SheetTitle className='border-b text-sm sm:text-base'>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>Logout</AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Are you sure you want to discontinue your learning journey?</AlertDialogTitle>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter >
+                                                    <AlertDialogCancel>Stay Login</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={handleLogout}>Log Out</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </SheetTitle>) : (
+                                        <SheetTitle className='border-b text-sm sm:text-base' >
+                                            <Link href="/login">Login</Link>
+                                        </SheetTitle>
+                                    )}
+                                </SheetHeader>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
+                    {!user && <Link href="/course/my-cart">
+                        <div className='relative'>
                             <Image
-                                className="object-cover"
-                                src="/icons/profile.svg"
+                                src="/icons/cart.svg"
                                 alt="Profile"
-                                width={30}
-                                height={30}
+                                width={25}
+                                height={25}
                                 priority
                             />
-                        </SheetTrigger>
-                        <SheetContent>
-                            <SheetHeader>
-                                {headings.map((heading, index) => (
-                                    <SheetTitle key={index}>{heading}</SheetTitle>
-                                ))}
-                                <SheetTitle>
-                                    <AlertDialog>
-                                        <AlertDialogTrigger>Logout</AlertDialogTrigger>
-                                        <AlertDialogContent>
-                                            <AlertDialogHeader>
-                                                <AlertDialogTitle>Are you sure you want to discontinue your learning journey?</AlertDialogTitle>
-                                            </AlertDialogHeader>
-                                            <AlertDialogFooter >
-                                                <AlertDialogCancel>Stay Login</AlertDialogCancel>
-                                                <AlertDialogAction onClick={handleLogout}>Log Out</AlertDialogAction>
-                                            </AlertDialogFooter>
-                                        </AlertDialogContent>
-                                    </AlertDialog>
-                                </SheetTitle>
-                            </SheetHeader>
-                        </SheetContent>
-                    </Sheet>
+                            <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                        </div>
+                    </Link>}
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </>
     )
 }
 
@@ -226,6 +356,9 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 
 export function NavigationMenuDemo() {
+
+    const user = useAppSelector(selectLoggedInUser)
+
     return (
         <NavigationMenu>
             <NavigationMenuList>
@@ -233,14 +366,14 @@ export function NavigationMenuDemo() {
                     <NavigationMenuTrigger>Course</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                            <ListItem href="/docs" title="Introduction">
-                                Re-usable components built using Radix UI and Tailwind CSS.
+                            <ListItem href="/course/course-detail/1" title="Advanced Management Skills">
+                                By John Doe from Indian Institute of Technology Madras
                             </ListItem>
-                            <ListItem href="/docs/installation" title="Installation">
-                                How to install dependencies and structure your app.
+                            <ListItem href="/course/course-detail/2" title="Advanced Project Management">
+                                By Jane Smith from Indian Institute of Technology Delhi
                             </ListItem>
-                            <ListItem href="/docs/primitives/typography" title="Typography">
-                                Styles for headings, paragraphs, lists...etc
+                            <ListItem href="/course/course-detail/3" title="Advanced Data Analysis">
+                                By Alice Johnson from Indian Institute of Technology Bombay
                             </ListItem>
                         </ul>
                     </NavigationMenuContent>
@@ -269,13 +402,24 @@ export function NavigationMenuDemo() {
                     </Link>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                    <Link href="/course/my-learnings" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            My Learnings
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
+                {user ? (
+                    <NavigationMenuItem>
+                        <Link href="/course/my-learnings" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                My Learnings
+                            </NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem>
+                ) : (
+                    <NavigationMenuItem>
+                        <Link href="/about-us" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                About Us
+                            </NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem>
+                )}
+
             </NavigationMenuList>
         </NavigationMenu>
     )

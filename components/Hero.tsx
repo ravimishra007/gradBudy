@@ -44,7 +44,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id='Hero_Section' className="px-5 sm:px-16 lg:px-0 max-w-7xl w-full mx-auto pb-5" >
+        <section id='Hero_Section' className="px-3 sm:px-16 lg:px-0 max-w-7xl w-full mx-auto pb-5" >
             <div className='flex flex-col gap-y-10 lg:flex-row mx-auto'>
                 <div className="w-full lg:w-1/2 space-y-5">
                     <header>
@@ -79,7 +79,7 @@ const Hero = () => {
                 <div className="flex justify-around absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-4">
                     {stats.slice(0, visibleStats).map((stat, index) => (
                         <React.Fragment key={index}>
-                            <DynamicStat className='text-lg font-bold sm:text-3xl' {...stat} />
+                            <DynamicStat className='text-lg font-bold sm:text-3xl' subClassName="text-[10px] sm:text-sm md:text-lg font-medium" {...stat} />
                             {index < visibleStats - 1 && (
                                 <span className='flex justify-center items-center bg-[#344054]/50 w-[1px] sm:w-[3px] h-[1]' />
                             )}
