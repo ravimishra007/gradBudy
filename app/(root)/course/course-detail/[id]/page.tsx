@@ -4,7 +4,6 @@ import CourseOutline from '@/components/CourseOutline';
 import { Button } from '@/components/ui/button'
 import { courseDetailData } from '@/constents/constents';
 import { LableCardProps } from '@/constents/types';
-import { useAppDispatch } from '@/lib/hooks';
 import Image from 'next/image'
 import Link from 'next/link';
 
@@ -75,7 +74,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
                                 <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-6 px-16 duration-150 mb-4"> Register</Button>
                             </article>
-                            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10 xl:gap-[7vw] mx-auto">
+                            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-10 xl:gap-[7vw] mx-auto">
                                 {courseData.labels.map((data, idx) => (
                                     <LableCard key={idx} iconSrc={data.iconSrc} lable={data.label} name={`${data.name}`} />
                                 ))}
@@ -85,7 +84,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         {/* What you will Learn */}
                         <div className="my-10 sm:my-16">
                             <h3 className="subHeading my-4 sm:my-8" >What you will Learn</h3>
-                            <p className="text-lg font-medium text-black/60" >
+                            <p className="text-base sm:text-lg font-medium text-justify text-black/60" >
                                 {courseData.detailedDescription}
                             </p>
 
@@ -97,7 +96,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         {/* Requirements */}
                         <div className="my-10 sm:my-16">
                             <h3 className="subHeading my-4 sm:my-8" >Requirements</h3>
-                            <ul className="text-lg list-disc pl-5 sm:pl-10 font-medium text-black/60">
+                            <ul className="text-base text-justify sm:text-lg list-disc pl-5 sm:pl-10 font-medium text-black/60">
                                 {courseData.requirements.map((item, index) => (
                                     <li key={index}>
                                         {item}
@@ -129,10 +128,10 @@ export default function Page({ params }: { params: { id: string } }) {
 const LableCard = ({ iconSrc, name, lable }: LableCardProps) => {
     return (
         <div className="flex flex-col gap-2 p-3 sm:p-6 sm:px-10 bg-[#6941C6]/5 rounded-[12px] sm:min-w-[220px] min-h-[88px]">
-            <h4 className=" text-base font-normal text-black/50">{lable}</h4>
+            <h4 className="text-sm sm:text-base font-normal text-black/50">{lable}</h4>
             <div className="flex items-center gap-x-2 sm:gap-x-4" >
-                <Image className='w-6 h-5' src={iconSrc} alt={lable} width={30} height={30} />
-                <h3 className="font-bold text-lg sm:text-xl text-[#0A0D14] opacity-90 capitalize">{name}</h3>
+                <Image className='sm:w-6 w-5 sm:h-5 h-4' src={iconSrc} alt={lable} width={30} height={30} />
+                <h3 className="font-bold text-base sm:text-xl text-[#0A0D14] opacity-90 capitalize">{name}</h3>
             </div>
         </div>
     );

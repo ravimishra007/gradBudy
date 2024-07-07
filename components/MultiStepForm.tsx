@@ -137,7 +137,7 @@ const MultiStepForm: React.FC = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-5">
+        <div className="max-w-6xl mx-auto sm:p-5">
             <div className="flex justify-between mb-8">
                 {[1, 2, 3, 4].map((stepNumber) => (
                     <div key={stepNumber} className={`w-[17vw] h-4 flex items-center justify-center rounded-full ${stepClasses(stepNumber)}`} />
@@ -743,7 +743,7 @@ const MultiStepForm: React.FC = () => {
 
                         <div className="pt-8 flex gap-8">
                             <Button onClick={handlePrevious} className="form-btn border border-[#F79009] !text-yellow-100 bg-yellow-100/40 hover:bg-yellow-100/30 py-4 sm:py-6 px-10 sm:px-16 duration-150 w-full">Back</Button>
-                            <Button onClick={handleNext} className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 w-full">Save Details and Next</Button>
+                            <Button onClick={handleNext} className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 w-full"><span className='hidden sm:inline'>Save Details and</span> Next</Button>
                         </div>
                     </div>
                 </>
@@ -807,7 +807,7 @@ const MultiStepForm: React.FC = () => {
                             onClick={handleNext}
                             className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 w-full"
                         >
-                            Save Details and Next
+                            <span className='hidden sm:inline'>Save Details and</span> Next
                         </Button>
                     </div>
                 </div>
@@ -927,9 +927,9 @@ const MultiStepForm: React.FC = () => {
 
                         <button onClick={handleAddExperience} className="text-[#6941C6] hover:bg-[#6941C6]/10 hover:scale-95 duration-150 text-base sm:text-lg font-bold py-2 w-48 rounded-[8px]">+ Add Experience</button>
 
-                        <div className="pt-8 flex gap-8">
-                            <Button onClick={handlePrevious} className="form-btn border border-[#F79009] !text-yellow-100 bg-yellow-100/40 hover:bg-yellow-100/30 py-4 sm:py-6 px-10 sm:px-16 duration-150 w-full">Previous</Button>
-                            <Button type="submit" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 w-full" onClick={(e) => {
+                        <div className="pt-8 flex gap-x-6 sm:gap-8">
+                            <Button onClick={handlePrevious} className="form-btn border border-[#F79009] !text-yellow-100 bg-yellow-100/40 hover:bg-yellow-100/30 py-4 sm:py-6 px-8 sm:px-16 duration-150 w-full">Previous</Button>
+                            <Button type="submit" className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-8 sm:px-16 duration-150 w-full" onClick={(e) => {
                                 e.preventDefault()
                             }}>Submit</Button>
                         </div>

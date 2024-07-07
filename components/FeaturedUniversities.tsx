@@ -7,25 +7,25 @@ const colleges = [
         name: 'Indian Institute of Technology BHU',
         bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec',
         logo: '/images/hero_img.png',
-        url: '/'
+        url: '/university-details'
     },
     {
         name: 'Stanford University',
         bio: 'Stanford University is known for its academic strength, wealth, proximity to Silicon Valley, and ranking as one of the world\'s top universities.',
         logo: '/images/hero_img.png',
-        url: '/'
+       url: '/university-details'
     },
     {
         name: 'Massachusetts Institute of Technology',
         bio: 'MIT is a world leader in research and education, and is home to one of the best engineering schools globally.',
         logo: '/images/hero_img.png',
-        url: '/'
+        url: '/university-details'
     },
     {
         name: 'Harvard University',
         bio: 'Harvard University is devoted to excellence in teaching, learning, and research, and to developing leaders in many disciplines who make a difference globally.',
         logo: '/images/hero_img.png',
-        url: '/'
+        url: '/university-details'
     }
 ];
 

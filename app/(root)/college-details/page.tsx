@@ -43,7 +43,7 @@ const CollegeDetails = () => {
                                     />
                                     <h3 className='subHeading text-start block lg:hidden'>Indian Institute of Technology Kanpur</h3>
                                 </div>
-                                <div className="text-[#F0F0F0] text-start w-full lg:w-[70%] text-sm lg:text-lg font-normal">
+                                <div className="text-[#F0F0F0] text-start w-full lg:w-[70%] text-xs sm:text-sm lg:text-lg font-normal">
                                     <h3 className='hidden lg:block subHeading'>College Name</h3>
                                     <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra.</p>
                                 </div>
@@ -67,7 +67,7 @@ const CollegeDetails = () => {
                                             width={20}
                                             height={20}
                                         />
-                                        <p className="text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">City, District, State</p>
+                                        <p className="text-xs sm:text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">City, District, State</p>
                                     </div>
                                     <div className="flex justify-center items-center gap-x-3">
                                         <Image
@@ -77,7 +77,7 @@ const CollegeDetails = () => {
                                             width={20}
                                             height={20}
                                         />
-                                        <p className="text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">Affiliated to XYZ University</p>
+                                        <p className="text-xs sm:text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">Affiliated to XYZ University</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-x-10 mt-3 lg:mt-0">
@@ -89,7 +89,7 @@ const CollegeDetails = () => {
                                             width={20}
                                             height={20}
                                         />
-                                        <p className="text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">NIRF Ranking 52</p>
+                                        <p className="text-xs sm:text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">NIRF Ranking 52</p>
                                     </div>
 
                                     <div className="flex justify-center items-center gap-x-3">
@@ -100,20 +100,20 @@ const CollegeDetails = () => {
                                             width={20}
                                             height={20}
                                         />
-                                        <p className="text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">Founded in 1958</p>
+                                        <p className="text-xs sm:text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">Founded in 1958</p>
                                     </div>
                                 </div>
 
-                                <div className='flex justify-between items-center gap-x-10 mt-4 lg:mt-0'>
+                                <div className='flex justify-between items-center gap-x-6 sm:gap-x-10 mt-4 lg:mt-0'>
                                     <div className="flex lg:hidden justify-center items-center gap-4">
                                         <h3 className="text-2xl font-semibold">4.5</h3>
                                         <div className='text-sm space-y-1' >
                                             <p>⭐⭐⭐⭐⭐</p>
-                                            <p>5.6K reviews</p>
+                                            <p className='text-xs sm:text-sm'>5.6K reviews</p>
                                         </div>
                                     </div>
                                     <div>
-                                        <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-10 sm:px-16 duration-150 border-none">Update</Button>
+                                        <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-6 sm:px-16 duration-150 border-none">Update</Button>
                                     </div>
                                 </div>
                             </div>
@@ -121,8 +121,8 @@ const CollegeDetails = () => {
                     </div>
 
                     {/* Main  */}
-                    <div className="p-6 sm:px-12">
-                        <div className="w-full max-w-6xl mx-auto">
+                    <div className="p-4 sm:px-12">
+                        <div className="w-full max-w-6xl mx-auto text-justify">
 
                             {/* Campus Details */}
                             <div className="space-y-10 mb-10">
@@ -179,7 +179,9 @@ const CollegeDetails = () => {
 
                                 <p className="text-base lg:text-lg text-black/70 my-5">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra.</p>
 
-                                <CourseDataTable />
+                                <div className='text-start'>
+                                    <CourseDataTable />
+                                </div>
                             </div>
 
                             {/* Placements Details */}
@@ -208,7 +210,7 @@ const CollegeDetails = () => {
                             </div>
 
                             {/* Frequently Asked Questions */}
-                            <div className="space-y-10 my-10 lg:my-16">
+                            <div className="space-y-10 my-10 lg:my-16 text-start">
                                 <h1 className="subHeading">Frequently Asked Questions</h1>
                                 <FaQ />
                             </div>

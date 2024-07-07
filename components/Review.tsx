@@ -9,13 +9,14 @@ interface DynamicStatProps {
     label: string;
     suffix: string;
     className?: string;
+    subClassName?: string;
 }
 
-export const DynamicStat = ({ count, label, suffix, duration, className }: DynamicStatProps) => {
+export const DynamicStat = ({ count, label, suffix, duration, className, subClassName }: DynamicStatProps) => {
     return (
         <div className={`uppercase text-[#2C1C5F] flex flex-col`}>
             <CountUp end={count} suffix={`${suffix} `} duration={duration} className={`font-semibold ${className ? className : 'text-3xl'} md:text-4xl leading-tight`} />
-            <span className=" text-sm md:text-lg font-medium leading-5">{label}</span>
+            <span className={`${subClassName ? subClassName : "text-sm md:text-lg font-medium leading-5"}`}>{label}</span>
         </div>
     );
 };

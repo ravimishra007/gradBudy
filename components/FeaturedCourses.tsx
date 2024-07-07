@@ -14,7 +14,7 @@ const FeaturedCourses = () => {
                         <p className="paragraph">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec</p>
                     </div>
                 </div>
-                <div className="gap-6 gap-x-4 sm:gap-x-0 sm:gap-y-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-items-center px-5 sm:px-16 lg:px-0 pt-56 w-full max-w-7xl mx-auto">
+                <div className="gap-6 gap-x-4 sm:gap-x-0 sm:gap-y-10 flex flex-wrap items-center justify-center lg:justify-around px-3 sm:px-16 lg:px-0 pt-56 w-full max-w-7xl mx-auto">
                     {courseDetailData.map((course) => (
                         <CourseCard key={course.id} {...course} />
                     ))}

@@ -107,7 +107,7 @@ const AllCourses = () => {
     return (
         <>
             <section className="flex-center md:bg-white-100 h-full mx-auto">
-                <div className="bg-white rounded-tl-[50px] max-w-[1440px] my-10 w-full p-6 sm:p-12 sm:mx-10 lg:mx-10">
+                <div className="bg-white rounded-tl-[50px] max-w-[1440px] my-10 w-full p-3 sm:p-12 sm:mx-10 lg:mx-10">
                     <MainHeader title="All Courses" subTitle="Select your desired courses to expand your knowledge" />
                     <Breadcrumb className='pb-5'>
                         <BreadcrumbList>

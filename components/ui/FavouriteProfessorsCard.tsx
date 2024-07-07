@@ -29,14 +29,14 @@ const FavouriteProfessorsCard = ({ id, imgSrc, name, college, bio, showbtn = tru
     };
 
     return (
-        <div className='relative rounded-[12px] border border-[#6941c60d] bg-[#6941c60d] [box-shadow:2px_2px_40px_4px_rgba(105,_65,_198,_0.10)] max-w-[380px] p-5 pt-10'>
+        <div className='relative rounded-[12px] border border-[#6941c60d] bg-[#6941c60d] [box-shadow:2px_2px_40px_4px_rgba(105,_65,_198,_0.10)] max-w-[380px] p-3 sm:p-5 pt-10'>
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Image className="object-cover rounded-full" src={imgSrc} alt={`${name}'s profile picture`} width={70} height={70} />
             </div>
 
             {showbtn && <button onClick={() => handleRemoveFromFavourites(id)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>}
 
-            <div className="text-center space-y-5">
+            <div className="text-center mt-3 space-y-5">
                 <div>
                     <h3 className="text-[#6941C6] text-lg font-semibold">{name}</h3>
                     <p className="text-sm font-medium text-[#344054]">{college}</p>

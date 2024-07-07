@@ -18,7 +18,7 @@ const AboutUs = () => {
     return (
         <>
             <section className="flex-center bg-white mx-auto">
-                <div className="max-w-[1440px] sm:my-10 w-full p-4 sm:p-12 sm:mx-10 md:mx-16 space-y-6 sm:space-y-10 md:space-y-16 lg:space-y-24 xl:space-y-32">
+                <div className="max-w-[1440px] sm:mb-10 w-full p-4 sm:px-12 sm:mx-10 md:mx-16 sm:space-y-10">
                     <SectionCard
                         imgSrc="/images/image1.png"
                         customClasses="flex-center flex-col-reverse lg:flex-row"
@@ -41,7 +41,7 @@ const AboutUs = () => {
                         title="Our Vision"
                         paragraph="“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean viverra. “ ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec in diam aenean . “Lorem ipsum dolor sit , consectetur adipiscing elit. Turpis donec amet proin  nec in diam  viverra."
                     />
-                    <div className="py-10 lg:py-0">
+                    <div className="py-10 md:py-0">
                         <h3 className="text-2xl font-bold leading-6 border-b border-yellow-100 py-3 sm:py-5 max-w-[375px] capitalize" >Our Team</h3>
 
                         <div className="hidden lg:flex mt-10 sm:mt-16 justify-around items-center flex-wrap gap-y-8">
@@ -84,7 +84,7 @@ const AboutUs = () => {
 
 const TeamCard = ({ imgSrc, name, position, overview, socialMedia }: TeamCardProps) => {
     return (
-        <div className="flex-center flex-col gap-3 sm:gap-4 text-center p-6 py-10 bg-white lg:bg-[#6941C6]/5 rounded-[12px] max-w-[360px] h-96 [box-shadow:8px_8px_12px_0px_rgba(105,_65,_198,_0.05),_-2px_0px_4px_0px_#E9E9FE]">
+        <div className="flex-center flex-col gap-3 sm:gap-4 text-center px-3 py-10 bg-white lg:bg-[#6941C6]/5 rounded-[12px] max-w-[360px] h-96 [box-shadow:8px_8px_12px_0px_rgba(105,_65,_198,_0.05),_-2px_0px_4px_0px_#E9E9FE]">
             <Image src={imgSrc} alt={name} width={100} height={100} />
 
             <h3 className="font-bold text-xl capitalize">{name}</h3>
@@ -100,8 +100,8 @@ const TeamCard = ({ imgSrc, name, position, overview, socialMedia }: TeamCardPro
                             src={account.icon}
                             alt={account.platform}
                             className="object-cover hover:scale-90 duration-150"
-                            width={30}
-                            height={30}
+                            width={25}
+                            height={25}
                         />
                     </Link>
                 ))}
