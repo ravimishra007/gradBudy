@@ -1,7 +1,11 @@
 export interface User {
   id?: string;
+  name?: string;
   email: string;
-  password?: string; // Password should be optional as it won't be returned by the server
+  password?: string;
+  role?: string;
+  otp?: string;
+  newPassword?: string;
 }
 
 export interface LoginInfo {
@@ -11,7 +15,7 @@ export interface LoginInfo {
 
 export function createUser(userData: User): Promise<{ data: User }> {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/users", {
+    const response = await fetch("http://localhost:5000/user/signup", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: { "Content-Type": "application/json" },
@@ -22,46 +26,60 @@ export function createUser(userData: User): Promise<{ data: User }> {
 }
 
 export function checkUser(loginInfo: LoginInfo): Promise<{ data: User }> {
-  const email = loginInfo.email;
-  const password = loginInfo.password;
   return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/users?email=${email}`);
-    const data: User[] = await response.json();
-    if (data.length) {
-      if (password === data[0].password) {
-        resolve({ data: data[0] });
-      } else {
-        reject({ message: "wrong credentials" });
+    try {
+      const response = await fetch("http://localhost:5000/user/login", {
+        method: "POST",
+        body: JSON.stringify(loginInfo),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    } else {
-      reject({ message: "user not found" });
+
+      const data: User = await response.json();
+      resolve({ data });
+    } catch (error) {
+      reject({ message: "Invalid login credentials" });
     }
-    // TODO: on server it will only return some info of user (not password)
   });
 }
 
-export async function updateUser(
-  update: Partial<User>
-): Promise<{ data: User }> {
-  const response = await fetch(`http://localhost:8080/users/${update.id}`, {
-    method: "PUT",
-    body: JSON.stringify(update),
+export async function updateUser(email: string): Promise<{ data: User }> {
+  console.log(email);
+  const response = await fetch(`http://localhost:5000/user/forgot-password`, {
+    method: "POST",
+    body: JSON.stringify({email}),
     headers: {
       "Content-Type": "application/json",
     },
   });
 
   if (!response.ok) {
-    throw new Error("Failed to update user");
+    throw new Error("Email not found");
   }
 
   const data: User = await response.json();
   return { data };
 }
 
-export function signOut(userId: string): Promise<{ data: string }> {
-  return new Promise(async (resolve) => {
-    // TODO: on server we will remove user session info
-    resolve({ data: "success" });
+export async function resetPassword(userData: User): Promise<{ data: User }> {
+  console.log(userData);
+  const response = await fetch(`http://localhost:5000/user/reset-password`, {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+
+  if (!response.ok) {
+    throw new Error("Failed to reset password");
+  }
+
+  const data: User = await response.json();
+  return { data };
 }

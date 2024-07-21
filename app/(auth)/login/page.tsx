@@ -14,49 +14,49 @@ import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { checkUserAsync, selectError, selectLoggedInUser } from '@/lib/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-
-const authFormSchema = z.object({
-    email: z.string().email('Invalid email address'),
-    password: z.string().min(8, 'Password must be at least 8 characters long'),
-});
+import { loginSchema } from '@/constents/schemas';
+import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
     const dispatch = useAppDispatch();
+    const router = useRouter()
     const globalError = useAppSelector(selectError);
     // const user = useAppSelector(selectLoggedInUser);
     const [isLoading, setIsLoading] = useState(false);
-    const [localError, setLocalError] = useState('');
+    const [localError, setLocalError] = useState<String | null>('');
 
     const form = useForm({
-        resolver: zodResolver(authFormSchema),
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: '',
             password: '',
         },
     });
 
-    const onSubmit = (data: z.infer<typeof authFormSchema>) => {
+    const onSubmit = async (data: z.infer<typeof loginSchema>) => {
         setIsLoading(true);
-        dispatch(checkUserAsync({ email: data.email, password: data.password }))
-            .unwrap()
-            .catch((error) => {
+        console.log(data);
+
+        try {
+            await dispatch(checkUserAsync({ email: data.email, password: data.password })).unwrap();
+            // On success, redirect to home page
+            router.push('/');
+        } catch (error) {
+            if (error instanceof Error) {
                 setLocalError(error.message);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
+                console.error('Failed to log in: ', error);
+            } else {
+                setLocalError('wrong email and password');
+                console.error('An unknown error occurred', error);
+            }
 
-    useEffect(() => {
-        if (globalError) {
-            setLocalError(globalError);
-            const timer = setTimeout(() => {
-                setLocalError('');
+            setTimeout(() => {
+                setLocalError(null);
             }, 2000);
-
-            return () => clearTimeout(timer);
+        } finally {
+            setIsLoading(false);
         }
-    }, [globalError]);
+    };
 
     return (
         <section className="main-background">
@@ -76,7 +76,7 @@ const SignIn = () => {
                         <>
                             <CustomInput control={form.control} name='email' label="Email" placeholder='Enter your email' />
                             <CustomInput control={form.control} name='password' label="Password" placeholder='Enter your password' />
-                            {localError && <Label className='text-[#FF0808] ml-4' htmlFor="terms">{localError}</Label>}
+                            {localError && <span className='text-[#FF0808] ml-4 text-xs font-normal text-start'>{localError}</span>}
                             <div className='flex justify-between'>
                                 <div className="flex items-center space-x-2 text-yellow-100">
                                     <Checkbox id="terms" />

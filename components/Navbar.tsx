@@ -38,7 +38,7 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { selectLoggedInUser, signOutAsync } from '@/lib/features/auth/authSlice'
+import { selectLoggedInUser, signOut } from '@/lib/features/auth/authSlice'
 import { Button } from './ui/button'
 
 import { FiChevronDown } from 'react-icons/fi';
@@ -57,10 +57,23 @@ const Navbar = () => {
     const dispatch = useAppDispatch()
     const cart = useAppSelector((state: RootState) => state.cart.cart);
     const user = useAppSelector(selectLoggedInUser)
+    const [user1, setUser1] = React.useState<any>(null);
+    const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
+    React.useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser1(JSON.parse(storedUser));
+        }
+    }, []);
+
+    // console.log("local Data: ", user1)
+
 
     const handleLogout = () => {
-        if (user && user.id) {
-            dispatch(signOutAsync(user.id));
+        if (user) {
+            dispatch(signOut());
+            console.log("Logout Success")
         }
     };
 
@@ -95,7 +108,7 @@ const Navbar = () => {
         const insertIndex = 2;
         navItems.splice(insertIndex, 0, aboutUsItem);
     }
-    if (!user) {
+    if (user) {
         const aboutUsItem = {
             id: 'account-name', label: 'Account Name', subItems: [
                 { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
@@ -109,6 +122,20 @@ const Navbar = () => {
         const insertIndex = 0;
         navItems.splice(insertIndex, 0, aboutUsItem);
     }
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest(".navigation-menu") && isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isMenuOpen]);
 
     return (
         <>
@@ -134,7 +161,7 @@ const Navbar = () => {
                             <NavigationMenuDemo />
                         </div>
 
-                        {!user && <Link href="/course/my-cart">
+                        {user && <Link href="/course/my-cart">
                             <div className='relative'>
                                 <Image
                                     src="/icons/cart.svg"
@@ -148,7 +175,7 @@ const Navbar = () => {
                         </Link>}
                     </div>
 
-                    {!user ? (
+                    {user ? (
                         <div className="flex-center gap-4 relative bg-white-100 p-2 px-3 rounded-full">
                             <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
                             <Sheet>
@@ -240,7 +267,7 @@ const Navbar = () => {
                                                         <div onClick={() => toggleItem(item.id)} className='flex justify-between items-center'>
                                                             {item.subItems ? (
                                                                 <div className='flex items-center gap-x-2'>
-                                                                    {(navItems[0].label === item.label) && <Image
+                                                                    {user && (navItems[0].label === item.label) && <Image
                                                                         className='h-[30px] w-[30px] object-cover rounded-full'
                                                                         src="/icons/profile.svg"
                                                                         alt="Logo"
@@ -300,7 +327,7 @@ const Navbar = () => {
                             </SheetContent>
                         </Sheet>
                     </div>
-                    {!user && <Link href="/course/my-cart">
+                    {user && <Link href="/course/my-cart">
                         <div className='relative'>
                             <Image
                                 src="/icons/cart.svg"

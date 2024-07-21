@@ -1,3 +1,5 @@
+import { Control, FieldValues, Path } from "react-hook-form";
+
 export interface FAQ {
   id: string;
   question: string;
@@ -232,4 +234,11 @@ export interface Testimonial {
   name: string;
   role: string;
   says: string;
+}
+
+export interface CustomInputProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
+  label: string;
+  placeholder: string;
 }

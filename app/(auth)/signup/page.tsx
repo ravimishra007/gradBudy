@@ -14,29 +14,37 @@ import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { createUserAsync, selectLoggedInUser } from '@/lib/features/auth/authSlice';
-
-const authFormSchema = z.object({
-    email: z.string().email('Invalid email address'),
-    password: z.string().min(8, 'Password must be at least 8 characters long'),
-});
+import { signUpSchema } from '@/constents/schemas';
+import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
     const user = useAppSelector(selectLoggedInUser);
     const dispatch = useAppDispatch();
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const form = useForm({
-        resolver: zodResolver(authFormSchema),
+        resolver: zodResolver(signUpSchema),
         defaultValues: {
+            name: '',
             email: '',
             password: '',
+            role: "student",
         },
     });
 
-    const onSubmit = (data: z.infer<typeof authFormSchema>) => {
+    const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
         setIsLoading(true);
-        console.log('Sign-up data:', data);
-        dispatch(createUserAsync({ email: data.email, password: data.password }))
-        setIsLoading(false);
+
+        try {
+            await dispatch(createUserAsync({ role: data.role, name: data.name, email: data.email, password: data.password })).unwrap();
+            // On success, redirect to home page
+            router.push('/');
+        } catch (error) {
+            console.error('Failed to sign up: ', error);
+            // Handle error accordingly
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -55,6 +63,7 @@ const SignUp = () => {
                         className="space-y-8"
                     >
                         <>
+                            <CustomInput control={form.control} name='name' label="Full Name" placeholder='Enter your Name' />
                             <CustomInput control={form.control} name='email' label="Email" placeholder='Enter your email' />
                             <CustomInput control={form.control} name='password' label="Password" placeholder='Enter your password' />
                             <div className="flex items-center space-x-2 text-yellow-100">

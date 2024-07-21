@@ -1,14 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { checkUser, createUser, signOut, updateUser, User } from "./authAPI";
+import { checkUser, createUser, resetPassword, User, updateUser } from "./authAPI";
 
 interface AuthState {
   loggedInUser: User | null;
+  email: string | null;
+  otp: string | null;
   status: "idle" | "loading";
   error: string | null;
 }
 
 const initialState: AuthState = {
   loggedInUser: null,
+  email: null,
+  otp: null,
   status: "idle",
   error: null,
 };
@@ -23,8 +27,8 @@ export const createUserAsync = createAsyncThunk(
 
 export const updateUserAsync = createAsyncThunk(
   "auth/updateUser",
-  async (update: Partial<User>) => {
-    const response = await updateUser(update);
+  async (email: string) => {
+    const response = await updateUser(email);
     return response.data;
   }
 );
@@ -37,20 +41,36 @@ export const checkUserAsync = createAsyncThunk(
   }
 );
 
-export const signOutAsync = createAsyncThunk(
-  "auth/signOut",
-  async (userId: string) => {
-    const response = await signOut(userId);
+export const resetPasswordAsync = createAsyncThunk(
+  "auth/resetPassword",
+  async (userData: User) => {
+    const response = await resetPassword(userData);
     return response.data;
   }
 );
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.status = "loading";
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
+    setOtp: (state, action: PayloadAction<string>) => {
+      state.otp = action.payload;
+    },
+    resetAuthState: (state) => {
+      state.email = null;
+      state.otp = null;
+      state.loggedInUser = null;
+      state.status = "idle";
+      state.error = null;
+    },
+    signOut: (state) => {
+      state.loggedInUser = null;
+      state.email = null;
+      state.otp = null;
+      localStorage.removeItem("user"); // Clear user data from localStorage
     },
   },
   extraReducers: (builder) => {
@@ -63,6 +83,7 @@ export const authSlice = createSlice({
         (state, action: PayloadAction<User>) => {
           state.status = "idle";
           state.loggedInUser = action.payload;
+          localStorage.setItem("user", JSON.stringify(action.payload)); // Store user data in localStorage
         }
       )
       .addCase(createUserAsync.rejected, (state, action) => {
@@ -77,6 +98,8 @@ export const authSlice = createSlice({
         (state, action: PayloadAction<User>) => {
           state.status = "idle";
           state.loggedInUser = action.payload;
+          console.log("User data stored in localStorage:", action.payload);
+          localStorage.setItem("user", JSON.stringify(action.payload)); // Store user data in localStorage
         }
       )
       .addCase(checkUserAsync.rejected, (state, action) => {
@@ -97,25 +120,28 @@ export const authSlice = createSlice({
         state.status = "idle";
         state.error = action.error.message || "Failed to update user";
       })
-      .addCase(signOutAsync.pending, (state) => {
+      .addCase(resetPasswordAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(signOutAsync.fulfilled, (state) => {
+      .addCase(
+        resetPasswordAsync.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.status = "idle";
+          state.loggedInUser = action.payload;
+        }
+      )
+      .addCase(resetPasswordAsync.rejected, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = null;
-      })
-      .addCase(signOutAsync.rejected, (state, action) => {
-        state.status = "idle";
-        state.error = action.error.message || "Failed to sign out";
+        state.error = action.error.message || "Failed to reset password";
       });
   },
 });
 
-export const selectLoggedInUser = (state: { auth: AuthState }) =>
-  state.auth.loggedInUser;
+export const { setEmail, setOtp, resetAuthState, signOut } = authSlice.actions;
 
+export const selectLoggedInUser = (state: { auth: AuthState }) => state.auth.loggedInUser;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
-
-export const { increment } = authSlice.actions;
+export const selectEmail = (state: { auth: AuthState }) => state.auth.email;
+export const selectOtp = (state: { auth: AuthState }) => state.auth.otp;
 
 export default authSlice.reducer;
