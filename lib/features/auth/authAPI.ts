@@ -1,3 +1,5 @@
+import API from '@/lib/config';
+
 export interface User {
   id?: string;
   name?: string;
@@ -13,73 +15,46 @@ export interface LoginInfo {
   password: string;
 }
 
-export function createUser(userData: User): Promise<{ data: User }> {
-  return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:5000/user/signup", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data: User = await response.json();
-    resolve({ data });
-  });
-}
-
-export function checkUser(loginInfo: LoginInfo): Promise<{ data: User }> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch("http://localhost:5000/user/login", {
-        method: "POST",
-        body: JSON.stringify(loginInfo),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data: User = await response.json();
-      resolve({ data });
-    } catch (error) {
-      reject({ message: "Invalid login credentials" });
-    }
-  });
-}
-
-export async function updateUser(email: string): Promise<{ data: User }> {
-  console.log(email);
-  const response = await fetch(`http://localhost:5000/user/forgot-password`, {
-    method: "POST",
-    body: JSON.stringify({email}),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Email not found");
+// Create a new user
+export const createUser = async (userData: User): Promise<{ data: User }> => {
+  try {
+    const response = await API.post('user/signup', userData);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
   }
+};
 
-  const data: User = await response.json();
-  return { data };
-}
-
-export async function resetPassword(userData: User): Promise<{ data: User }> {
-  console.log(userData);
-  const response = await fetch(`http://localhost:5000/user/reset-password`, {
-    method: "POST",
-    body: JSON.stringify(userData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to reset password");
+// Check user credentials for login
+export const checkUser = async (loginInfo: LoginInfo): Promise<{ data: User }> => {
+  try {
+    const response = await API.post('user/login', loginInfo);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
   }
+};
 
-  const data: User = await response.json();
-  return { data };
-}
+// Update user by email
+export const updateUser = async (email: string): Promise<{ data: User }> => {
+  try {
+    const response = await API.post('user/forgot-password', { email });
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
+};
+
+// Reset user password
+export const resetPassword = async (userData: User): Promise<{ data: User }> => {
+  try {
+    const response = await API.post('user/reset-password', userData);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    throw error;
+  }
+};

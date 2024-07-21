@@ -70,15 +70,15 @@ const ConfirmPassword = () => {
             await dispatch(resetPasswordAsync({ email: email, otp: otp, newPassword: data.password })).unwrap();
             // On success, redirect to login
             router.push("/login");
-        } catch (error : any) {
+        } catch (error: any) {
             console.error("Failed to reset password: ", error);
             // On failure, redirect to forgot password
             alert(`Error : ${error.message}\n Please try again :)`)
             router.push("/forget-password");
         } finally {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 2000);
+            alert(`Password Changed Successfully :)`)
+            setIsLoading(false);
+
         }
     };
 

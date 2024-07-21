@@ -52,7 +52,7 @@ const ResetPassword = () => {
                             event.preventDefault();
                             form.handleSubmit(onSubmit)();
                         }}
-                        className="space-y-8"
+                        className="space-y-8 flex flex-col justify-center items-center"
                     >
                         <FormField
                             control={form.control}
