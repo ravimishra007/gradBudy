@@ -71,9 +71,12 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
     }, [dispatch, user?.token, user?.user.id]);
 
     // console.log("institute : ", institute)
+    // if (!institute) {
+    //     return <div>Loading...</div>
+    // }
 
     useEffect(() => {
-        if (universities.length > 0) {
+        if (universities.length > 0 && institute) {
             const foundUniversity = universities.find((uni) => uni._id === (institute[0]._id));
             setUniversity(foundUniversity || null);
         }
@@ -138,10 +141,6 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
             });
         }
     };
-
-    if (!institute) {
-        return <div>Loading...</div>
-    }
 
     return (
         <>

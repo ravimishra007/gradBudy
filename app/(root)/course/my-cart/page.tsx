@@ -11,51 +11,51 @@ import { selectLoggedInUser } from '@/lib/features/auth/authSlice';
 const MyCart = () => {
     const dispatch = useAppDispatch();
     const cart = useAppSelector(selectCart) || [];
-    const courses = useAppSelector(selectCourses) || [];
-    const user = useAppSelector(selectLoggedInUser);
+    // const courses = useAppSelector(selectCourses) || [];
+    // const user = useAppSelector(selectLoggedInUser);
 
     const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
 
-    useEffect(() => {
-        dispatch(fetchAllCourses());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(fetchAllCourses());
+    // }, [dispatch]);
 
-    useEffect(() => {
-        if (user?.token && user?.user?.id) {
-            dispatch(fetchCartData({ userId: user?.user?.id, token: user.token }));
-        }
-    }, [dispatch, user?.token, user?.user?.id]);
+    // useEffect(() => {
+    //     if (user?.token && user?.user?.id) {
+    //         dispatch(fetchCartData({ userId: user?.user?.id, token: user.token }));
+    //     }
+    // }, [dispatch, user?.token, user?.user?.id]);
 
 
-    useEffect(() => {
-        console.log("Cart data: ", cart);
-        console.log("Courses data: ", courses);
+    // useEffect(() => {
+    //     console.log("Cart data: ", cart);
+    //     console.log("Courses data: ", courses);
 
-        if (Array.isArray(cart) && cart.length > 0 && courses.length > 0) {
-            const courseIds: string[] = [];
-            cart.forEach((item: any) => {
-                item.cartItems.forEach((cartItem: any) => {
-                    if (cartItem.priceId?.CourseId) {
-                        courseIds.push(cartItem.priceId.CourseId);
-                    }
-                });
-            });
+    //     if (Array.isArray(cart) && cart.length > 0 && courses.length > 0) {
+    //         const courseIds: string[] = [];
+    //         cart.forEach((item: any) => {
+    //             item.cartItems.forEach((cartItem: any) => {
+    //                 if (cartItem.priceId?.CourseId) {
+    //                     courseIds.push(cartItem.priceId.CourseId);
+    //                 }
+    //             });
+    //         });
 
-            console.log("Extracted course IDs: ", courseIds);
+    //         console.log("Extracted course IDs: ", courseIds);
 
-            const filtered = courses.filter(course => courseIds.includes(course._id));
-            setFilteredCourses(filtered);
+    //         const filtered = courses.filter(course => courseIds.includes(course._id));
+    //         setFilteredCourses(filtered);
 
-            console.log("Filtered courses: ", filtered);
-        }
-    }, [cart, courses]);
+    //         console.log("Filtered courses: ", filtered);
+    //     }
+    // }, [cart, courses]);
 
     return (
         <>
             <section className="flex-center md:bg-white-100 h-full mx-auto">
                 <div className="bg-white rounded-tl-[50px] max-w-[1440px] my-10 w-full p-2 sm:p-12 mx-2 sm:mx-10 md:mx-16">
                     <h1 className="text-3xl font-semibold">My Cart</h1>
-                    {filteredCourses.length === 0 && (
+                    {(filteredCourses.length > 0) && (
                         <div className="text-center flex justify-center items-center h-[50vh] w-full">
                             <span className="text-2xl font-semibold">There is nothing yet!</span>
                         </div>
