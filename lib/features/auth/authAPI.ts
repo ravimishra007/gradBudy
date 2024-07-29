@@ -1,7 +1,14 @@
-import API from '@/lib/config';
+import API from "@/lib/config";
 
 export interface User {
-  id?: string;
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+  };
+  id: string;
   name?: string;
   email: string;
   password?: string;
@@ -16,9 +23,14 @@ export interface LoginInfo {
 }
 
 // Create a new user
-export const createUser = async (userData: User): Promise<{ data: User }> => {
+export const createUser = async (userData: {
+  role: string;
+  email: string;
+  name: string;
+  password: string;
+}): Promise<{ data: User }> => {
   try {
-    const response = await API.post('user/signup', userData);
+    const response = await API.post("user/signup", userData);
     return { data: response.data };
   } catch (error) {
     console.error("Error creating user:", error);
@@ -27,9 +39,11 @@ export const createUser = async (userData: User): Promise<{ data: User }> => {
 };
 
 // Check user credentials for login
-export const checkUser = async (loginInfo: LoginInfo): Promise<{ data: User }> => {
+export const checkUser = async (
+  loginInfo: LoginInfo
+): Promise<{ data: User }> => {
   try {
-    const response = await API.post('user/login', loginInfo);
+    const response = await API.post("user/login", loginInfo);
     return { data: response.data };
   } catch (error) {
     console.error("Error logging in:", error);
@@ -40,7 +54,7 @@ export const checkUser = async (loginInfo: LoginInfo): Promise<{ data: User }> =
 // Update user by email
 export const updateUser = async (email: string): Promise<{ data: User }> => {
   try {
-    const response = await API.post('user/forgot-password', { email });
+    const response = await API.post("user/forgot-password", { email });
     return { data: response.data };
   } catch (error) {
     console.error("Error updating user:", error);
@@ -49,9 +63,13 @@ export const updateUser = async (email: string): Promise<{ data: User }> => {
 };
 
 // Reset user password
-export const resetPassword = async (userData: User): Promise<{ data: User }> => {
+export const resetPassword = async (userData: {
+  email: string;
+  otp: string;
+  newPassword: string;
+}): Promise<{ data: User }> => {
   try {
-    const response = await API.post('user/reset-password', userData);
+    const response = await API.post("user/reset-password", userData);
     return { data: response.data };
   } catch (error) {
     console.error("Error resetting password:", error);

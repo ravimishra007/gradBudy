@@ -29,13 +29,34 @@ import {
 } from "@/components/ui/sheet"
 import Badge from '@/components/Badge';
 import { FilterOption, Section, courseDetailDataProp } from '@/constents/types';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { RootState } from '@/lib/store';
+import { fetchAllCourses, selectCourses, selectCoursesError, selectCoursesStatus } from '@/lib/features/courses/coursesSlice';
+import { fetchAllUniversitiesAsync } from '@/lib/features/university/universitySlice';
 
 
 const AllCourses = () => {
+    const dispatch = useAppDispatch();
+
+    // Get courses and status from the Redux store
+    const courses = useAppSelector(selectCourses);
+    console.log("courses :", courses)
+
     const [selectedFilters, setSelectedFilters] = useState<FilterOption[]>([]);
     const [expandedFilter, setExpandedFilter] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [filteredCourses, setFilteredCourses] = useState<courseDetailDataProp[]>(courseDetailData);
+    const [filteredCourses, setFilteredCourses] = useState<any[]>(courses);
+
+    useEffect(() => {
+        dispatch(fetchAllCourses());
+    }, [dispatch]);
+
+    useEffect(() => {
+        setFilteredCourses(courses);
+    }, [courses]);
+
+    // Log courses for debugging
+    // console.log("courses:", courses);
 
     const [selectedBreadcrumb, setSelectedBreadcrumb] = useState<string>('');
 
@@ -74,6 +95,8 @@ const AllCourses = () => {
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
+
+    console.log("courses : ", courses)
 
     useEffect(() => {
         let courses = [...courseDetailData];
@@ -207,7 +230,7 @@ const AllCourses = () => {
 
                     <div className="mt-10 sm:mt-12 gap-6 gap-x-4 sm:gap-x-0 sm:gap-y-10 grid lg:hidden grid-cols-1 md:grid-cols-2 justify-items-center">
                         {filteredCourses.map((course) => (
-                            <CourseCard key={course.id} {...course} />
+                            <CourseCard key={course._id} {...course} />
                         ))}
                         <>
                             {filteredCourses.length === 0 && (

@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { checkUser, createUser, resetPassword, User, updateUser } from "./authAPI";
+import {
+  checkUser,
+  createUser,
+  resetPassword,
+  User,
+  updateUser,
+} from "./authAPI";
 
 interface AuthState {
   loggedInUser: User | null;
@@ -9,8 +15,13 @@ interface AuthState {
   error: string | null;
 }
 
+const loadUserFromLocalStorage = () => {
+  const storedUser = localStorage.getItem("user");
+  return storedUser ? JSON.parse(storedUser) : null;
+};
+
 const initialState: AuthState = {
-  loggedInUser: null,
+  loggedInUser: loadUserFromLocalStorage(),
   email: null,
   otp: null,
   status: "idle",
@@ -19,7 +30,7 @@ const initialState: AuthState = {
 
 export const createUserAsync = createAsyncThunk(
   "auth/createUser",
-  async (userData: User) => {
+  async (userData: {role:string, email:string, name:string, password:string}) => {
     const response = await createUser(userData);
     return response.data;
   }
@@ -43,8 +54,8 @@ export const checkUserAsync = createAsyncThunk(
 
 export const resetPasswordAsync = createAsyncThunk(
   "auth/resetPassword",
-  async (userData: User) => {
-    const response = await resetPassword(userData);
+  async (userData: { email:string, otp:string, newPassword:string }) => {
+    const response = await resetPassword(userData );
     return response.data;
   }
 );
@@ -71,6 +82,9 @@ const authSlice = createSlice({
       state.email = null;
       state.otp = null;
       localStorage.removeItem("user"); // Clear user data from localStorage
+    },
+    setUserFromLocalStorage: (state) => {
+      state.loggedInUser = loadUserFromLocalStorage();
     },
   },
   extraReducers: (builder) => {
@@ -137,9 +151,16 @@ const authSlice = createSlice({
   },
 });
 
-export const { setEmail, setOtp, resetAuthState, signOut } = authSlice.actions;
+export const {
+  setEmail,
+  setOtp,
+  resetAuthState,
+  signOut,
+  setUserFromLocalStorage,
+} = authSlice.actions;
 
-export const selectLoggedInUser = (state: { auth: AuthState }) => state.auth.loggedInUser;
+export const selectLoggedInUser = (state: { auth: AuthState }) =>
+  state.auth.loggedInUser;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 export const selectEmail = (state: { auth: AuthState }) => state.auth.email;
 export const selectOtp = (state: { auth: AuthState }) => state.auth.otp;

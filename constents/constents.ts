@@ -10,57 +10,77 @@ import {
   courseDetailDataProp,
 } from "./types";
 
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+export const getYear = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.getFullYear();
+};
+
+export const ensureProperUrl = (url: string) => {
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  return url.startsWith('/') ? url : `/${url}`;
+};
+
 export const faqs: FAQ[] = [
   {
-    id: "item-1",
+    _id: "item-1",
     question: "Is it accessible?",
     answer: "Yes. It adheres to the WAI-ARIA design pattern.",
   },
   {
-    id: "item-2",
+    _id: "item-2",
     question: "How does it work?",
     answer: "It uses React context and hooks to manage the accordion state.",
   },
   {
-    id: "item-3",
+    _id: "item-3",
     question: "Can I customize it?",
     answer: "Absolutely! You can customize it with CSS or styled-components.",
   },
   {
-    id: "item-4",
+    _id: "item-4",
     question:
       "What are the key benefits of using this component in my project?",
     answer:
       "This component is designed to be highly accessible, customizable, and easy to integrate into your existing projects. By adhering to WAI-ARIA design patterns, it ensures that users with disabilities can interact with the content effectively. Additionally, it uses modern React hooks and context to manage state, which makes it both efficient and easy to understand.",
   },
   {
-    id: "item-5",
+    _id: "item-5",
     question:
       "Can I integrate this component with other UI libraries and frameworks?",
     answer:
       "Yes, you can integrate this accordion component with other UI libraries and frameworks. It is designed to be flexible and compatible with various styles and systems. Whether you are using Bootstrap, Tailwind CSS, or any other styling solution, you can customize the component to match your design requirements seamlessly.",
   },
   {
-    id: "item-6",
+    _id: "item-6",
     question: "How do I handle state management for the accordion items?",
     answer:
       "State management for the accordion items is handled internally using React's context and hooks. This allows for a clean and efficient way to manage the state without the need for additional libraries or complex configurations. You can also extend the state management logic if needed by leveraging the provided hooks and context.",
   },
   {
-    id: "item-7",
+    _id: "item-7",
     question:
       "How can I contribute to the development of this accordion component?",
     answer:
       "We welcome contributions to the development of this accordion component. You can contribute by submitting pull requests, reporting issues, or suggesting new features. Please refer to our contribution guidelines on GitHub for more information on how to get started. Your contributions help us improve the component and provide better functionality and usability for all users.",
   },
   {
-    id: "item-9",
+    _id: "item-9",
     question: "Are there any known issues or limitations with this component?",
     answer:
       "Currently, there are no major known issues with this accordion component. However, like any software, there may be minor bugs or limitations that we are continuously working to address. We encourage users to report any issues they encounter so that we can address them promptly. Our goal is to ensure the component is as robust and reliable as possible.",
   },
   {
-    id: "item-10",
+    _id: "item-10",
     question:
       "What kind of support is available if I encounter problems while using this component?",
     answer:
@@ -807,7 +827,7 @@ export const courseDetailData: courseDetailDataProp[] = [
     courseImg: "/images/course-img.png",
     institute: "Indian Institute of Technology Madras",
     mentor: {
-      id: 1234,
+      id: "1234",
       name: "John Doe",
       profileImg: "/icons/profile.svg",
       university: "University of Texas",
@@ -1146,7 +1166,7 @@ export const courseDetailData: courseDetailDataProp[] = [
     courseImg: "/images/course-img.png",
     institute: "Indian Institute of Technology Delhi",
     mentor: {
-      id: 5678,
+      id: "5678",
       name: "Jane Smith",
       profileImg: "/icons/profile.svg",
       university: "Stanford University",
@@ -1479,7 +1499,7 @@ export const courseDetailData: courseDetailDataProp[] = [
     courseImg: "/images/course-img.png",
     institute: "Indian Institute of Technology Bombay",
     mentor: {
-      id: 9876,
+      id: "9876",
       name: "Alice Johnson",
       profileImg: "/icons/profile.svg",
       university: "Harvard University",

@@ -1,67 +1,34 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist/es/constants";
-import favouriteProfessorsReducer from "./features/favourite-professors/FavouriteProfessorsSlice";
+import favProfReducer from "./features/favourite-professors/FavouriteProfessorsSlice";
 import cartReducer from "./features/cart/CartSlice";
-import favouriteCoursesReducer from "./features/favourite-courses/FavouriteCourseSlice";
+import favCourseReducer from "./features/favourite-courses/favCourseSlice";
 import authReducer from "./features/auth/authSlice";
-
-const favouriteProfessorsPersistConfig = {
-  key: "favouriteProfessors",
-  version: 1,
-  storage,
-};
-
-const cartPersistConfig = {
-  key: "cart",
-  version: 1,
-  storage,
-};
-
-const favouriteCoursesPersistConfig = {
-  key: "favouriteCourses",
-  version: 1,
-  storage,
-};
+import collegeReducer from "./features/college/collegeSlice";
+import universityReducer from "./features/university/universitySlice";
+import studentProfileReducer from "./features/user/studentProfileSlice";
+import professorReducer from "./features/professor/professorSlice";
+import coursesReducer from "./features/courses/coursesSlice";
 
 const rootReducer = combineReducers({
-  favouriteProfessors: persistReducer(
-    favouriteProfessorsPersistConfig,
-    favouriteProfessorsReducer
-  ),
-  cart: persistReducer(cartPersistConfig, cartReducer),
-  favouriteCourses: persistReducer(
-    favouriteCoursesPersistConfig,
-    favouriteCoursesReducer
-  ),
   auth: authReducer,
+  studentProfile: studentProfileReducer,
+  professors: professorReducer,
+  favProfs: favProfReducer,
+  courses: coursesReducer,
+  favCourses: favCourseReducer,
+  cart: cartReducer,
+  college: collegeReducer,
+  university: universityReducer,
 });
 
-const persistedReducer = persistReducer(
-  { key: "root", storage, version: 1 },
-  rootReducer
-);
-
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
     }),
 });
 
 export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
-
-export const persistor = persistStore(store);

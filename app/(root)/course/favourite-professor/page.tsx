@@ -2,11 +2,22 @@
 
 import MainHeader from '@/components/MainHeader'
 import FavouriteProfessorsCard from '@/components/ui/FavouriteProfessorsCard';
-import { useAppSelector } from '@/lib/hooks';
+import { selectLoggedInUser } from '@/lib/features/auth/authSlice';
+import { fetchFavProfsByUserId, selectFavProfs } from '@/lib/features/favourite-professors/FavouriteProfessorsSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import React, { useEffect } from 'react';
 
 const FavouriteProfessors = () => {
-    const favProfs = useAppSelector((state) => state.favouriteProfessors.favouriteProfessors);
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectLoggedInUser);
+    const favProfs = useAppSelector(selectFavProfs);
+
+    useEffect(() => {
+        if (user?.user?.id) {
+            dispatch(fetchFavProfsByUserId(user.user.id));
+        }
+    }, [dispatch, user?.user.id]);
+
 
     return (
         <>
@@ -19,14 +30,11 @@ const FavouriteProfessors = () => {
                         </div>
                     )}
                     <div className="mt-20 flex flex-wrap justify-around gap-y-20">
-                        {favProfs && favProfs.map((professor) => (
+                        {favProfs && favProfs.map((professor: any) => (
                             <FavouriteProfessorsCard
                                 key={professor.id}
-                                id={professor.id}
-                                imgSrc={professor.profileImg}
-                                name={professor.name}
-                                college={professor.university}
-                                bio={professor.bio}
+                                id={professor._id}
+                                profId={professor.profId}
                             />
                         ))}
                     </div>

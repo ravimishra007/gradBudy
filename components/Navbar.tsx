@@ -42,23 +42,31 @@ import { selectLoggedInUser, signOut } from '@/lib/features/auth/authSlice'
 import { Button } from './ui/button'
 
 import { FiChevronDown } from 'react-icons/fi';
-
-const headings = [
-    { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
-    { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
-    { id: 'favourite-professors', label: 'Favourite Professors', url: '/course/favourite-professor' },
-    { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings' },
-    { id: 'my-learning', label: 'My Learning', url: '/course/my-learnings' },
-    { id: 'settings', label: 'Settings', url: '/settings' },
-    { id: 'help', label: 'Help', url: '/faq' },
-];
+import { fetchCartData, selectCart } from '@/lib/features/cart/CartSlice'
 
 const Navbar = () => {
     const dispatch = useAppDispatch()
-    const cart = useAppSelector((state: RootState) => state.cart.cart);
+    const cart = useAppSelector(selectCart);
     const user = useAppSelector(selectLoggedInUser)
     const [user1, setUser1] = React.useState<any>(null);
     const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
+    React.useEffect(() => {
+        if (user && user.token) {
+            dispatch(fetchCartData({ userId: user?.user?.id, token: user.token }));
+        }
+    }, [dispatch, user]);
+
+    const headings = [
+        { id: 'manage-profile', label: 'Manage Profile', url: `/user/manage-profile2/${user?.user?.id}` },
+        { id: 'all-courses', label: 'All Courses', url: '/course/all-courses' },
+        { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
+        { id: 'favourite-professors', label: 'Favourite Professors', url: '/course/favourite-professor' },
+        { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings?tab=favourite' },
+        { id: 'my-learning', label: 'My Learning', url: '/course/my-learnings?tab=registered' },
+        { id: 'settings', label: 'Settings', url: '/settings' },
+        { id: 'help', label: 'Help', url: '/faq' },
+    ];
 
     React.useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -110,7 +118,7 @@ const Navbar = () => {
     }
     if (user) {
         const aboutUsItem = {
-            id: 'account-name', label: 'Account Name', subItems: [
+            id: `${user?.user?.id}`, label: `${user?.user?.name}`, subItems: [
                 { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
                 { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
                 { id: 'favourite-professors', label: 'Favourite Professors', url: '/favourite-professor' },
@@ -170,14 +178,18 @@ const Navbar = () => {
                                     height={25}
                                     priority
                                 />
-                                <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                                {cart && cart.length > 0 && (
+                                    <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">
+                                        {cart.length}
+                                    </span>
+                                )}
                             </div>
                         </Link>}
                     </div>
 
                     {user ? (
                         <div className="flex-center gap-4 relative bg-white-100 p-2 px-3 rounded-full">
-                            <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
+                            <h2 className="nav-heading hidden md:inline-block" >{user?.user?.name}</h2>
                             <Sheet>
                                 <SheetTrigger>
                                     <Image
@@ -336,7 +348,11 @@ const Navbar = () => {
                                 height={25}
                                 priority
                             />
-                            <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                            {cart && cart.length > 0 && (
+                                <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">
+                                    {cart.length}
+                                </span>
+                            )}
                         </div>
                     </Link>}
                 </div>

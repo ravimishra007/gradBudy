@@ -6,6 +6,12 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'via.placeholder.com',
           },
+          {
+            protocol: 'https',
+            hostname: 'ik.imagekit.io',
+            port: '',
+            pathname: '**',
+          },    
         ],
       },
     
