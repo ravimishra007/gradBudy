@@ -16,10 +16,12 @@ function Protected({ children }: ProtectedProps) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        console.log(storedUser)
-        if (storedUser) {
-            dispatch(setUserFromLocalStorage());
+        if (typeof window !== "undefined") {
+            const storedUser = window.localStorage.getItem('user');
+            console.log(storedUser);
+            if (storedUser) {
+                dispatch(setUserFromLocalStorage());
+            }
         }
         setLoading(false);
     }, [dispatch]);

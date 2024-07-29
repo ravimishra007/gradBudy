@@ -38,9 +38,11 @@ const Hero = () => {
     };
 
     useEffect(() => {
-        updateVisibleStats();
-        window.addEventListener('resize', updateVisibleStats);
-        return () => window.removeEventListener('resize', updateVisibleStats);
+        if (typeof window !== "undefined") {
+            updateVisibleStats();
+            window.addEventListener('resize', updateVisibleStats);
+            return () => window.removeEventListener('resize', updateVisibleStats);
+        }
     }, []);
 
     return (
