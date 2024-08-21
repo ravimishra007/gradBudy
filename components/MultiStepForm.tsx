@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -26,14 +26,12 @@ import { ReusableComboboxProps, Experience, Option, FormData } from '@/constents
 
 const MultiStepForm: React.FC = () => {
     const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState<FormData>(initialData);
-
-    const [date, setDate] = useState<Date>()
-    const [schoolPassingYear, setschoolPassingYear] = useState<Date>()
-    const [senoirSchoolPassingYear, setSenoirSchoolPassingYear] = useState<Date>()
-    const [diplomePassingYear, setDiplomePassingYear] = useState<Date>()
-    const [collageStartingYear, setCollageStartingYear] = useState<Date>()
-    const [collageEndingYear, setCollageEndingYear] = useState<Date>()
+    const [date, setDate] = useState<Date>();
+    const [schoolPassingYear, setSchoolPassingYear] = useState<Date>();
+    const [seniorSchoolPassingYear, setSeniorSchoolPassingYear] = useState<Date>();
+    const [diplomaPassingYear, setDiplomaPassingYear] = useState<Date>();
+    const [collegeStartingYear, setCollegeStartingYear] = useState<Date>();
+    const [collegeEndingYear, setCollegeEndingYear] = useState<Date>();
     const [experienceStartingYears, setExperienceStartingYears] = useState<(Date | null)[]>([]);
     const [experienceEndingYears, setExperienceEndingYears] = useState<(Date | null)[]>([]);
 
@@ -42,10 +40,14 @@ const MultiStepForm: React.FC = () => {
     const [selectedState, setSelectedState] = useState<string | null>(null);
 
     const [gender, setGender] = useState<string>('');
-
     const [board, setBoard] = useState<string>('');
     const [seniorBoard, setSeniorBoard] = useState<string>('');
     const [stream, setStream] = useState<string>('');
+
+    // Using useRef to store form data
+    const formDataRef = useRef<FormData>(initialData);
+    const formData = formDataRef.current;
+    console.log("Form Data :", formData)
 
     const handleNext = () => {
         setStep(step + 1);
@@ -61,16 +63,16 @@ const MultiStepForm: React.FC = () => {
         field?: string
     ) => {
         const { name, value } = e.target;
-        const newData = { ...formData };
+        const newData = { ...formDataRef.current };
 
         if (index !== undefined) {
             if (field === 'experience') {
-                const newExperienceList = formData.experience.map((exp, i) =>
+                const newExperienceList = newData.experience.map((exp, i) =>
                     i === index ? { ...exp, [name]: value } : exp
                 );
                 newData.experience = newExperienceList;
             } else {
-                const newSkillList = formData.skillsInfo.skillList.map((skill, i) =>
+                const newSkillList = newData.skillsInfo.skillList.map((skill, i) =>
                     i === index ? { ...skill, [name]: value } : skill
                 );
                 newData.skillsInfo.skillList = newSkillList;
@@ -85,7 +87,8 @@ const MultiStepForm: React.FC = () => {
             }
         }
 
-        setFormData(newData);
+        // Update the ref with the new data
+        formDataRef.current = newData;
     };
 
     const handleExperienceDateChange = (date: Date | null, index: number, type: 'startingYear' | 'endingYear') => {
@@ -99,35 +102,31 @@ const MultiStepForm: React.FC = () => {
             setExperienceEndingYears(newEndingYears);
         }
 
-        const updatedExperience = formData.experience.map((exp, i) =>
+        const updatedExperience = formDataRef.current.experience.map((exp, i) =>
             i === index ? { ...exp, [type]: date } : exp
         );
-        setFormData({ ...formData, experience: updatedExperience });
+        formDataRef.current.experience = updatedExperience;
     };
 
     const handleAddExperience = () => {
-        setFormData({
-            ...formData,
-            experience: [...formData.experience, { designation: '', organization: '', startingYear: null, endingYear: null, description: '' }],
+        formDataRef.current.experience.push({
+            designation: '',
+            organization: '',
+            startingYear: null,
+            endingYear: null,
+            description: '',
         });
         setExperienceStartingYears([...experienceStartingYears, null]);
         setExperienceEndingYears([...experienceEndingYears, null]);
     };
 
     const handleDateChange = (selectedDate: Date | undefined) => {
-        const newData = { ...formData, personalInfo: { ...formData.personalInfo, dob: selectedDate ?? null } };
-        setFormData(newData);
+        formDataRef.current.personalInfo.dob = selectedDate ?? null;
         setDate(selectedDate);
     };
 
     const handleAddSkill = () => {
-        setFormData({
-            ...formData,
-            skillsInfo: {
-                ...formData.skillsInfo,
-                skillList: [...formData.skillsInfo.skillList, { skill: '', description: '' }],
-            },
-        });
+        formDataRef.current.skillsInfo.skillList.push({ skill: '', description: '' });
     };
 
     const stepClasses = (currentStep: number) => {
@@ -471,7 +470,7 @@ const MultiStepForm: React.FC = () => {
                                             className="bg-white outline-none"
                                             mode="single"
                                             selected={schoolPassingYear}
-                                            onSelect={setschoolPassingYear}
+                                            onSelect={setSchoolPassingYear}
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -547,12 +546,12 @@ const MultiStepForm: React.FC = () => {
                                             variant={"outline"}
                                             className={cn(
                                                 "justify-start text-left font-normal rounded-[12px] input-form",
-                                                !senoirSchoolPassingYear && "text-muted-foreground"
+                                                !seniorSchoolPassingYear && "text-muted-foreground"
                                             )}
                                         >
                                             <div className="flex justify-between items-center w-full">
                                                 <p>
-                                                    {senoirSchoolPassingYear ? format(senoirSchoolPassingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
+                                                    {seniorSchoolPassingYear ? format(seniorSchoolPassingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
                                                 </p>
                                                 <CalendarIcon className="mr-2 h-4 w-4 text-[#2C1C5F]" />
                                             </div>
@@ -562,8 +561,8 @@ const MultiStepForm: React.FC = () => {
                                         <Calendar
                                             className="bg-white outline-none"
                                             mode="single"
-                                            selected={senoirSchoolPassingYear}
-                                            onSelect={setSenoirSchoolPassingYear}
+                                            selected={seniorSchoolPassingYear}
+                                            onSelect={setSeniorSchoolPassingYear}
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -607,12 +606,12 @@ const MultiStepForm: React.FC = () => {
                                             variant={"outline"}
                                             className={cn(
                                                 "justify-start text-left font-normal rounded-[12px] input-form",
-                                                !diplomePassingYear && "text-muted-foreground"
+                                                !diplomaPassingYear && "text-muted-foreground"
                                             )}
                                         >
                                             <div className="flex justify-between items-center w-full">
                                                 <p>
-                                                    {diplomePassingYear ? format(diplomePassingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
+                                                    {diplomaPassingYear ? format(diplomaPassingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
                                                 </p>
                                                 <CalendarIcon className="mr-2 h-4 w-4 text-[#2C1C5F]" />
                                             </div>
@@ -622,8 +621,8 @@ const MultiStepForm: React.FC = () => {
                                         <Calendar
                                             className="bg-white outline-none"
                                             mode="single"
-                                            selected={diplomePassingYear}
-                                            onSelect={setDiplomePassingYear}
+                                            selected={diplomaPassingYear}
+                                            onSelect={setDiplomaPassingYear}
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -686,12 +685,12 @@ const MultiStepForm: React.FC = () => {
                                             variant={"outline"}
                                             className={cn(
                                                 "justify-start text-left font-normal rounded-[12px] input-form",
-                                                !collageStartingYear && "text-muted-foreground"
+                                                !collegeStartingYear && "text-muted-foreground"
                                             )}
                                         >
                                             <div className="flex justify-between items-center w-full">
                                                 <p>
-                                                    {collageStartingYear ? format(collageStartingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
+                                                    {collegeStartingYear ? format(collegeStartingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
                                                 </p>
                                                 <CalendarIcon className="mr-2 h-4 w-4 text-[#2C1C5F]" />
                                             </div>
@@ -701,8 +700,8 @@ const MultiStepForm: React.FC = () => {
                                         <Calendar
                                             className="bg-white outline-none"
                                             mode="single"
-                                            selected={collageStartingYear}
-                                            onSelect={setCollageStartingYear}
+                                            selected={collegeStartingYear}
+                                            onSelect={setCollegeStartingYear}
                                             initialFocus
                                         />
                                     </PopoverContent>
@@ -717,12 +716,12 @@ const MultiStepForm: React.FC = () => {
                                             variant={"outline"}
                                             className={cn(
                                                 "justify-start text-left font-normal rounded-[12px] input-form",
-                                                !collageEndingYear && "text-muted-foreground"
+                                                !collegeEndingYear && "text-muted-foreground"
                                             )}
                                         >
                                             <div className="flex justify-between items-center w-full">
                                                 <p>
-                                                    {collageEndingYear ? format(collageEndingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
+                                                    {collegeEndingYear ? format(collegeEndingYear, "PPP") : <span className='text-[#66708580]'>DD/MM/YYYY</span>}
                                                 </p>
                                                 <CalendarIcon className="mr-2 h-4 w-4 text-[#2C1C5F]" />
                                             </div>
@@ -732,8 +731,8 @@ const MultiStepForm: React.FC = () => {
                                         <Calendar
                                             className="bg-white outline-none"
                                             mode="single"
-                                            selected={collageEndingYear}
-                                            onSelect={setCollageEndingYear}
+                                            selected={collegeEndingYear}
+                                            onSelect={setCollegeEndingYear}
                                             initialFocus
                                         />
                                     </PopoverContent>

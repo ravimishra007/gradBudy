@@ -1,21 +1,44 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { checkUser, createUser, signOut, updateUser, User } from "./authAPI";
+import {
+  checkUser,
+  createUser,
+  resetPassword,
+  User,
+  updateUser,
+} from "./authAPI";
 
 interface AuthState {
   loggedInUser: User | null;
+  email: string | null;
+  otp: string | null;
   status: "idle" | "loading";
   error: string | null;
 }
 
+const loadUserFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    const storedUser = window.localStorage.getItem("gradbudy");
+    return storedUser ? JSON.parse(storedUser) : null;
+  }
+  return null;
+};
+
 const initialState: AuthState = {
-  loggedInUser: null,
+  loggedInUser: loadUserFromLocalStorage(),
+  email: null,
+  otp: null,
   status: "idle",
   error: null,
 };
 
 export const createUserAsync = createAsyncThunk(
   "auth/createUser",
-  async (userData: User) => {
+  async (userData: {
+    role: string;
+    email: string;
+    name: string;
+    password: string;
+  }) => {
     const response = await createUser(userData);
     return response.data;
   }
@@ -23,8 +46,8 @@ export const createUserAsync = createAsyncThunk(
 
 export const updateUserAsync = createAsyncThunk(
   "auth/updateUser",
-  async (update: Partial<User>) => {
-    const response = await updateUser(update);
+  async (email: string) => {
+    const response = await updateUser(email);
     return response.data;
   }
 );
@@ -37,20 +60,41 @@ export const checkUserAsync = createAsyncThunk(
   }
 );
 
-export const signOutAsync = createAsyncThunk(
-  "auth/signOut",
-  async (userId: string) => {
-    const response = await signOut(userId);
+export const resetPasswordAsync = createAsyncThunk(
+  "auth/resetPassword",
+  async (userData: { email: string; otp: string; newPassword: string }) => {
+    const response = await resetPassword(userData);
     return response.data;
   }
 );
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.status = "loading";
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
+    setOtp: (state, action: PayloadAction<string>) => {
+      state.otp = action.payload;
+    },
+    resetAuthState: (state) => {
+      state.email = null;
+      state.otp = null;
+      state.loggedInUser = null;
+      state.status = "idle";
+      state.error = null;
+    },
+    signOut: (state) => {
+      state.loggedInUser = null;
+      state.email = null;
+      state.otp = null;
+      if (typeof window !== "undefined") {
+        window.localStorage.removeItem("gradbudy");
+      }
+    },
+    setUserFromLocalStorage: (state) => {
+      state.loggedInUser = loadUserFromLocalStorage();
     },
   },
   extraReducers: (builder) => {
@@ -63,6 +107,9 @@ export const authSlice = createSlice({
         (state, action: PayloadAction<User>) => {
           state.status = "idle";
           state.loggedInUser = action.payload;
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem("gradbudy", JSON.stringify(action.payload));
+          }
         }
       )
       .addCase(createUserAsync.rejected, (state, action) => {
@@ -77,6 +124,10 @@ export const authSlice = createSlice({
         (state, action: PayloadAction<User>) => {
           state.status = "idle";
           state.loggedInUser = action.payload;
+          console.log("User data stored in localStorage:", action.payload);
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem("gradbudy", JSON.stringify(action.payload));
+          }
         }
       )
       .addCase(checkUserAsync.rejected, (state, action) => {
@@ -97,25 +148,35 @@ export const authSlice = createSlice({
         state.status = "idle";
         state.error = action.error.message || "Failed to update user";
       })
-      .addCase(signOutAsync.pending, (state) => {
+      .addCase(resetPasswordAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(signOutAsync.fulfilled, (state) => {
+      .addCase(
+        resetPasswordAsync.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.status = "idle";
+          state.loggedInUser = action.payload;
+        }
+      )
+      .addCase(resetPasswordAsync.rejected, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = null;
-      })
-      .addCase(signOutAsync.rejected, (state, action) => {
-        state.status = "idle";
-        state.error = action.error.message || "Failed to sign out";
+        state.error = action.error.message || "Failed to reset password";
       });
   },
 });
 
+export const {
+  setEmail,
+  setOtp,
+  resetAuthState,
+  signOut,
+  setUserFromLocalStorage,
+} = authSlice.actions;
+
 export const selectLoggedInUser = (state: { auth: AuthState }) =>
   state.auth.loggedInUser;
-
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
-
-export const { increment } = authSlice.actions;
+export const selectEmail = (state: { auth: AuthState }) => state.auth.email;
+export const selectOtp = (state: { auth: AuthState }) => state.auth.otp;
 
 export default authSlice.reducer;

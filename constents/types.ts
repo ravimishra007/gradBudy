@@ -1,5 +1,7 @@
+import { Control, FieldValues, Path } from "react-hook-form";
+
 export interface FAQ {
-  id: string;
+  _id: string;
   question: string;
   answer: string;
 }
@@ -62,41 +64,41 @@ export type Experience = {
 
 export type FormData = {
   personalInfo: {
-      fname: string;
-      mname: string;
-      lname: string;
-      email: string;
-      description: string;
-      url: string;
-      number1: string;
-      number2: string;
-      number3: string;
-      dob: Date | null;
-      gender: string;
-      address: string;
-      pincode: number | string;
+    fname: string;
+    mname: string;
+    lname: string;
+    email: string;
+    description: string;
+    url: string;
+    number1: string;
+    number2: string;
+    number3: string;
+    dob: Date | null;
+    gender: string;
+    address: string;
+    pincode: number | string;
   };
   educationalInfo: {
-      school: string;
-      stream: string;
-      schoolPassingYear: Date | null;
-      seniorSchool: string;
-      seniorStream: string;
-      senoirSchoolPassingYear: Date | null;
-      marks: string;
-      diploma: string;
-      diplomaMarks: string;
-      diplomaPassingYear: string;
-      degree: string;
-      college: string;
-      branch: string;
-      collageStartingYear: Date | null;
-      collageEndingYear: Date | null;
+    school: string;
+    stream: string;
+    schoolPassingYear: Date | null;
+    seniorSchool: string;
+    seniorStream: string;
+    senoirSchoolPassingYear: Date | null;
+    marks: string;
+    diploma: string;
+    diplomaMarks: string;
+    diplomaPassingYear: string;
+    degree: string;
+    college: string;
+    branch: string;
+    collageStartingYear: Date | null;
+    collageEndingYear: Date | null;
   };
   skillsInfo: {
-      intro: string;
-      skills: string;
-      skillList: { skill: string; description: string }[];
+    intro: string;
+    skills: string;
+    skillList: { skill: string; description: string }[];
   };
   experience: Experience[];
 };
@@ -118,13 +120,6 @@ export interface FooterLink {
   title: string;
   url: string;
 }
-
-
-
-
-
-
-
 
 export interface Material {
   title: string;
@@ -156,7 +151,7 @@ export interface Course {
 }
 
 export interface Mentor {
-  id: number;
+  id: string;
   name: string;
   profileImg: string;
   university: string;
@@ -180,7 +175,6 @@ export interface Mentor {
     description?: string;
   }[];
 }
-
 
 export interface Review {
   rating: number;
@@ -232,4 +226,26 @@ export interface Testimonial {
   name: string;
   role: string;
   says: string;
+}
+
+export interface CustomInputProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
+  label: string;
+  placeholder: string;
+}
+
+export interface CourseDetail {
+  name: string;
+  specialization: string[];
+  courseFee: number;
+  admissionCriteria: string;
+  acceptedExams: string[];
+  hostelFee: number;
+  detail: string;
+  _id: string;
+}
+
+export interface CourseDataTableProps {
+  courses: CourseDetail[];
 }

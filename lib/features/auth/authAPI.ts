@@ -1,7 +1,20 @@
+import API from "@/lib/config";
+
 export interface User {
-  id?: string;
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+  };
+  id: string;
+  name?: string;
   email: string;
-  password?: string; // Password should be optional as it won't be returned by the server
+  password?: string;
+  role?: string;
+  otp?: string;
+  newPassword?: string;
 }
 
 export interface LoginInfo {
@@ -9,59 +22,57 @@ export interface LoginInfo {
   password: string;
 }
 
-export function createUser(userData: User): Promise<{ data: User }> {
-  return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/users", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data: User = await response.json();
-    resolve({ data });
-  });
-}
-
-export function checkUser(loginInfo: LoginInfo): Promise<{ data: User }> {
-  const email = loginInfo.email;
-  const password = loginInfo.password;
-  return new Promise(async (resolve, reject) => {
-    const response = await fetch(`http://localhost:8080/users?email=${email}`);
-    const data: User[] = await response.json();
-    if (data.length) {
-      if (password === data[0].password) {
-        resolve({ data: data[0] });
-      } else {
-        reject({ message: "wrong credentials" });
-      }
-    } else {
-      reject({ message: "user not found" });
-    }
-    // TODO: on server it will only return some info of user (not password)
-  });
-}
-
-export async function updateUser(
-  update: Partial<User>
-): Promise<{ data: User }> {
-  const response = await fetch(`http://localhost:8080/users/${update.id}`, {
-    method: "PUT",
-    body: JSON.stringify(update),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to update user");
+// Create a new user
+export const createUser = async (userData: {
+  role: string;
+  email: string;
+  name: string;
+  password: string;
+}): Promise<{ data: User }> => {
+  try {
+    const response = await API.post("user/signup", userData);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
   }
+};
 
-  const data: User = await response.json();
-  return { data };
-}
+// Check user credentials for login
+export const checkUser = async (
+  loginInfo: LoginInfo
+): Promise<{ data: User }> => {
+  try {
+    const response = await API.post("user/login", loginInfo);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
+  }
+};
 
-export function signOut(userId: string): Promise<{ data: string }> {
-  return new Promise(async (resolve) => {
-    // TODO: on server we will remove user session info
-    resolve({ data: "success" });
-  });
-}
+// Update user by email
+export const updateUser = async (email: string): Promise<{ data: User }> => {
+  try {
+    const response = await API.post("user/forgot-password", { email });
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
+};
+
+// Reset user password
+export const resetPassword = async (userData: {
+  email: string;
+  otp: string;
+  newPassword: string;
+}): Promise<{ data: User }> => {
+  try {
+    const response = await API.post("user/reset-password", userData);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    throw error;
+  }
+};

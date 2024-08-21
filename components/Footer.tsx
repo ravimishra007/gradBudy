@@ -81,7 +81,7 @@ const Footer = () => {
                                 <Link key={index} href={account.url} target="_blank" >
                                     <Image
                                         src={account.icon}
-                                        alt={account.platform}
+                                        alt={account.platform || "Not Found!"}
                                         className="object-cover hover:scale-125 duration-150"
                                         width={19}
                                         height={19}

@@ -38,29 +38,52 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { selectLoggedInUser, signOutAsync } from '@/lib/features/auth/authSlice'
+import { selectLoggedInUser, signOut } from '@/lib/features/auth/authSlice'
 import { Button } from './ui/button'
 
 import { FiChevronDown } from 'react-icons/fi';
-
-const headings = [
-    { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
-    { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
-    { id: 'favourite-professors', label: 'Favourite Professors', url: '/course/favourite-professor' },
-    { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings' },
-    { id: 'my-learning', label: 'My Learning', url: '/course/my-learnings' },
-    { id: 'settings', label: 'Settings', url: '/settings' },
-    { id: 'help', label: 'Help', url: '/faq' },
-];
+import { fetchCartData, selectCart } from '@/lib/features/cart/CartSlice'
 
 const Navbar = () => {
     const dispatch = useAppDispatch()
-    const cart = useAppSelector((state: RootState) => state.cart.cart);
+    const cart = useAppSelector(selectCart);
     const user = useAppSelector(selectLoggedInUser)
+    const [user1, setUser1] = React.useState<any>(null);
+    const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
+    React.useEffect(() => {
+        if (user && user.token) {
+            dispatch(fetchCartData({ userId: user?.user?.id, token: user.token }));
+        }
+    }, [dispatch, user]);
+
+    const headings = [
+        { id: 'manage-profile', label: 'Manage Profile', url: `/user/manage-profile2/${user?.user?.id}` },
+        { id: 'all-courses', label: 'All Courses', url: '/course/all-courses' },
+        { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
+        { id: 'favourite-professors', label: 'Favourite Professors', url: '/course/favourite-professor' },
+        { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings?tab=favourite' },
+        { id: 'my-learning', label: 'My Learning', url: '/course/my-learnings?tab=registered' },
+        { id: 'settings', label: 'Settings', url: '/settings' },
+        { id: 'help', label: 'Help', url: '/faq' },
+    ];
+
+    React.useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storedUser = window.localStorage.getItem("gradbudy");
+            if (storedUser) {
+                setUser1(JSON.parse(storedUser));
+            }
+        }
+    }, []);
+
+    // console.log("local Data: ", user1)
+
 
     const handleLogout = () => {
-        if (user && user.id) {
-            dispatch(signOutAsync(user.id));
+        if (user) {
+            dispatch(signOut());
+            console.log("Logout Success")
         }
     };
 
@@ -95,9 +118,9 @@ const Navbar = () => {
         const insertIndex = 2;
         navItems.splice(insertIndex, 0, aboutUsItem);
     }
-    if (!user) {
+    if (user) {
         const aboutUsItem = {
-            id: 'account-name', label: 'Account Name', subItems: [
+            id: `${user?.user?.id}`, label: `${user?.user?.name}`, subItems: [
                 { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
                 { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
                 { id: 'favourite-professors', label: 'Favourite Professors', url: '/favourite-professor' },
@@ -109,6 +132,20 @@ const Navbar = () => {
         const insertIndex = 0;
         navItems.splice(insertIndex, 0, aboutUsItem);
     }
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest(".navigation-menu") && isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isMenuOpen]);
 
     return (
         <>
@@ -134,7 +171,7 @@ const Navbar = () => {
                             <NavigationMenuDemo />
                         </div>
 
-                        {!user && <Link href="/course/my-cart">
+                        {user && <Link href="/course/my-cart">
                             <div className='relative'>
                                 <Image
                                     src="/icons/cart.svg"
@@ -143,14 +180,18 @@ const Navbar = () => {
                                     height={25}
                                     priority
                                 />
-                                <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                                {cart && cart.length > 0 && (
+                                    <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">
+                                        {cart.length}
+                                    </span>
+                                )}
                             </div>
                         </Link>}
                     </div>
 
-                    {!user ? (
+                    {user ? (
                         <div className="flex-center gap-4 relative bg-white-100 p-2 px-3 rounded-full">
-                            <h2 className="nav-heading hidden md:inline-block" >Account Name</h2>
+                            <h2 className="nav-heading hidden md:inline-block" >{user?.user?.name}</h2>
                             <Sheet>
                                 <SheetTrigger>
                                     <Image
@@ -240,7 +281,7 @@ const Navbar = () => {
                                                         <div onClick={() => toggleItem(item.id)} className='flex justify-between items-center'>
                                                             {item.subItems ? (
                                                                 <div className='flex items-center gap-x-2'>
-                                                                    {(navItems[0].label === item.label) && <Image
+                                                                    {user && (navItems[0].label === item.label) && <Image
                                                                         className='h-[30px] w-[30px] object-cover rounded-full'
                                                                         src="/icons/profile.svg"
                                                                         alt="Logo"
@@ -300,7 +341,7 @@ const Navbar = () => {
                             </SheetContent>
                         </Sheet>
                     </div>
-                    {!user && <Link href="/course/my-cart">
+                    {user && <Link href="/course/my-cart">
                         <div className='relative'>
                             <Image
                                 src="/icons/cart.svg"
@@ -309,7 +350,11 @@ const Navbar = () => {
                                 height={25}
                                 priority
                             />
-                            <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">{cart.length}</span>
+                            {cart && cart.length > 0 && (
+                                <span className="font-semibold text-base absolute -top-4 -right-1 animate-bounce bg-yellow-100/50 text-white rounded-full px-2">
+                                    {cart.length}
+                                </span>
+                            )}
                         </div>
                     </Link>}
                 </div>
@@ -364,6 +409,23 @@ export function NavigationMenuDemo() {
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
+                    <NavigationMenuTrigger>List of</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <ListItem href="/college-list" title="List of Colleges">
+                                Explore top colleges like Indian Institute of Technology Madras, Delhi, Bombay, and more.
+                            </ListItem>
+                            <ListItem href="/university-list" title="List of Universities">
+                                Discover prestigious universities like Harvard, Stanford, MIT, and others worldwide.
+                            </ListItem>
+                            <ListItem href="/professors-list" title="List of Professors">
+                                Learn from esteemed professors such as Dr. John Doe, Dr. Jane Smith, and Dr. Alice Johnson.
+                            </ListItem>
+                        </ul>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                     <NavigationMenuTrigger>Course</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -379,6 +441,7 @@ export function NavigationMenuDemo() {
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
+
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Stream</NavigationMenuTrigger>
                     <NavigationMenuContent>
