@@ -53,6 +53,18 @@ export const getAllUniversities = async (): Promise<{ data: University[] }> => {
   }
 };
 
+// GET: Get a university by ID
+export const getUniversityById = async (id: string): Promise<{ data: University }> => {
+  try {
+    const response = await API.get(`university/get/${id}`);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error getting university by ID:", error);
+    throw error;
+  }
+};
+
+
 // Add a university
 export const addUniversity = async (
   university: University

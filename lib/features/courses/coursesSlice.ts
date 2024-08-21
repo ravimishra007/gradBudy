@@ -12,12 +12,13 @@ interface Price {
 }
 
 interface uni {
-  _id: string
+  _id: string;
 }
 
 export interface Course {
   _id: string;
   thumbnailImage: string;
+  averageRating: number;
   courseName: string;
   professorId: profId | null;
   streams: string[];

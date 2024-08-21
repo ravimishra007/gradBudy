@@ -85,7 +85,7 @@ const AboutUs = () => {
 const TeamCard = ({ imgSrc, name, position, overview, socialMedia }: TeamCardProps) => {
     return (
         <div className="flex-center flex-col gap-3 sm:gap-4 text-center px-3 py-10 bg-white lg:bg-[#6941C6]/5 rounded-[12px] max-w-[360px] h-96 [box-shadow:8px_8px_12px_0px_rgba(105,_65,_198,_0.05),_-2px_0px_4px_0px_#E9E9FE]">
-            <Image src={imgSrc} alt={name} width={100} height={100} />
+            <Image src={imgSrc} alt={name || 'Team Img'} width={100} height={100} />
 
             <h3 className="font-bold text-xl capitalize">{name}</h3>
 
@@ -98,7 +98,7 @@ const TeamCard = ({ imgSrc, name, position, overview, socialMedia }: TeamCardPro
                     <Link key={index} href={account.url} target="_blank" >
                         <Image
                             src={account.icon}
-                            alt={account.platform}
+                            alt={account.platform || 'Social Media Icons'}
                             className="object-cover hover:scale-90 duration-150"
                             width={25}
                             height={25}

@@ -17,7 +17,7 @@ interface AuthState {
 
 const loadUserFromLocalStorage = () => {
   if (typeof window !== "undefined") {
-    const storedUser = window.localStorage.getItem("user");
+    const storedUser = window.localStorage.getItem("gradbudy");
     return storedUser ? JSON.parse(storedUser) : null;
   }
   return null;
@@ -90,7 +90,7 @@ const authSlice = createSlice({
       state.email = null;
       state.otp = null;
       if (typeof window !== "undefined") {
-        window.localStorage.removeItem("user");
+        window.localStorage.removeItem("gradbudy");
       }
     },
     setUserFromLocalStorage: (state) => {
@@ -108,7 +108,7 @@ const authSlice = createSlice({
           state.status = "idle";
           state.loggedInUser = action.payload;
           if (typeof window !== "undefined") {
-            window.localStorage.setItem("user", JSON.stringify(action.payload));
+            window.localStorage.setItem("gradbudy", JSON.stringify(action.payload));
           }
         }
       )
@@ -126,7 +126,7 @@ const authSlice = createSlice({
           state.loggedInUser = action.payload;
           console.log("User data stored in localStorage:", action.payload);
           if (typeof window !== "undefined") {
-            window.localStorage.setItem("user", JSON.stringify(action.payload));
+            window.localStorage.setItem("gradbudy", JSON.stringify(action.payload));
           }
         }
       )

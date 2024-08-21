@@ -2,7 +2,7 @@
 
 import CourseCard from '@/components/CourseCard';
 import MainHeader from '@/components/MainHeader';
-import { courseDetailData, filters } from '@/constents/constents';
+import { courseDetailData } from '@/constents/constents';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { MinusIcon, PlusIcon } from '@radix-ui/react-icons';
 import React, { useEffect, useState } from 'react';
@@ -28,35 +28,50 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import Badge from '@/components/Badge';
-import { FilterOption, Section, courseDetailDataProp } from '@/constents/types';
+import { FilterOption } from '@/constents/types';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { RootState } from '@/lib/store';
-import { fetchAllCourses, selectCourses, selectCoursesError, selectCoursesStatus } from '@/lib/features/courses/coursesSlice';
-import { fetchAllUniversitiesAsync } from '@/lib/features/university/universitySlice';
+import { Course, fetchAllCourses, selectCourses } from '@/lib/features/courses/coursesSlice';
+import { selectUniversities } from '@/lib/features/university/universitySlice';
+import { fetchProfessors, selectAllProfessors } from '@/lib/features/professor/professorSlice';
+import { fetchAllCollegesAsync } from '@/lib/features/college/collegeSlice';
 
+interface Option {
+    id: number;
+    value: string;
+    label: string;
+    checked: boolean;
+}
+
+interface Section {
+    id: string;
+    name: string;
+    options: Option[];
+}
 
 const AllCourses = () => {
     const dispatch = useAppDispatch();
 
     // Get courses and status from the Redux store
     const courses = useAppSelector(selectCourses);
-    console.log("courses :", courses)
+    const universities = useAppSelector((state: RootState) => selectUniversities(state));
+    const professors = useAppSelector(selectAllProfessors);
 
     const [selectedFilters, setSelectedFilters] = useState<FilterOption[]>([]);
     const [expandedFilter, setExpandedFilter] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filteredCourses, setFilteredCourses] = useState<any[]>(courses);
+    const [filters, setFilters] = useState<Section[]>([]);
 
     useEffect(() => {
+        dispatch(fetchProfessors());
         dispatch(fetchAllCourses());
+        dispatch(fetchAllCollegesAsync());
     }, [dispatch]);
 
     useEffect(() => {
         setFilteredCourses(courses);
     }, [courses]);
-
-    // Log courses for debugging
-    // console.log("courses:", courses);
 
     const [selectedBreadcrumb, setSelectedBreadcrumb] = useState<string>('');
 
@@ -96,7 +111,6 @@ const AllCourses = () => {
         setSearchTerm(event.target.value);
     };
 
-    console.log("courses : ", courses)
 
     useEffect(() => {
         let courses = [...courseDetailData];
@@ -125,6 +139,93 @@ const AllCourses = () => {
 
         setFilteredCourses(courses);
     }, [searchTerm, selectedFilters]);
+
+    const extractFilters = (courses: Course[], universities: { [key: string]: string }, professors: { [key: string]: string }): Section[] => {
+        const filters = {
+            reviews: { id: 'reviews', name: 'Review', options: [] as Option[] },
+            professors: { id: 'mentor.name', name: 'Professor', options: [] as Option[] },
+            colleges: { id: 'institute', name: 'Colleges', options: [] as Option[] },
+            courses: { id: 'title', name: 'Courses', options: [] as Option[] }
+        };
+
+        const professorSet = new Set<string>();
+        const collegeSet = new Set<string>();
+        const courseSet = new Set<string>();
+        const reviewSet = new Set<number>();
+
+        courses.forEach((course: Course) => {
+            if (course.professorId) {
+                professorSet.add(course.professorId._id);
+            }
+
+            if (Array.isArray(course.UniversityIds)) { // Check if UniversityIds is an array
+                course.UniversityIds.forEach((university) => {
+                    if (university && university._id) {
+                        collegeSet.add(university._id);
+                    }
+                });
+            }
+
+            if (course.courseName) {
+                courseSet.add(course.courseName);
+            }
+
+            if (typeof course.averageRating === 'number') {
+                reviewSet.add(course.averageRating);
+            }
+        });
+
+
+        filters.professors.options = Array.from(professorSet).map((professor, index) => ({
+            id: index + 1,
+            value: professors[professor] || professor,
+            label: professors[professor] || professor, // Replace ID with professor name
+            checked: false
+        }));
+
+        filters.colleges.options = Array.from(collegeSet).map((college, index) => ({
+            id: index + 1 + professorSet.size,
+            value: universities[college] || college,
+            label: universities[college] || college, // Replace ID with university name
+            checked: false
+        }));
+
+        filters.courses.options = Array.from(courseSet).map((course, index) => ({
+            id: index + 1 + professorSet.size + collegeSet.size,
+            value: course,
+            label: course,
+            checked: false
+        }));
+
+        filters.reviews.options = Array.from(reviewSet).map((review, index) => ({
+            id: index + 1 + professorSet.size + collegeSet.size + courseSet.size,
+            value: review.toString(),
+            label: `${review} Star`,
+            checked: false
+        }));
+
+        return Object.values(filters);
+    };
+
+    useEffect(() => {
+        if (courses.length > 0 && universities.length > 0 && professors.length > 0) {
+            // Create a mapping of university IDs to names
+            const universityMap = universities.reduce((map: { [key: string]: string }, university: any) => {
+                map[university._id] = university.overview.name;
+                return map;
+            }, {});
+
+            // Create a mapping of professor IDs to names
+            const professorMap = professors.reduce((map: { [key: string]: string }, professor: any) => {
+                map[professor._id] = `${professor.info.name.first} ${professor.info.name.middle} ${professor.info.name.last}`;
+                return map;
+            }, {});
+
+            const extractedFilters = extractFilters(courses, universityMap, professorMap);
+            setFilters(extractedFilters);
+        }
+    }, [courses, universities, professors]);
+    // console.log("filters : ", filters);
 
 
     return (

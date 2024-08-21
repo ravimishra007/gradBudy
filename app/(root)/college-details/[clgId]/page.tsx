@@ -14,7 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { courseDetailData, ensureProperUrl,  formatDate } from '@/constents/constents';
+import { courseDetailData, ensureProperUrl, formatDate } from '@/constents/constents';
 import Link from 'next/link';
 import CourseCard from '@/components/CourseCard';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
@@ -58,7 +58,7 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
                         <Image
                             className="w-full h-[384px] object-cover"
                             src={college.gallery.profilePhoto}
-                            alt="Image"
+                            alt={college.overview.name || "Not Found!"}
                             width={1440}
                             height={384}
                         />
@@ -68,7 +68,7 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
                                     <Image
                                         className="w-[60px] h-[60px] lg:w-[120px] lg:h-[120px] object-cover"
                                         src={college.gallery.logo}
-                                        alt={college.overview.name}
+                                        alt={college.overview.name || "Not Found!"}
                                         width={120}
                                         height={120}
                                     />

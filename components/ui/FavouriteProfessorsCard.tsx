@@ -18,7 +18,7 @@ interface FavouriteProfessorsCardProps {
     showbtn?: boolean;
 }
 
-const FavouriteProfessorsCard = ({ id,profId, showbtn = true }: FavouriteProfessorsCardProps) => {
+const FavouriteProfessorsCard = ({ id, profId, showbtn = true }: FavouriteProfessorsCardProps) => {
     const dispatch = useAppDispatch();
     const { toast } = useToast()
     const user = useAppSelector(selectLoggedInUser)
@@ -51,10 +51,14 @@ const FavouriteProfessorsCard = ({ id,profId, showbtn = true }: FavouriteProfess
         })
     };
 
+    if (!professor) {
+        return <div>Loading...</div>
+    }
+
     return (
         <div className='relative rounded-[12px] border border-[#6941c60d] bg-[#6941c60d] [box-shadow:2px_2px_40px_4px_rgba(105,_65,_198,_0.10)] max-w-[380px] p-3 sm:p-5 pt-10'>
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Image className="object-cover rounded-full w-[70px] h-[70px]" src={professor?.info.profilePhoto ? professor.info.profilePhoto : '/icons/profile.svg'} alt={`${name}'s profile picture`} width={70} height={70} />
+                <Image className="object-cover rounded-full w-[70px] h-[70px]" src={professor?.info.profilePhoto ? professor.info.profilePhoto : '/icons/profile.svg'} alt={`${professor?.info.name.first}'s profile picture`} width={70} height={70} />
             </div>
 
             {showbtn && <button onClick={() => handleRemoveFromFavourites(id)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>}

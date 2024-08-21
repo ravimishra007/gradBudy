@@ -43,9 +43,6 @@ const ManageProfile: React.FC<ManageProfileProps> = ({ params }: { params: { id:
         fetchStudentData();
     }, [id, user?.token, dispatch]);
 
-
-    // console.log("Collected Data: ", studentData);
-
     const nextPage = () => {
         if (page < 4) {
             formRefs.current[page]?.handleSubmit();

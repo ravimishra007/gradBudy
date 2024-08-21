@@ -54,9 +54,10 @@ export default function Page({ params }: { params: { id: string } }) {
 
     if (!course) {
         return <div>Loading...</div>
-    } else {
-        console.log("course: ", course)
     }
+    // else {
+    //     console.log("course: ", course)
+    // }
 
     return (
         <>
@@ -67,7 +68,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         <div className="flex flex-col gap-10 sm:gap-16">
                             <article className={`flex flex-col lg:flex-row gap-6`}>
                                 <figure className="lg:max-w-[33.33%] flex-center w-full relative">
-                                    <Image className="h-[199px] object-cover sm:h-[291px]" src={course?.thumbnailImage ? course.thumbnailImage : '/images/course-img.png'} alt={course?.courseName} width={340} height={291} priority />
+                                    <Image className="h-[199px] object-cover sm:h-[291px]" src={course?.thumbnailImage ? course.thumbnailImage : '/images/course-img.png'} alt={course?.courseName || "Not Found!"} width={340} height={291} priority />
                                 </figure>
 
                                 <figcaption className="lg:max-w-[66.66%] w-full lg:mt-0">
@@ -79,7 +80,7 @@ export default function Page({ params }: { params: { id: string } }) {
                                             <Image
                                                 className='w-[30px] h-[30px] object-cover rounded-full'
                                                 src={professor?.info?.profilePhoto ? professor.info.profilePhoto : "/icons/profile.svg"}
-                                                alt={`${professor?.info?.name.first ? professor?.info?.name.first : "Profile Pic"}`}
+                                                alt={`${professor?.info?.name.first ? professor?.info?.name.first : "Not Found!"}`}
                                                 width={30}
                                                 height={30}
                                                 priority
@@ -115,9 +116,10 @@ export default function Page({ params }: { params: { id: string } }) {
                                 <Button className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-6 px-16 duration-150 mb-4"> Register</Button>
                             </article>
                             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-10 xl:gap-[7vw] mx-auto">
-                                {/* {courseData.labels.map((data, idx) => (
-                                    <LableCard key={idx} iconSrc={data.iconSrc} lable={data.label} name={`${data.name}`} />
-                                ))} */}
+                                <LableCard iconSrc={"/icons/stats.svg"} lable={"Credits"} name={`${course.credits || "Not Found!"}`} />
+                                <LableCard iconSrc={"/icons/stats.svg"} lable={"Total Topics"} name={`${course.numberOfTopics || "Not Found!"}`} />
+                                <LableCard iconSrc={"/icons/video.svg"} lable={"Total Articles"} name={`${course.numberOfArticles || "Not Found!"}`} />
+                                <LableCard iconSrc={"/icons/timer.svg"} lable={"Total Length"} name={`${course.lengthOfVideoInMinutes || "Not Found!"}`} />
                             </div>
                         </div>
 
@@ -170,7 +172,7 @@ const LableCard = ({ iconSrc, name, lable }: LableCardProps) => {
         <div className="flex flex-col gap-2 p-3 sm:p-6 sm:px-10 bg-[#6941C6]/5 rounded-[12px] sm:min-w-[220px] min-h-[88px]">
             <h4 className="text-sm sm:text-base font-normal text-black/50">{lable}</h4>
             <div className="flex items-center gap-x-2 sm:gap-x-4" >
-                <Image className='sm:w-6 w-5 sm:h-5 h-4' src={iconSrc} alt={lable} width={30} height={30} />
+                <Image className='sm:w-6 w-5 sm:h-5 h-4' src={iconSrc} alt={lable || "Not Found!"} width={30} height={30} />
                 <h3 className="font-bold text-base sm:text-xl text-[#0A0D14] opacity-90 capitalize">{name}</h3>
             </div>
         </div>

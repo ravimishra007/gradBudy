@@ -70,7 +70,7 @@ const Navbar = () => {
 
     React.useEffect(() => {
         if (typeof window !== "undefined") {
-            const storedUser = window.localStorage.getItem("user");
+            const storedUser = window.localStorage.getItem("gradbudy");
             if (storedUser) {
                 setUser1(JSON.parse(storedUser));
             }
@@ -409,6 +409,23 @@ export function NavigationMenuDemo() {
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
+                    <NavigationMenuTrigger>List of</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <ListItem href="/college-list" title="List of Colleges">
+                                Explore top colleges like Indian Institute of Technology Madras, Delhi, Bombay, and more.
+                            </ListItem>
+                            <ListItem href="/university-list" title="List of Universities">
+                                Discover prestigious universities like Harvard, Stanford, MIT, and others worldwide.
+                            </ListItem>
+                            <ListItem href="/professors-list" title="List of Professors">
+                                Learn from esteemed professors such as Dr. John Doe, Dr. Jane Smith, and Dr. Alice Johnson.
+                            </ListItem>
+                        </ul>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                     <NavigationMenuTrigger>Course</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -424,6 +441,7 @@ export function NavigationMenuDemo() {
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
+
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Stream</NavigationMenuTrigger>
                     <NavigationMenuContent>

@@ -11,8 +11,6 @@ import { useToast } from './ui/use-toast';
 import { addFavCourse, deleteFavCourseById, fetchFavCourses, fetchFavCoursesByUserId, selectFavCourses } from '@/lib/features/favourite-courses/favCourseSlice';
 import { selectLoggedInUser } from '@/lib/features/auth/authSlice';
 import { useEffect, useState } from 'react';
-import { getFavCoursesByUserId } from '@/lib/features/favourite-courses/favCourseAPI';
-import { getCourseById } from '@/lib/features/courses/coursesAPI';
 import { Course, fetchAllCourses, fetchCourseById, selectCourses } from '@/lib/features/courses/coursesSlice';
 import { addToCart, deleteFromCart, fetchCartData } from '@/lib/features/cart/CartSlice';
 import { getProfessorById } from '@/lib/features/professor/professorAPI';
@@ -38,7 +36,7 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
         priceId: price,
         lengthOfVideoInMinutes: duration,
         numberOfTopics: lessons,
-        UniversityIds: institute,
+        UniversityIds,
         removebtn,
         removeFromFavBtn,
     } = course;
@@ -60,9 +58,12 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
 
 
     useEffect(() => {
-        dispatch(fetchFavCourses());
-        dispatch(fetchAllUniversitiesAsync());
-    }, [dispatch]);
+        if (user?.user?.id) {
+            dispatch(fetchFavCoursesByUserId(user?.user.id));
+            dispatch(fetchAllUniversitiesAsync());
+        }
+    }, [dispatch, user?.user?.id]);
+
 
     useEffect(() => {
         if (user?.token && user?.user?.id) {
@@ -70,25 +71,22 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
         }
     }, [dispatch, user?.token, user?.user.id]);
 
-    // console.log("institute : ", institute)
-    // if (!institute) {
-    //     return <div>Loading...</div>
-    // }
-
     useEffect(() => {
-        if (universities.length > 0 && institute) {
-            const foundUniversity = universities.find((uni) => uni._id === (institute[0]._id));
+        if (universities.length > 0 && course.universityIds) {
+            const foundUniversity = universities.find((uni) => uni._id === (course.universityIds[0]));
             setUniversity(foundUniversity || null);
         }
-    }, [universities, institute]);
+    }, [universities, course]);
 
     useEffect(() => {
         const fetchProfessor = async () => {
-            try {
-                const data = await getProfessorById(mentor._id);
-                setProfessor(data);
-            } catch (err) {
-                console.error("Failed to fetch professor details");
+            if (mentor?._id) {
+                try {
+                    const data = await getProfessorById(mentor._id);
+                    setProfessor(data);
+                } catch (err) {
+                    console.error("Failed to fetch professor details");
+                }
             }
         };
 
@@ -118,10 +116,6 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
         }
     };
 
-    if (error) {
-        return <div>{error}</div>;
-    }
-
     const handleAddToCart = (priceId: string, count: number) => {
         if (user?.token && user?.user?.id) {
             dispatch(addToCart({ token: user.token, userId: user?.user?.id, cartItems: { priceId, count } }));
@@ -142,13 +136,17 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
         }
     };
 
+    if (error) {
+        return <div>{error}</div>;
+    }
+
     return (
         <>
             <div className="flex flex-col w-full max-w-[340px] rounded-[12px] overflow-hidden [box-shadow:2px_2px_40px_4px_#6941C61A]">
                 <article className={`flex flex-col gap-6`}>
                     <Link href={`/course/course-detail/${id}`}>
                         <figure className="flex-center w-full relative">
-                            <Image className="w-full h-[180px] object-cover" src={courseImg ? courseImg : '/images/course-img.png'} alt={title} width={340} height={180} />
+                            <Image className="w-full h-[180px] object-cover" src={courseImg ? courseImg : '/images/course-img.png'} alt={title || "Not Found!"} width={340} height={180} />
 
                             {removebtn && <button onClick={(event) => handleDeleteFromCart(price)} className="bg-black/10 text-black/50 hover:text-black/70 hover:scale-110 hover:bg-black/30 duration-150 w-4 h-4 rounded-full cursor-pointer absolute top-2 right-2"><ImCancelCircle /></button>}
                         </figure>

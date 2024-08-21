@@ -168,21 +168,6 @@ export const teamMembers: TeamMember[] = [
   },
 ];
 
-// export const courses: CourseCardProps[] = [
-//   {
-//     id: 1,
-//     imgSrc: "/images/course-img.png",
-//     courseTitle: "Management Skills",
-//     teacherName: "Dr. John Smith",
-//     tags: ["Leadership", "Management"],
-//     details: ["22 Lessons", "5 Hours"],
-//     amount: "$499.99",
-//     buttonText: "Register",
-//     institute: "Indian Institute of Technology Kanpur",
-//     instituteLogo: "/icons/collage.svg",
-//   },
-// ];
-
 export const socialMedia = [
   {
     platform: "LinkedIn",

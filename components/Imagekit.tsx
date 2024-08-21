@@ -1,8 +1,8 @@
 import React from "react";
 import { IKContext, IKUpload } from "imagekitio-react";
 
-const url = "https://ik.imagekit.io/4c98ru3n2/";
-const publicKey = 'public_mdLf2yGXPl3+WntI0q9fl33WDag=';
+const url = "https://ik.imagekit.io/def9idz9d";
+const publicKey = 'public_GvPsYq1nXw79vF/VWoBDeW3be6Q=';
 
 interface AuthResponse {
   signature: string;

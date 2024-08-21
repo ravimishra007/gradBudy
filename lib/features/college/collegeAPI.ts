@@ -84,6 +84,18 @@ export const getAllColleges = async (): Promise<{ data: College[] }> => {
   }
 };
 
+// GET: Get a college by ID
+export const getCollegeById = async (id: string): Promise<{ data: College }> => {
+  try {
+    const response = await API.get(`college/get/${id}`);
+    return { data: response.data };
+  } catch (error) {
+    console.error("Error getting college by ID:", error);
+    throw error;
+  }
+};
+
+
 // POST: Add a new college
 export const addCollege = async (
   college: College

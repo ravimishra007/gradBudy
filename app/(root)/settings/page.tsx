@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import MainHeader from "@/components/MainHeader";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,10 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import Imagekit from "@/components/Imagekit";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { selectLoggedInUser } from "@/lib/features/auth/authSlice";
+import Link from "next/link";
+import { fetchStudentById, selectStudent, updateProfilePicture, updateStudentData } from "@/lib/features/user/studentProfileSlice";
 
 interface FormData {
     name: string;
@@ -26,6 +30,9 @@ interface FormData {
 }
 
 const Settings: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectLoggedInUser);
+    const studentData = useAppSelector(selectStudent);
     const [formData, setFormData] = useState<FormData>({
         name: "",
         language: "",
@@ -34,6 +41,28 @@ const Settings: React.FC = () => {
         confirmPassword: "",
         profilePhoto: ""
     });
+    console.log(studentData)
+
+    useEffect(() => {
+        const fetchStudentData = async () => {
+            if (user?.user.id && user?.token && !studentData) {
+                try {
+                    const data = await dispatch(fetchStudentById({ id: user?.user.id, token: user.token })).unwrap();
+                    console.log("data : ", data);
+                    dispatch(updateStudentData(data));
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        name: data.info.name.first + " " + data.info.name.last,
+                        profilePhoto: data.info.profilePhoto,
+                    }));
+                } catch (error) {
+                    console.error('Failed to fetch student data:', error);
+                }
+            }
+        };
+
+        fetchStudentData();
+    }, [user?.user.id, user?.token, dispatch, studentData]);
 
     const handleChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -52,9 +81,30 @@ const Settings: React.FC = () => {
         }));
     };
 
+    const handleProfilePicUpdate = async (url: {
+        url: string
+    }) => {
+        console.log(url.url)
+        const token = user?.token;
+        if (!token) {
+            console.error("User token is missing");
+            return;
+        }
+        try {
+            await dispatch(updateProfilePicture({ token, profileUrl: url.url })).unwrap();
+            setFormData((prevData) => ({
+                ...prevData,
+                profilePhoto: url.url,
+            }));
+        } catch (error) {
+            console.error("Error updating profile picture:", error);
+        }
+    };
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Form Data:", formData);
+        // Handle form submission here, such as updating user information
     };
 
     return (
@@ -83,11 +133,12 @@ const Settings: React.FC = () => {
                                                     ...prevState,
                                                     profilePhoto: res.url
                                                 }));
+                                                handleProfilePicUpdate(res);
                                             }}
                                         />
                                         <Image
                                             className="h-16 w-16 sm:h-24 sm:w-24 object-cover rounded-full"
-                                            src={formData.profilePhoto || "/icons/profile.svg"}
+                                            src={studentData.info.profilePhoto}
                                             alt="Profile"
                                             width={100}
                                             height={100}
@@ -98,10 +149,10 @@ const Settings: React.FC = () => {
                         </div>
                         <div className="text-[#344054] capitalize">
                             <h3 className="text-base sm:text-lg md:text-xl font-semibold">
-                                Your Name
+                                {user?.user.name}
                             </h3>
                             <p className="text-xs sm:text-base md:text-lg font-medium">
-                                This will be displayed on the profile
+                                {user?.user.email}
                             </p>
                         </div>
                     </div>
@@ -112,12 +163,14 @@ const Settings: React.FC = () => {
                         >
                             Delete
                         </Button>
-                        <Button
-                            type="button"
-                            className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-8 sm:px-16 duration-150 mb-4"
-                        >
-                            Update
-                        </Button>
+                        <Link href={`/user/manage-profile2/${user?.user.id}`}>
+                            <Button
+                                type="button"
+                                className="form-btn bg-yellow-100 hover:bg-yellow-100/80 py-4 sm:py-6 px-8 sm:px-16 duration-150 mb-4"
+                            >
+                                Update
+                            </Button>
+                        </Link>
                     </div>
                 </div>
                 {/* Change Name And Language */}

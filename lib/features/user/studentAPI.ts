@@ -51,6 +51,21 @@ export const addStudent = async (
   }
 };
 
+export const updateProfilePic = async (token: string, profileUrl: string) => {
+  try {
+    const response = await API.post(
+      "user/update-profile-pic",
+      { profileUrl },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating profile picture:", error);
+    throw error;
+  }
+};
 // PATCH: Edit a student by ID
 export const editStudent = async (
   id: string,

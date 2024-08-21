@@ -6,6 +6,7 @@ import {
   addStudent,
   editStudent,
   delStudent,
+  updateProfilePic,
 } from "./studentAPI";
 
 export interface Name {
@@ -100,8 +101,7 @@ export interface StudentState {
 const initialState: StudentState = {
   student: {
     info: {
-      profilePhoto:
-        "https://ik.imagekit.io/def9idz9d/techBlogDoodle_D2Zqb2u_M.jpg",
+      profilePhoto: "https://ik.imagekit.io/def9idz9d/profile_dMSIFjzIR.svg",
       name: {
         first: "",
         middle: "",
@@ -225,6 +225,14 @@ export const deleteStudent = createAsyncThunk(
   async ({ id, token }: { id: string; token: string }) => {
     await delStudent(id, token);
     return id;
+  }
+);
+
+export const updateProfilePicture = createAsyncThunk(
+  "students/updateProfilePicture",
+  async ({ token, profileUrl }: { token: string; profileUrl: string }) => {
+    const response = await updateProfilePic(token, profileUrl);
+    return response.profileUrl;
   }
 );
 
@@ -355,6 +363,18 @@ const studentProfileSlice = createSlice({
       .addCase(deleteStudent.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
+      })
+      .addCase(updateProfilePicture.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateProfilePicture.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.student.info.profilePhoto = action.payload;
+      })
+      .addCase(updateProfilePicture.rejected, (state, action) => {
+        state.status = "failed";
+        state.error =
+          action.error.message || "Failed to update profile picture";
       });
   },
 });

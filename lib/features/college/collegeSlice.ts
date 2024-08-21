@@ -5,6 +5,7 @@ import {
   getAllColleges,
   deleteCollege,
   College,
+  getCollegeById,
 } from "./collegeAPI";
 
 interface CollegeState {
@@ -26,6 +27,15 @@ export const fetchAllCollegesAsync = createAsyncThunk(
     return response.data;
   }
 );
+
+export const fetchCollegeByIdAsync = createAsyncThunk(
+  "college/fetchById",
+  async (id: string) => {
+    const response = await getCollegeById(id);
+    return response.data;
+  }
+);
+
 
 export const addCollegeAsync = createAsyncThunk(
   "college/add",
@@ -76,6 +86,27 @@ const collegeSlice = createSlice({
       .addCase(fetchAllCollegesAsync.rejected, (state, action) => {
         state.status = "idle";
         state.error = action.error.message || "Failed to fetch colleges";
+      })
+      .addCase(fetchCollegeByIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        fetchCollegeByIdAsync.fulfilled,
+        (state, action: PayloadAction<College>) => {
+          state.status = "idle";
+          const index = state.colleges.findIndex(
+            (college) => college._id === action.payload._id
+          );
+          if (index !== -1) {
+            state.colleges[index] = action.payload;
+          } else {
+            state.colleges.push(action.payload);
+          }
+        }
+      )
+      .addCase(fetchCollegeByIdAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.error.message || "Failed to fetch college by ID";
       })
       .addCase(addCollegeAsync.pending, (state) => {
         state.status = "loading";

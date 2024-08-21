@@ -59,7 +59,7 @@ const UniversityDetails = ({ params }: { params: { uniId: string } }) => {
                         <Image
                             className="w-full h-[384px] object-cover"
                             src={university.gallery.profilePhoto}
-                            alt="Image"
+                            alt={university.overview.name || "Not Found!"}
                             width={1440}
                             height={384}
                         />
@@ -69,7 +69,7 @@ const UniversityDetails = ({ params }: { params: { uniId: string } }) => {
                                     <Image
                                         className="w-[60px] h-[60px] lg:w-[120px] lg:h-[120px] object-cover"
                                         src={university.gallery.logo}
-                                        alt={university.overview.name}
+                                        alt={university.overview.name || "Not Found!"}
                                         width={120}
                                         height={120}
                                     />

@@ -15,16 +15,17 @@ function Protected({ children }: ProtectedProps) {
     const loggedInUser = useAppSelector(selectLoggedInUser);
     const [loading, setLoading] = useState(true);
 
+    const isClient = typeof window !== 'undefined';
+
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const storedUser = window.localStorage.getItem('user');
-            console.log(storedUser);
+        if (isClient) {
+            const storedUser = window.localStorage.getItem('gradbudy');
             if (storedUser) {
                 dispatch(setUserFromLocalStorage());
             }
+            setLoading(false);
         }
-        setLoading(false);
-    }, [dispatch]);
+    }, [dispatch, isClient]);
 
     useEffect(() => {
         if (!loading && !loggedInUser) {
@@ -32,11 +33,7 @@ function Protected({ children }: ProtectedProps) {
         }
     }, [loading, loggedInUser, router]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!loggedInUser) {
+    if (loading || !loggedInUser) {
         return null;
     }
 

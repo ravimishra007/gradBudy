@@ -78,7 +78,7 @@ interface FeaturedUniversityCardProp {
 
 const FeaturedUniversityCard = ({ name, bio, logo, id }: FeaturedUniversityCardProp) => {
     return (
-        <div className=" bg-white rounded-[12px] [box-shadow:2.594px_2.594px_27.625px_2.594px_rgba(105,_65,_198,_0.20)] max-w-[360px]">
+        <div className=" bg-white rounded-[12px] [box-shadow:2.594px_2.594px_27.625px_2.594px_rgba(105,_65,_198,_0.20)] max-w-[360px] w-full">
             <div className="py-8 px-7">
                 <Image className='bg-black rounded-[2.594px] object-cover w-7 h-7' src={logo} alt={`${name} logo`} height={28} width={28} />
 
