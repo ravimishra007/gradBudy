@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster"
 import Footer from "@/components/Footer";
 import StoreProvider from "../StoreProvider";
-import Protected from "../(auth)/Proctected";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,11 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} relative`}>
         <StoreProvider>
-          <Protected>
-            <Navbar />
-            {children}
-            <Footer />
-          </Protected>
+          <Navbar />
+          {children}
+          <Footer />
           <Toaster />
         </StoreProvider>
       </body>

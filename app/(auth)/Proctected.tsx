@@ -13,27 +13,32 @@ function Protected({ children }: ProtectedProps) {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const loggedInUser = useAppSelector(selectLoggedInUser);
-    const [loading, setLoading] = useState(true);
-
-    const isClient = typeof window !== 'undefined';
+    const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
-        if (isClient) {
-            const storedUser = window.localStorage.getItem('gradbudy');
-            if (storedUser) {
-                dispatch(setUserFromLocalStorage());
+        try {
+            if (typeof window !== 'undefined') {
+                const storedUser = window.localStorage.getItem('gradbudy');
+                if (storedUser) {
+                    dispatch(setUserFromLocalStorage());
+                } else {
+                    router.push('/login');
+                }
+                setIsInitialized(true);
             }
-            setLoading(false);
-        }
-    }, [dispatch, isClient]);
-
-    useEffect(() => {
-        if (!loading && !loggedInUser) {
+        } catch (error) {
+            console.error("We're having trouble accessing your account. Please try logging in again.");
             router.push('/login');
         }
-    }, [loading, loggedInUser, router]);
+    }, [dispatch, router]);
 
-    if (loading || !loggedInUser) {
+    useEffect(() => {
+        if (isInitialized && !loggedInUser) {
+            router.push('/login');
+        }
+    }, [isInitialized, loggedInUser, router]);
+
+    if (!isInitialized || !loggedInUser) {
         return null;
     }
 

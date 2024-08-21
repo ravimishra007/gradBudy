@@ -202,7 +202,6 @@ export const quickLinks: FooterLink[] = [
   { title: "Privacy Policy", url: "/privacy-policy" },
   { title: "Terms & Condition", url: "/terms-of-use" },
   { title: "Contact Us", url: "/contact-us" },
-  { title: "Login", url: "/login" },
 ];
 
 export const filters: Section[] = [

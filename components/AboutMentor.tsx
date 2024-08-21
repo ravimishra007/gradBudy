@@ -48,7 +48,7 @@ const AboutMentor = ({ professorId }: { professorId: string }) => {
 
         fetchProfessor();
     }, [id]);
-    
+
     if (!id) {
         return <div>Loading...</div>
     }
@@ -58,6 +58,11 @@ const AboutMentor = ({ professorId }: { professorId: string }) => {
     }
 
     const handlefavProf = async (userId: any, profId: string) => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         try {
             const isAlreadyFavorite = favProfs.some((fav: any) => fav.profId === profId);
 
@@ -87,6 +92,11 @@ const AboutMentor = ({ professorId }: { professorId: string }) => {
     };
 
     const handleRemoveFromFavourites = async (favProfId: string) => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         try {
             // Remove favorite professor
             await dispatch(deleteFavProfById(favProfId));
@@ -144,7 +154,7 @@ const AboutMentor = ({ professorId }: { professorId: string }) => {
                         )}
                     </div>
                 </div>
-                <p className="text-base text-justify sm:text-lg font-medium text-black/60">{professor?.info.desc.slice(0, 450)}....<Link className="text-[#6941C6]" href={`/course/favourite-professor/detail/${id}`} >see more</Link></p>
+                <p className="text-base text-justify sm:text-lg font-medium text-black/60">{professor?.info.desc.slice(0, 450)}....<Link className="text-[#6941C6]" href={`/professor/detail/${id}`} >see more</Link></p>
             </div>
         </div>
     )
