@@ -150,23 +150,24 @@ const Navbar = () => {
     return (
         <>
             {/* for Desktop  */}
-            <nav className="w-full h-20 hidden lg:flex items-center justify-between px-6 sm:px-12 md:px-20 bg-white">
+            <nav className="w-full h-20 bg-white hidden lg:flex items-center justify-between px-6 sm:px-12 md:px-20">
                 {/* Logo */}
-                <div className="text-xl font-bold">
+                <div className="text-xl font-bold h-20">
                     <Link href="/">
                         <Image
-                            src="/next.svg"
+                            src="/GradBudy-Logo.svg"
                             alt="Logo"
-                            width={100}
-                            height={100}
+                            width={85}
+                            height={85}
                             priority
+                            className='object-center'
                         />
                     </Link>
                 </div>
 
                 {/* User Profile */}
                 <div className='flex-center gap-12 relative'>
-                    <div className='flex-center gap-8'>
+                    {/* <div className='flex-center gap-8'>
                         <div className=''>
                             <NavigationMenuDemo />
                         </div>
@@ -187,11 +188,19 @@ const Navbar = () => {
                                 )}
                             </div>
                         </Link>}
+                    </div> */}
+
+                    <div className='flex-center gap-8 font-medium text-base'>
+                        {/* This is temp */}
+                        <Link href="/college-list">Colleges</Link>
+                        <Link href="/university-list">Universities</Link>
+                        <Link href="/professors-list">Professors</Link>
+                        <Link href="/course/all-courses">Courses</Link>
                     </div>
 
                     {user ? (
                         <div className="flex-center gap-4 relative bg-white-100 p-2 px-3 rounded-full">
-                            <h2 className="nav-heading hidden md:inline-block" >{user?.user?.name}</h2>
+                            <p className="nav-heading hidden md:inline-block" >{user?.user?.name}</p>
                             <Sheet>
                                 <SheetTrigger>
                                     <Image
@@ -242,10 +251,10 @@ const Navbar = () => {
                 <div className="text-xl font-bold">
                     <Link href="/">
                         <Image
-                            src="/next.svg"
+                            src="/GradBudy-Logo.svg"
                             alt="Logo"
-                            width={100}
-                            height={100}
+                            width={80}
+                            height={80}
                             priority
                         />
                     </Link>
@@ -266,14 +275,14 @@ const Navbar = () => {
                                 <SheetHeader>
                                     <SheetTitle className='flex-center text-[#2C1C5F] text-base font-semibold border-b border-[#2C1C5F] text-center'>
                                         <Image
-                                            src="/next.svg"
+                                            src="/GradBudy-Logo.svg"
                                             alt="Logo"
-                                            width={100}
-                                            height={100}
+                                            width={80}
+                                            height={80}
                                             priority
                                         />
                                     </SheetTitle>
-                                    <SheetTitle>
+                                    {/* <SheetTitle>
                                         <nav className="w-full">
                                             <ul className='flex flex-col'>
                                                 {navItems.map((item) => (
@@ -336,12 +345,22 @@ const Navbar = () => {
                                         <SheetTitle className='border-b text-sm sm:text-base' >
                                             <Link href="/login">Login</Link>
                                         </SheetTitle>
-                                    )}
+                                    )} */}
+
+                                    <div className='flex justify-start items-start gap-8 font-medium text-base flex-col'>
+                                        {/* This is temp */}
+                                        <Link href="/college-list">Colleges</Link>
+                                        <Link href="/university-list">Universities</Link>
+                                        <Link href="/professors-list">Professors</Link>
+                                        <Link href="/course/all-courses">Courses</Link>
+                                    </div>
                                 </SheetHeader>
+
+
                             </SheetContent>
                         </Sheet>
                     </div>
-                    {user && <Link href="/course/my-cart">
+                    {/* {user && <Link href="/course/my-cart">
                         <div className='relative'>
                             <Image
                                 src="/icons/cart.svg"
@@ -356,7 +375,7 @@ const Navbar = () => {
                                 </span>
                             )}
                         </div>
-                    </Link>}
+                    </Link>} */}
                 </div>
             </nav>
         </>

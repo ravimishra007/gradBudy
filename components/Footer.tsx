@@ -70,7 +70,7 @@ const Footer = () => {
                     <div className="text-xl font-bold lg:w-1/2 space-y-6 w-full max-w-xs">
                         <Link href="/">
                             <Image
-                                src="/next.svg"
+                                src="/GradBudy-Logo.svg"
                                 alt="Logo"
                                 width={100}
                                 height={100}
@@ -107,9 +107,17 @@ const Footer = () => {
                         <div className='sm:min-w-[165px] min-w-[130px]'>
                             <h3 className="pointer-events-none">Quick Links</h3>
                             <ul className=''>
-                                {quickLinks.map((item, idx) => (
+                                {/* {quickLinks.map((item, idx) => (
                                     <Link key={idx} href={`${item.url}`}><li className='text-[#2C1C5F] text-xs sm:text-lg font-normal mt-2 sm:mt-4 hover:scale-105 duration-200'>{item.title}</li></Link>
-                                ))}
+                                ))} */}
+                                <div className='flex gap-2 sm:gap-4 lg:gap-6 font-medium text-base flex-col mt-4'>
+                                    {/* This is temp */}
+                                    <Link href="/college-list">Colleges</Link>
+                                    <Link href="/university-list">Universities</Link>
+                                    <Link href="/professors-list">Professors</Link>
+                                    <Link href="/course/all-courses">Courses</Link>
+                                </div>
+
                                 {!user && <Link href={`/login`}><li className='text-[#2C1C5F] text-xs sm:text-lg font-normal mt-2 sm:mt-4 hover:scale-105 duration-200'>
                                     Login</li></Link>}
                             </ul>
