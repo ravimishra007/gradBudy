@@ -1,7 +1,10 @@
+"use client"
+
 import { quickLinks, socialMedia } from '@/constents/constents';
+import { selectLoggedInUser } from '@/lib/features/auth/authSlice';
+import { useAppSelector } from '@/lib/hooks';
 import Image from 'next/image'
 import Link from 'next/link'
-
 
 
 const contactInfo = [
@@ -58,9 +61,8 @@ const contactInfo = [
     },
 ];
 
-
 const Footer = () => {
-
+    const user = useAppSelector(selectLoggedInUser)
     return (
         <>
             <footer className="flex flex-col px-3 pt-6 lg:pt-28 lg:px-24 overflow-hidden border-t-2 border-[#EFF0F6]">
@@ -108,7 +110,10 @@ const Footer = () => {
                                 {quickLinks.map((item, idx) => (
                                     <Link key={idx} href={`${item.url}`}><li className='text-[#2C1C5F] text-xs sm:text-lg font-normal mt-2 sm:mt-4 hover:scale-105 duration-200'>{item.title}</li></Link>
                                 ))}
+                                {!user && <Link href={`/login`}><li className='text-[#2C1C5F] text-xs sm:text-lg font-normal mt-2 sm:mt-4 hover:scale-105 duration-200'>
+                                    Login</li></Link>}
                             </ul>
+
                         </div>
                         <div>
                             <div>

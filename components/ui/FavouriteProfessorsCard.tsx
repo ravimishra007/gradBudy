@@ -69,7 +69,7 @@ const FavouriteProfessorsCard = ({ id, profId, showbtn = true }: FavouriteProfes
                     <p className="text-sm font-medium text-[#344054]">{professor?.education[0].name}</p>
                 </div>
                 <p className="text-base font-medium text-[#344054]">
-                    {professor?.info.desc.slice(0, 180)}<Link className="text-blue-700" href={`/course/favourite-professor/detail/${profId}`}>...More</Link>
+                    {professor?.info.desc.slice(0, 180)}<Link className="text-blue-700" href={`/professor/detail/${profId}`}>...More</Link>
                 </p>
             </div>
         </div>

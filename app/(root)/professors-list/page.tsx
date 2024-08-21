@@ -167,7 +167,7 @@ const AllProfessors = () => {
                 profilePhoto={professor.info.profilePhoto}
                 totalStudents={10}
                 totalCourses={10}
-                detailsUrl={'/course/favourite-professor/detail/'}
+                detailsUrl={'/professor/detail/'}
               />
             ))}
           </div>

@@ -60,6 +60,11 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
     }
 
     const handleRemoveFromFavourites = async (favProfId: string) => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         try {
             // Remove favorite professor
             await dispatch(deleteFavProfById(favProfId));
@@ -75,6 +80,11 @@ export default function FavouriteProfDetails({ params }: { params: { prof: strin
     };
 
     const handlefavProf = async (userId: any, profId: string) => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         try {
             const isAlreadyFavorite = favProfs.some((fav: any) => fav.profId === profId);
 

@@ -94,6 +94,11 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
     }, [mentor]);
 
     const handleFavourite = () => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         if (user && user?.user?.id) {
             if (isFav) {
                 dispatch(deleteFavCourseById(favCourseId));
@@ -117,6 +122,11 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
     };
 
     const handleAddToCart = (priceId: string, count: number) => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         if (user?.token && user?.user?.id) {
             dispatch(addToCart({ token: user.token, userId: user?.user?.id, cartItems: { priceId, count } }));
             toast({
@@ -127,6 +137,11 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
     };
 
     const handleDeleteFromCart = (priceId: string) => {
+        if (!user?.user?.id) {
+            router.push('/login');
+            return;
+        }
+
         if (user?.token) {
             dispatch(deleteFromCart({ token: user.token, id: priceId }));
             toast({

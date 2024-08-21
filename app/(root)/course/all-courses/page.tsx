@@ -278,9 +278,9 @@ const AllCourses = () => {
                             </SheetContent>
                             <SheetContent>
                                 <SheetHeader>
-                                    <SheetHeader>
-                                        <SheetTitle className='font-semibold text-base text-[#2C1C5F] border-b-2 border-black'>Filters</SheetTitle>
-                                    </SheetHeader>
+                                    <SheetTitle className='font-semibold text-base text-[#2C1C5F] border-b-2 border-black'>Filters</SheetTitle>
+                                </SheetHeader>
+                                <div className="grid gap-4 py-4">
                                     {filters.map((section) => (
                                         <div key={section.id}>
                                             <SheetTitle onClick={() => toggleFilter(section.id)} className="cursor-pointer text-sm font-normal">
@@ -303,8 +303,10 @@ const AllCourses = () => {
                                             )}
                                         </div>
                                     ))}
-                                </SheetHeader>
+                                </div>
                             </SheetContent>
+
+
                         </Sheet>
                     </form>
 

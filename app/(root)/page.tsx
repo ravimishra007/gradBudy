@@ -4,7 +4,6 @@ import FeaturedCourses from '@/components/FeaturedCourses'
 import FeaturedUniversities from '@/components/FeaturedUniversities'
 import Hero from '@/components/Hero'
 import Testimonials from '@/components/Testimonials'
-import Image from 'next/image'
 import React from 'react'
 
 const Home = () => {

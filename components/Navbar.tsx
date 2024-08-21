@@ -123,7 +123,7 @@ const Navbar = () => {
             id: `${user?.user?.id}`, label: `${user?.user?.name}`, subItems: [
                 { id: 'manage-profile', label: 'Manage Profile', url: '/user/manage-profile' },
                 { id: 'my-purchases', label: 'My Purchases', url: '/course/my-purchase' },
-                { id: 'favourite-professors', label: 'Favourite Professors', url: '/favourite-professor' },
+                { id: 'favourite-professors', label: 'Favourite Professors', url: '/course/favourite-professor' },
                 { id: 'favourite-courses', label: 'Favourite Courses', url: '/course/my-learnings' },
                 { id: 'my-learnings', label: 'My Learnings', url: '/course/my-learnings' },
                 { id: 'settings', label: 'Settings', url: '/settings' }
