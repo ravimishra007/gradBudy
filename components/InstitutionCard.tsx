@@ -36,7 +36,9 @@ const InstitutionCard: React.FC<InstitutionCardProps> = ({
             <div className='flex items-start gap-x-4 w-full'>
                 <div className="flex-1">
                     <h3 className="text-sm sm:text-lg font-semibold mb-1 sm:mb-2">{name}</h3>
-                    <p className="text-[#344054] text-xs sm:text-base mb-2 sm:mb-4">{overview}</p>
+                    <p className="text-[#344054] text-xs sm:text-base mb-2 sm:mb-4">
+                        {overview.length > 180 ? `${overview.slice(0, 180)}...` : `${overview}`}
+                    </p>
                 </div>
                 <div className="hidden sm:block">
                     <Image

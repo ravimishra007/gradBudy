@@ -86,7 +86,7 @@ const UniversityList = () => {
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
-                            {specificBreadcrumbs && specificBreadcrumbs.map((breadcrumb) => (
+                            {specificBreadcrumbs?.map((breadcrumb) => (
                                 <BreadcrumbItem
                                     className={`cursor-pointer ${selectedBreadcrumb === breadcrumb.id ? 'text-[#6941C6] font-medium' : ''}`}
                                     onClick={() => handleBreadcrumbClick(breadcrumb.id)}
@@ -146,7 +146,7 @@ const UniversityList = () => {
 
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
-                    {filteredUniversities && filteredUniversities.map((university) => (
+                    {filteredUniversities?.map((university) => (
                         <InstitutionCard
                             key={university._id}
                             id={university._id}

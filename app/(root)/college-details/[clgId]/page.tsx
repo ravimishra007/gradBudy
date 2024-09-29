@@ -51,7 +51,6 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
     }
 
     return (
-        <>
             <section className="flex-center md:bg-white-100 h-full mx-auto">
                 <div className="bg-white lg:rounded-tl-[50px] max-w-[1440px] my-10 w-full overflow-hidden sm:mx-10 lg:mx-10">
                     <div className="relative mb-10 md:mb-16">
@@ -76,7 +75,7 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
                                 </div>
                                 <div className="text-[#F0F0F0] text-start w-full lg:w-[70%] text-xs sm:text-sm lg:text-lg font-normal">
                                     <h3 className='hidden lg:block subHeading'>{college.overview.name}</h3>
-                                    <p>{college.overview.overview}</p>
+                                    <p>{college.overview.overview.length > 230 ? `${college.overview.overview.slice(0, 230)}...` : college.overview.overview}</p>
                                 </div>
                                 <div className="hidden lg:flex justify-center items-center gap-4 lg:w-[15%]">
                                     <h3 className="text-3xl font-semibold">
@@ -189,8 +188,8 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
 
                                 <div className="overflow-x-auto scroll-hide p-4">
                                     <div className="flex flex-nowrap space-x-10">
-                                        {college.gallery.photos.map((image, index) => (
-                                            <div key={index} className="min-w-[100px] min-h-[100px] md:min-w-[250px] md:min-h-[250px]">
+                                        {college.gallery.photos.filter(image => image).map((image, index) => (
+                                            <div key={image} className="min-w-[100px] min-h-[100px] md:min-w-[250px] md:min-h-[250px]">
                                                 <Image
                                                     src={ensureProperUrl(image)}
                                                     alt={`Image ${index + 1}`}
@@ -236,7 +235,7 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
                                 <div className="flex flex-wrap gap-4 gap-x-7">
                                     {college.placement.topRecruiters.map((title, index) => (
                                         // <Badge key={index} imgSrc={imgSrc} />
-                                        <Badge key={index} title={title} />
+                                        <Badge key={title} title={title} />
                                     ))}
                                 </div>
                             </div>
@@ -262,7 +261,6 @@ const CollegeDetails = ({ params }: { params: { clgId: string } }) => {
                     </div>
                 </div>
             </section>
-        </>
     )
 }
 

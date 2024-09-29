@@ -1,8 +1,9 @@
 import React from "react";
 import { IKContext, IKUpload } from "imagekitio-react";
 
-const url = "https://ik.imagekit.io/def9idz9d";
-const publicKey = 'public_GvPsYq1nXw79vF/VWoBDeW3be6Q=';
+const url = process.env.IMGKIT_PUBLIC_URL as string;
+const publicKey = process.env.IMGKIT_PUBLIC_KEY as string;
+const API = process.env.API_URL as string;
 
 interface AuthResponse {
   signature: string;
@@ -12,7 +13,7 @@ interface AuthResponse {
 
 const authenticator = async (): Promise<AuthResponse> => {
   try {
-    const response = await fetch(`http://localhost:5000/file/auth`);
+    const response = await fetch(`${API}file/auth`);
 
     if (!response.ok) {
       const errorText = await response.text();
