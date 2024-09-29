@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/sheet"
 import { Label } from '@/components/ui/label';
 import MainHeader from '@/components/MainHeader';
+import { calculateTotalExperience } from '@/lib/utils';
 
 
 const specificBreadcrumbs = [
@@ -96,7 +97,7 @@ const AllProfessors = () => {
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
-                {specificBreadcrumbs && specificBreadcrumbs.map((breadcrumb) => (
+                {specificBreadcrumbs?.map((breadcrumb) => (
                   <BreadcrumbItem
                     className={`cursor-pointer ${selectedBreadcrumb === breadcrumb.id ? 'text-[#6941C6] font-medium' : ''}`}
                     onClick={() => handleBreadcrumbClick(breadcrumb.id)}
@@ -157,7 +158,7 @@ const AllProfessors = () => {
           </div>
 
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
-            {filteredProfessors && filteredProfessors.map((professor) => (
+            {filteredProfessors?.map((professor) => (
               <ProfessorCard
                 key={professor._id}
                 id={professor._id}
@@ -165,7 +166,7 @@ const AllProfessors = () => {
                 university={professor.education[0]?.name || 'Unknown University'}
                 description={professor.info.desc}
                 profilePhoto={professor.info.profilePhoto}
-                totalStudents={10}
+                totalExp={parseInt(`${calculateTotalExperience(professor?.experience)}`)}
                 totalCourses={10}
                 detailsUrl={'/professor/detail/'}
               />
@@ -187,7 +188,7 @@ interface ProfessorCardProps {
   university: string;
   description: string;
   profilePhoto: string;
-  totalStudents: number;
+  totalExp: number;
   totalCourses: number;
   detailsUrl: string;
 }
@@ -198,7 +199,7 @@ const ProfessorCard: React.FC<ProfessorCardProps> = ({
   university,
   description,
   profilePhoto,
-  totalStudents,
+  totalExp,
   totalCourses,
   detailsUrl,
 }) => {
@@ -208,12 +209,14 @@ const ProfessorCard: React.FC<ProfessorCardProps> = ({
         <div className="flex-1">
           <h3 className="text-sm sm:text-lg font-semibold mb-0.5 sm:mb-1">{`${name.first} ${name.middle && name.middle} ${name.last && name.last}`}</h3>
           <p className="text-purple-600 text-sm sm:text-base mb-1 sm:mb-2">{university}</p>
-          <p className="text-[#344054] text-xs sm:text-base mb-1 sm:mb-2">{description}</p>
+          <p className="text-[#344054] text-xs sm:text-base mb-1 sm:mb-2">
+            {description.length > 180 ? `${description.slice(0, 180)}...` : `${description}`}
+          </p>
         </div>
         <div className="hidden sm:block">
           <Image
             src={profilePhoto}
-            alt={`${name.first} ${name.last && name.last} profile`}
+            alt={`${name.first} ${name?.last} profile`}
             height={100}
             width={100}
             className="object-cover rounded-[4.453px]"
@@ -222,7 +225,7 @@ const ProfessorCard: React.FC<ProfessorCardProps> = ({
         <div className="block sm:hidden">
           <Image
             src={profilePhoto}
-            alt={`${name.first} ${name.last && name.last} profile`}
+            alt={`${name.first} ${name?.last} profile`}
             height={64}
             width={64}
             className="object-cover rounded-[4.453px]"
@@ -232,8 +235,8 @@ const ProfessorCard: React.FC<ProfessorCardProps> = ({
 
       <div className="flex justify-between text-xs sm:text-base items-center pt-1 gap-x-1 sm:gap-x-2">
         <div className="">
-          <span className="block text-xs sm:text-sm text-gray-500"><span className='hidden sm:inline'>Total</span> <span className='inline sm:hidden'>Tot.</span> Students</span>
-          <span className="sm:text-lg text-base font-semibold">{totalStudents}</span>
+          <span className="block text-xs sm:text-sm text-gray-500"><span className='hidden sm:inline'>Total</span> <span className='inline sm:hidden'>Tot.</span> Experience</span>
+          <span className="sm:text-lg text-base font-semibold">{totalExp}</span>
         </div>
         <div className="">
           <span className="block text-xs sm:text-sm text-gray-500"><span className='hidden sm:inline'>Total</span> <span className='inline sm:hidden'>Tot.</span> Courses</span>
