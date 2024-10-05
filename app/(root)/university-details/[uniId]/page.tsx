@@ -7,16 +7,13 @@ import React, { useEffect, useState } from 'react'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { affiliatedColleges, courseDetailData, ensureProperUrl, formatDate } from '@/constents/constents';
+import { affiliatedColleges, ensureProperUrl } from '@/constents/constents';
 import Link from 'next/link';
-import CourseCard from '@/components/CourseCard';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllUniversitiesAsync, selectUniversities, selectUniversityError } from '@/lib/features/university/universitySlice';
 import { RootState } from '@/lib/store';
@@ -119,7 +116,10 @@ const UniversityDetails = ({ params }: { params: { uniId: string } }) => {
                                         width={20}
                                         height={20}
                                     />
-                                    <p className="text-xs sm:text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">Founded in {formatDate(`${university.overview.yearFounded}`)}</p>
+                                    <p className="text-xs sm:text-sm lg:text-lg text-[#F0F0F0] font-medium max-w-[350px]">
+                                        {/* Founded in {formatDate(`${university.overview.yearFounded}`)} */}
+                                        Founded in {new Date(`${university.overview.yearFounded}`).getFullYear()}
+                                    </p>
                                 </div>
                             </div>
 
@@ -280,8 +280,8 @@ const CourseDataTable: React.FC<CourseDataTableProps> = ({ courses }) => {
                         <TableHead className="min-w-[220px]">Specialisation</TableHead>
                         <TableHead className="min-w-[140px]">Admission Criteria</TableHead>
                         <TableHead className="min-w-[150px]">Accepted Exams</TableHead>
-                        <TableHead className="min-w-[100px]">Course Fee</TableHead>
-                        <TableHead>Hostel Fee</TableHead>
+                        <TableHead className="min-w-[100px]">Yearly Fee</TableHead>
+                        <TableHead className="min-w-[150px]">Hostel Fee (Yearly)</TableHead>
                         <TableHead className="min-w-[180px]">Details</TableHead>
                     </TableRow>
                 </TableHeader>

@@ -62,7 +62,15 @@ const InstitutionCard: React.FC<InstitutionCardProps> = ({
 
             <div className='flex justify-between text-xs sm:text-base mb-2'>
                 <div className={`flex items-center text-[#344054] ${affiliatedUniversity ? "w-1/2" : 'w-full'}`}>
-                    <span className="mr-1">📍</span>
+                    <span className="mr-1 sm:mr-2">
+                        <Image
+                            className="object-cover"
+                            src="/icons/location-icon.svg"
+                            alt="Image"
+                            width={16}
+                            height={16}
+                        />
+                    </span>
                     <span>{`${city}, ${district}, ${state}`}</span>
                 </div>
                 {affiliatedUniversity && <div className="flex items-center text-[#344054] mb-4 w-1/2">
