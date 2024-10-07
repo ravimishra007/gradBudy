@@ -10,7 +10,7 @@ import Link from 'next/link'
 const contactInfo = [
     {
         type: "email",
-        value: "contact@company.com",
+        value: "Info@gradbudy.com",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ const contactInfo = [
     },
     {
         type: "phone",
-        value: "+91 7418529635",
+        value: "+91 9988233982",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -43,13 +43,13 @@ const contactInfo = [
     },
     {
         type: "address",
-        value: "794 Mcallister St, San Francisco, 94102",
+        value: "Awfis Suncity Success,  6th Floor, Suncity Success Tower, Golf Course Ext Rd, Sector 65, Gurugram, Haryana 122005",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                className="w-5 h-5"
+                className="max-w-6"
             >
                 <path
                     strokeLinecap="round"
@@ -77,7 +77,7 @@ const Footer = () => {
                                 priority
                             />
                         </Link>
-                        <p className="text-[#6941C6] text-base sm:text-lg font-normal">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam</p>
+                        <p className="text-[#6941C6] text-base sm:text-lg font-normal">Unlock Your Future with Top Institutions</p>
                         <div className="flex items-center gap-x-6 mt-3">
                             {socialMedia.map((account, index) => (
                                 <Link key={index} href={account.url} target="_blank" >
@@ -128,7 +128,7 @@ const Footer = () => {
                                 <h4 className="pointer-events-none">Contact Us</h4>
                                 <ul className='text-[#2C1C5F] text-xs sm:text-lg font-normal'>
                                     {contactInfo.map((info, index) => (
-                                        <li key={index} className="flex items-center space-x-2 mt-2 sm:mt-4 hover:scale-105 duration-200">
+                                        <li key={index} className="flex gap-2  items-center space-x-2 mt-2 sm:mt-4 hover:scale-105 duration-200">
                                             {info.icon}
                                             {info.type === "email" ? (
                                                 <Link href={`mailto:${info.value}`}>{info.value}</Link>
@@ -155,7 +155,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-y-2 md:flex-row justify-between py-6 border-t border-[#D9DBE9] mt-10 text-xs sm:text-base md:text-lg text-[#2C1C5F]'>
-                    <p>Copyright © 2022 BRIX Templates</p>
+                    <p>Copyright © Kalam Solutions Pvt Ltd, 2024</p>
                     <p>All Rights Reserved |
                         <span className="underline underline-offset-4"> Terms and Conditions </span> |
                         <span className="underline underline-offset-4"> Privacy Policy</span>

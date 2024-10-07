@@ -157,7 +157,7 @@ const CourseCard = ({ ...course }: CourseCardProps | any) => {
 
     return (
         <>
-            <div className="flex flex-col w-full max-w-[340px] rounded-[12px] overflow-hidden [box-shadow:2px_2px_40px_4px_#6941C61A]">
+            <div className="  flex flex-col mt-5 w-full max-w-[340px] rounded-[12px] overflow-hidden [box-shadow:2px_2px_40px_4px_#6941C61A]">
                 <article className={`flex flex-col gap-6`}>
                     <Link href={`/course/course-detail/${id}`}>
                         <figure className="flex-center w-full relative">

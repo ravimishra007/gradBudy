@@ -29,9 +29,10 @@ const FeaturedCourses = () => {
                 <div className="absolute w-full -z-10">
                     <div className="bg-[#2C1C5F] flex-center flex-col text-white text-center py-16 pb-40">
                         <h1 className="heading">
-                            Featured Courses
+                        Featured Universities
                         </h1>
-                        <p className="paragraph">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec</p>
+                        <p className="paragraph">Our trusted university partners are leaders in education, offering a diverse range of programs to suit every student’s academic and career goals. From renowned technical institutes to prestigious liberal arts colleges, we’ve partnered with the best to ensure that you have access to top-tier opportunities.
+                        </p>
                     </div>
                 </div>
                 <div className="gap-6 gap-x-4 sm:gap-x-0 sm:gap-y-10 flex flex-wrap items-center justify-center lg:justify-around px-3 sm:px-16 lg:px-0 pt-56 w-full max-w-7xl mx-auto">

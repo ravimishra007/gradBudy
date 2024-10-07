@@ -1815,19 +1815,19 @@ export const courseDetailData: courseDetailDataProp[] = [
 
 export const testimonials: Testimonial[] = [
   {
-      name: "Amit",
-      role: "Student",
-      says: "“Participating in the Minds Meetup cohort was a game-changer for me. The skills I acquired and the connections I made have opened up numerous opportunities in the tech industry. I highly recommend it to anyone serious about a career in tech. The mentors were incredibly supportive and knowledgeable, providing invaluable insights into the industry. The cohort community was also very collaborative and encouraging.”"
+      name: "Vinay K.",
+      role: "Business Administration Student",
+      says: "“From start to finish, Gradbudy was with me. They provided excellent resources, answered all my questions, and made the application process seamless. I’m now studying at one of the top colleges in India!”"
   },
   {
-      name: "John",
-      role: "Developer",
-      says: "“The experience was amazing and transformative. It pushed me to grow and develop in ways I hadn't anticipated. The hands-on projects and real-world scenarios were particularly beneficial in honing my skills. The support from peers and instructors was fantastic, and I felt a true sense of camaraderie. This program is a must for anyone looking to make a significant impact in their career.”"
+      name: "Meera L.",
+      role: " MBA Student",
+      says: "“When I started my college search, I was lost and confused. The team at Gradbudy helped me clarify my goals and navigate the admission process with ease. Their support was truly invaluable!”"
   },
   {
-      name: "Jane",
+      name: " Riya Sharma",
       role: "Engineer",
-      says: "“I learned so much and met incredible people who have become invaluable resources and friends. The structured curriculum and the variety of topics covered were exceptional. The practical exercises helped solidify my understanding, and the networking opportunities were unparalleled. I would highly recommend this program to anyone looking to advance their technical skills and professional network.”"
+      says: "“I felt completely lost in my college search until I connected with Gradbudy. Their team listened to my concerns and helped me explore options I hadn’t even considered. Thanks to their support!”"
   },
   {
       name: "Sara",

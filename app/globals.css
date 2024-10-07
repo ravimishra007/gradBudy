@@ -135,6 +135,6 @@
  }
 
  .paragraph {
-  @apply max-w-[556px] text-base md:text-lg font-medium text-[#D0D5DD]
+  @apply max-w-[756px] text-base md:text-lg font-medium text-[#D0D5DD]
  }
 }

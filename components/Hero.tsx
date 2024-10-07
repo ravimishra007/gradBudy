@@ -7,10 +7,10 @@ import { Button } from './ui/button';
 import { DynamicStat } from './Review';
 
 const stats = [
-    { count: 49, label: 'Total Courses', suffix: 'K+', duration: 2.54 },
-    { count: 49, label: 'Total Courses', suffix: 'K+', duration: 2.76 },
-    { count: 49, label: 'Total Courses', suffix: 'K+', duration: 1.94 },
-    { count: 49, label: 'Total Courses', suffix: 'K+', duration: 2.00 }
+    { count: 49, label: 'Personalized College Matching', suffix: 'K+', duration: 2.54 },
+    { count: 49, label: 'Admission Guidance', suffix: 'K+', duration: 2.76 },
+    { count: 49, label: 'Stress-Free Process', suffix: 'K+', duration: 1.94 },
+    { count: 49, label: 'Success-Focused Approach', suffix: 'K+', duration: 2.00 }
 ];
 
 const Hero = () => {
@@ -50,8 +50,8 @@ const Hero = () => {
             <div className='flex flex-col gap-y-10 lg:flex-row mx-auto'>
                 <div className="w-full lg:w-1/2 space-y-5">
                     <header>
-                        <h1 className=" text-[28px] md:text-[42px] font-bold md:leading-[60px]">The Best Way For Your Learning</h1>
-                        <p className="text-black/70 text-lg md:text-xl font-medium mt-3 lg:mt-2">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis donec amet proin auctor nec</p>
+                        <h1 className=" text-[28px] md:text-[42px] font-bold md:leading-[60px]">Seamless admissions guidance, from finding the right college to securing your seat.</h1>
+                        <p className="text-black/70 text-lg md:text-xl font-medium mt-3 lg:mt-2">Expert support at every step, from personalized counseling to hassle-free admission into top universities.</p>
                     </header>
                     <form className="flex gap-x-4 py-8 md:py-0 lg:mr-16" onSubmit={handleSubmit}>
                         <div className='relative w-[80%]'>
@@ -78,7 +78,7 @@ const Hero = () => {
             </div>
             <div className="w-full lg:-top-12 [filter:drop-shadow(1.595px_1.595px_31.894px_rgba(105,_65,_198,_0.15))] relative">
                 <Image className="min-h-[113px]" src="/images/hero_stat.svg" alt='Hero Stat' width={1280} height={225} />
-                <div className="flex justify-around absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-4">
+                <div className="flex justify-around absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-10">
                     {stats.slice(0, visibleStats).map((stat, index) => (
                         <React.Fragment key={index}>
                             <DynamicStat className='text-lg font-bold sm:text-3xl' subClassName="text-[10px] sm:text-sm md:text-lg font-medium" {...stat} />
